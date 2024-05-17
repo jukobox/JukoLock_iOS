@@ -11,11 +11,8 @@ final class LoginViewController: UIViewController {
     
     // MARK: - Properties
     
-    private let titleFont: UIFont = {
-        let font = UIFont()
-        
-        return font
-    }()
+    private var emailText: String?
+    private var pwText: String?
     
     // MARK: - UI Components
     
@@ -46,40 +43,54 @@ final class LoginViewController: UIViewController {
         text.text = "관리하세요"
         text.textAlignment = .left
         text.translatesAutoresizingMaskIntoConstraints = false
-        
         text.font = UIFont.systemFont(ofSize: 50)
-        
         return text
     }()
     
-    private let myEmailLogin: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .blue
-        button.layer.cornerRadius = 10
-        button.titleLabel?.text = "내 이메일로 시작하기"
-        button.titleLabel?.textColor = .black
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        return button
+    private let emailInputTextField: UITextField = {
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = " Email을 입력해주세요."
+        textField.autocapitalizationType = .none
+        textField.keyboardType = .emailAddress
+        textField.layer.cornerRadius = 5
+        textField.layer.borderWidth = 1
+        return textField
     }()
     
-    private let googleLogin: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .brown
-        button.layer.cornerRadius = 10
-        button.titleLabel?.text = "Google로 시작하기"
-        button.titleLabel?.textColor = .black
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        return button
+    private let emailValidationLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 15)
+        label.textColor = .red
+        return label
     }()
     
-    private let appleLogin: UIButton = {
+    private let pwInputTextField: UITextField = {
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = " PW를 입력해주세요."
+        textField.isSecureTextEntry = true
+        textField.autocapitalizationType = .none
+        textField.layer.cornerRadius = 5
+        textField.layer.borderWidth = 1
+        return textField
+    }()
+    
+    private let pwValidationLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 15)
+        label.textColor = .red
+        return label
+    }()
+    
+    private let loginButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .yellow
+        button.backgroundColor = .green
         button.layer.cornerRadius = 10
-        button.titleLabel?.text = "Apple로 시작하기"
-        button.titleLabel?.textColor = .black
+        button.setTitle("Login", for: .normal)
+        button.tintColor = UIColor.white
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -102,7 +113,7 @@ final class LoginViewController: UIViewController {
 extension LoginViewController {
     
     private func addViews() {
-        [ firstTextTitle, secondTextTitle, thirdTextTitle, myEmailLogin, googleLogin, appleLogin].forEach {
+        [ firstTextTitle, secondTextTitle, thirdTextTitle, emailInputTextField, pwInputTextField, loginButton, emailValidationLabel, pwValidationLabel].forEach {
             self.view.addSubview($0)
         }
     }
@@ -121,26 +132,41 @@ extension LoginViewController {
             thirdTextTitle.leadingAnchor.constraint(equalTo: secondTextTitle.leadingAnchor),
             thirdTextTitle.trailingAnchor.constraint(equalTo: secondTextTitle.trailingAnchor),
             
-            myEmailLogin.topAnchor.constraint(equalTo: thirdTextTitle.bottomAnchor, constant: 150),
-            myEmailLogin.leadingAnchor.constraint(equalTo: thirdTextTitle.leadingAnchor),
-            myEmailLogin.trailingAnchor.constraint(equalTo: thirdTextTitle.trailingAnchor),
-            myEmailLogin.heightAnchor.constraint(equalToConstant: 50),
+            emailInputTextField.topAnchor.constraint(equalTo: thirdTextTitle.bottomAnchor, constant: 100),
+            emailInputTextField.leadingAnchor.constraint(equalTo: thirdTextTitle.leadingAnchor),
+            emailInputTextField.trailingAnchor.constraint(equalTo: thirdTextTitle.trailingAnchor),
+            emailInputTextField.heightAnchor.constraint(equalToConstant: 50),
             
-            googleLogin.topAnchor.constraint(equalTo: myEmailLogin.bottomAnchor, constant: 30),
-            googleLogin.leadingAnchor.constraint(equalTo: myEmailLogin.leadingAnchor),
-            googleLogin.trailingAnchor.constraint(equalTo: myEmailLogin.trailingAnchor),
-            googleLogin.heightAnchor.constraint(equalToConstant: 50),
+            emailValidationLabel.topAnchor.constraint(equalTo: emailInputTextField.bottomAnchor),
+            emailValidationLabel.leadingAnchor.constraint(equalTo: emailInputTextField.leadingAnchor, constant: 10),
+            emailValidationLabel.trailingAnchor.constraint(equalTo: emailInputTextField.trailingAnchor),
             
-            appleLogin.topAnchor.constraint(equalTo: googleLogin.bottomAnchor, constant: 30),
-            appleLogin.leadingAnchor.constraint(equalTo: googleLogin.leadingAnchor),
-            appleLogin.trailingAnchor.constraint(equalTo: googleLogin.trailingAnchor),
-            appleLogin.heightAnchor.constraint(equalToConstant: 50)
+            pwInputTextField.topAnchor.constraint(equalTo: emailInputTextField.bottomAnchor, constant: 20),
+            pwInputTextField.leadingAnchor.constraint(equalTo: emailInputTextField.leadingAnchor),
+            pwInputTextField.trailingAnchor.constraint(equalTo: emailInputTextField.trailingAnchor),
+            pwInputTextField.heightAnchor.constraint(equalToConstant: 50),
+            
+            pwValidationLabel.topAnchor.constraint(equalTo: pwInputTextField.bottomAnchor),
+            pwValidationLabel.leadingAnchor.constraint(equalTo: pwInputTextField.leadingAnchor, constant: 10),
+            pwValidationLabel.trailingAnchor.constraint(equalTo: pwInputTextField.trailingAnchor),
+            
+            loginButton.topAnchor.constraint(equalTo: pwInputTextField.bottomAnchor, constant: 50),
+            loginButton.leadingAnchor.constraint(equalTo: pwInputTextField.leadingAnchor),
+            loginButton.trailingAnchor.constraint(equalTo: pwInputTextField.trailingAnchor),
+            loginButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
     
     private func setUpLayout() {
         addViews()
         setLayoutConstraints()
+        addTargets()
+    }
+    
+    private func addTargets() {
+        loginButton.addTarget(self, action: #selector(loginSubmitButtonTouched), for: .touchUpInside)
+        emailInputTextField.addTarget(self, action: #selector(emailTextFieldDidChanged(_:)), for: .editingChanged)
+        pwInputTextField.addTarget(self, action: #selector(pwTextFiledDidChanged(_:)), for: .editingChanged)
     }
 }
 
@@ -148,4 +174,50 @@ extension LoginViewController {
 
 extension LoginViewController {
     
+    @objc func loginSubmitButtonTouched() {
+        emailText = emailInputTextField.text
+        pwText = pwInputTextField.text
+        
+        guard let email = emailText, let pw = pwText else {
+            debugPrint("ID, PW 바인딩 실패")
+            return
+        }
+    }
+}
+
+extension LoginViewController: UITextFieldDelegate {
+    
+    @objc func emailTextFieldDidChanged(_ sender: Any?) {
+        guard let email = self.emailInputTextField.text, email != "" else {
+            self.emailValidationLabel.text = ""
+            return
+        }
+        
+        if !isValidEmail(email) {
+            self.emailValidationLabel.text = "Email이 유효하지 않습니다."
+        }
+    }
+    
+    @objc func pwTextFiledDidChanged(_ sender: Any?) {
+        guard let pw = self.pwInputTextField.text, pw != "" else {
+            self.pwValidationLabel.text = ""
+            return
+        }
+        
+        if !isValidPW(pw) {
+            self.pwValidationLabel.text = "PW가 유효하지 않습니다."
+        }
+    }
+    
+    private func isValidEmail(_ email: String) -> Bool {
+        let emailRegex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}$"
+        let emailPredicate = NSPredicate(format: "SELF MATCHES[c] %@", emailRegex)
+        return !email.isEmpty && emailPredicate.evaluate(with: email)
+    }
+    
+    private func isValidPW(_ pw: String) -> Bool {
+        let pwRegex = "^[A-Za-z0-9!_@$%^&+=]{8,20}$"
+        let pwPredicate = NSPredicate(format: "SELF MATCHES[c] %@", pwRegex)
+        return !pw.isEmpty && pwPredicate.evaluate(with: pw)
+    }
 }
