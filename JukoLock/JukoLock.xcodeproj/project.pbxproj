@@ -15,6 +15,19 @@
 		AA59DFE52BE4BC4E003A2A2A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA59DFE42BE4BC4E003A2A2A /* MainViewController.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		AA70222C2BF7341F00D958B1 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		AA30F2192BC4CBDB00B97FA6 /* JukoLock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JukoLock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA30F21C2BC4CBDB00B97FA6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -24,6 +37,7 @@
 		AA30F22A2BC4CBDC00B97FA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA30F2372BE364BB00B97FA6 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		AA59DFE42BE4BC4E003A2A2A /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		AA70222F2BF7371300D958B1 /* HNetwork */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = HNetwork; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +56,7 @@
 			children = (
 				AA30F21B2BC4CBDB00B97FA6 /* JukoLock */,
 				AA30F21A2BC4CBDB00B97FA6 /* Products */,
+				AA7022292BF7341F00D958B1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,6 +71,7 @@
 		AA30F21B2BC4CBDB00B97FA6 /* JukoLock */ = {
 			isa = PBXGroup;
 			children = (
+				AA70222F2BF7371300D958B1 /* HNetwork */,
 				AA30F2362BE3648A00B97FA6 /* ViewController */,
 				AA30F2352BE3646400B97FA6 /* Model */,
 				AA30F2342BE3645D00B97FA6 /* View */,
@@ -99,6 +115,13 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
+		AA7022292BF7341F00D958B1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -109,6 +132,7 @@
 				AA30F2152BC4CBDB00B97FA6 /* Sources */,
 				AA30F2162BC4CBDB00B97FA6 /* Frameworks */,
 				AA30F2172BC4CBDB00B97FA6 /* Resources */,
+				AA70222C2BF7341F00D958B1 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
