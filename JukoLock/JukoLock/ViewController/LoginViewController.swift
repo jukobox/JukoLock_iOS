@@ -50,11 +50,13 @@ final class LoginViewController: UIViewController {
     private let emailInputTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = " Email을 입력해주세요."
+        textField.placeholder = "Email을 입력해주세요."
         textField.autocapitalizationType = .none
         textField.keyboardType = .emailAddress
         textField.layer.cornerRadius = 5
         textField.layer.borderWidth = 1
+        textField.leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 8.0, height: 0.0))
+        textField.leftViewMode = .always
         return textField
     }()
     
@@ -69,11 +71,13 @@ final class LoginViewController: UIViewController {
     private let pwInputTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = " PW를 입력해주세요."
+        textField.placeholder = "PW를 입력해주세요."
         textField.isSecureTextEntry = true
         textField.autocapitalizationType = .none
         textField.layer.cornerRadius = 5
         textField.layer.borderWidth = 1
+        textField.leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 8.0, height: 0.0))
+        textField.leftViewMode = .always
         return textField
     }()
     
@@ -178,10 +182,24 @@ extension LoginViewController {
         emailText = emailInputTextField.text
         pwText = pwInputTextField.text
         
-        guard let email = emailText, let pw = pwText else {
-            debugPrint("ID, PW 바인딩 실패")
+        guard let email = emailInputTextField.text, let pw = pwInputTextField.text else { return }
+        
+        guard !email.isEmpty, !pw.isEmpty else {
+            // TODO: - ID & PW 미입력 알러트 출력
+            debugPrint("아이디와 비밀번호를 모두 입력해주세요.")
             return
         }
+        
+        guard isValidEmail(email) else {
+            return
+        }
+        
+        guard isValidPW(pw) else {
+            return
+        }
+        
+        // TODO: - Login 전송
+        debugPrint("Login 전송")
     }
 }
 
@@ -195,6 +213,8 @@ extension LoginViewController: UITextFieldDelegate {
         
         if !isValidEmail(email) {
             self.emailValidationLabel.text = "Email이 유효하지 않습니다."
+        } else {
+            self.emailValidationLabel.text = ""
         }
     }
     
@@ -206,6 +226,8 @@ extension LoginViewController: UITextFieldDelegate {
         
         if !isValidPW(pw) {
             self.pwValidationLabel.text = "PW가 유효하지 않습니다."
+        } else {
+            self.pwValidationLabel.text = ""
         }
     }
     
