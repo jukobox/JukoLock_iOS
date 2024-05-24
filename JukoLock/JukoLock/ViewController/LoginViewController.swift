@@ -122,6 +122,8 @@ final class LoginViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         setUpLayout()
+        emailInputTextField.delegate = self
+        pwInputTextField.delegate = self
     }
     
 }
@@ -254,6 +256,17 @@ extension LoginViewController: UITextFieldDelegate {
         let image = pwInvisibleState ? UIImage(systemName: "eye.slash", withConfiguration: imageConfig) : UIImage(systemName: "eye", withConfiguration: imageConfig)
         pwInvisibleToogleButton.setImage(image, for: .normal)
         pwInputTextField.isSecureTextEntry = pwInvisibleState
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if let char = string.cString(using: String.Encoding.utf8) {
+            let isBackSpace = strcmp(char, "\\b")
+            if isBackSpace == -92 {
+                return true
+            }
+        }
+        guard textField.text!.count < 20 else { return false } // 20 글자로 제한
+        return true
     }
     
     private func isValidEmail(_ email: String) -> Bool {
