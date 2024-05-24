@@ -13,6 +13,7 @@ final class LoginViewController: UIViewController {
     
     private var emailText: String?
     private var pwText: String?
+    private var pwInvisibleState: Bool = true
     
     // MARK: - UI Components
     
@@ -68,6 +69,26 @@ final class LoginViewController: UIViewController {
         return label
     }()
     
+    private let pwInvisibleToogleButton: UIButton = {
+        let button = UIButton()
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 20)
+        let image = UIImage(systemName: "eye.slash", withConfiguration: imageConfig)
+        
+        button.setImage(image, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.tintColor = .black
+        
+        return button
+    }()
+    
+    private let pwValidationLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 15)
+        label.textColor = .red
+        return label
+    }()
+    
     private let pwInputTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -78,15 +99,8 @@ final class LoginViewController: UIViewController {
         textField.layer.borderWidth = 1
         textField.leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 8.0, height: 0.0))
         textField.leftViewMode = .always
+        textField.rightViewMode = .always
         return textField
-    }()
-    
-    private let pwValidationLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 15)
-        label.textColor = .red
-        return label
     }()
     
     private let loginButton: UIButton = {
@@ -165,12 +179,14 @@ extension LoginViewController {
         addViews()
         setLayoutConstraints()
         addTargets()
+        pwInputTextField.rightView = pwInvisibleToogleButton
     }
     
     private func addTargets() {
         loginButton.addTarget(self, action: #selector(loginSubmitButtonTouched), for: .touchUpInside)
         emailInputTextField.addTarget(self, action: #selector(emailTextFieldDidChanged(_:)), for: .editingChanged)
         pwInputTextField.addTarget(self, action: #selector(pwTextFiledDidChanged(_:)), for: .editingChanged)
+        pwInvisibleToogleButton.addTarget(self, action: #selector(changePWInvisibleState(_:)), for: .touchUpInside)
     }
 }
 
@@ -229,6 +245,15 @@ extension LoginViewController: UITextFieldDelegate {
         } else {
             self.pwValidationLabel.text = ""
         }
+    }
+    
+    @objc func changePWInvisibleState(_ sender: Any?) {
+        pwInvisibleState.toggle()
+        
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 20)
+        let image = pwInvisibleState ? UIImage(systemName: "eye.slash", withConfiguration: imageConfig) : UIImage(systemName: "eye", withConfiguration: imageConfig)
+        pwInvisibleToogleButton.setImage(image, for: .normal)
+        pwInputTextField.isSecureTextEntry = pwInvisibleState
     }
     
     private func isValidEmail(_ email: String) -> Bool {
