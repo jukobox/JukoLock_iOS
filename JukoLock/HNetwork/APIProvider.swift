@@ -1,8 +1,8 @@
 //
 //  APIProvider.swift
+//  JukoLock
 //
-//
-//  Created by 김나훈 on 11/16/23.
+//  Created by 김경호 on 5/27/24.
 //
 
 import Combine
@@ -24,16 +24,16 @@ public final class APIProvider: Requestable {
     
     // MARK: Method
     
-    public func request<Target, Model>(_ target: Target) -> AnyPublisher<Model, NetworkError> where Target : EndPoint, Model: Decodable {
+    public func request<Target, Model>(_ target: Target) -> AnyPublisher<Model, HTTPError> where Target : EndPoint, Model: Decodable {
         guard let request = try? target.asURLRequest()
         else {
-            return Fail(error: NetworkError.invalidURLRequest).eraseToAnyPublisher()
+            return Fail(error: HTTPError.invalidURLRequest).eraseToAnyPublisher()
         }
         
         return session.dataTaskPublisher(for: request)
             .tryMap { data, response -> Data in
                 guard let response = response as? HTTPURLResponse else {
-                    throw NetworkError.invalidHTTPResponse
+                    throw HTTPError.invalidHTTPResponse
                 }
                 
                 switch response.statusCode {
@@ -42,35 +42,35 @@ public final class APIProvider: Requestable {
                     if let responseBody = String(data: data, encoding: .utf8) {
                         print("Error 4xx - Status Code: \(response.statusCode), Response Body: \(responseBody)")
                     }
-                    throw NetworkError.invalidRequest
-                case 500..<600: 
+                    throw HTTPError.invalidRequest
+                case 500..<600:
                     if let responseBody = String(data: data, encoding: .utf8) {
                         print("Error 5xx - Status Code: \(response.statusCode), Response Body: \(responseBody)")
                     }
-                    throw NetworkError.invalidServer
-                default: throw NetworkError.unknownError
+                    throw HTTPError.invalidServer
+                default: throw HTTPError.unknownError
                 }
             }
             .tryMap { data in
                 guard let response = try? JSONDecoder().decode(Model.self, from: data) else {
-                    throw NetworkError.decodingError
+                    throw HTTPError.decodingError
                 }
                 return response
             }
-            .mapError { error -> NetworkError in
-                if let networkError = error as? NetworkError {
+            .mapError { error -> HTTPError in
+                if let networkError = error as? HTTPError {
                     return networkError
                 } else {
-                    return NetworkError.unknownError
+                    return HTTPError.unknownError
                 }
             }
             .eraseToAnyPublisher()
     }
     
-    public func mockRequest<Target, Model>(_ target: Target, url: String) -> AnyPublisher<Model, NetworkError> where Target : EndPoint, Model : Decodable {
+    public func mockRequest<Target, Model>(_ target: Target, url: String) -> AnyPublisher<Model, HTTPError> where Target : EndPoint, Model : Decodable {
         guard let request = try? target.mockRequest(jsonFileName: url)
         else {
-            return Fail(error: NetworkError.invalidURLRequest).eraseToAnyPublisher()
+            return Fail(error: HTTPError.invalidURLRequest).eraseToAnyPublisher()
         }
         
         return session.dataTaskPublisher(for: request)
@@ -79,20 +79,20 @@ public final class APIProvider: Requestable {
             }
             .tryMap { data in
                 guard let response = try? JSONDecoder().decode(Model.self, from: data) else {
-                    throw NetworkError.decodingError
+                    throw HTTPError.decodingError
                 }
                 return response
             }
-            .mapError { error -> NetworkError in
-                if let networkError = error as? NetworkError {
+            .mapError { error -> HTTPError in
+                if let networkError = error as? HTTPError {
                     return networkError
                 } else {
-                    return NetworkError.unknownError
+                    return HTTPError.unknownError
                 }
             }
             .eraseToAnyPublisher()
     }
- 
+    
     
 }
 
@@ -100,7 +100,7 @@ extension EndPoint {
     
     func mockRequest(jsonFileName: String) throws -> URLRequest {
         guard let url = Bundle.main.url(forResource: jsonFileName, withExtension: "json") else {
-            throw NetworkError.invalidURL(url: baseURL)
+            throw HTTPError.invalidURL(url: baseURL)
         }
         
         var request = URLRequest(url: url)
@@ -112,7 +112,7 @@ extension EndPoint {
     
     func asURLRequest() throws -> URLRequest {
         guard let url = URL(string: baseURL) else {
-            throw NetworkError.invalidURL(url: baseURL)
+            throw HTTPError.invalidURL(url: baseURL)
         }
         
         var request = URLRequest(url: url.appending(path: path))

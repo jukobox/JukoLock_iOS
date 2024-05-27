@@ -16,6 +16,19 @@
 		AAAC83D72BF739B9002E6AF1 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC83D62BF739B9002E6AF1 /* LoginViewModel.swift */; };
 		AAAC83D92BF7426A002E6AF1 /* MachineListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC83D82BF7426A002E6AF1 /* MachineListCell.swift */; };
 		AAAC83DB2BFB25D4002E6AF1 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC83DA2BFB25D4002E6AF1 /* TabBarController.swift */; };
+		AAAC83DD2C04485F002E6AF1 /* LoginEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC83DC2C04485F002E6AF1 /* LoginEndPoint.swift */; };
+		AAAC83EA2C046903002E6AF1 /* LoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC83E92C046903002E6AF1 /* LoginUseCase.swift */; };
+		AAAC83EC2C04694E002E6AF1 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC83EB2C04694E002E6AF1 /* LoginResponse.swift */; };
+		AAAC83EE2C046A32002E6AF1 /* HTTPError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC83ED2C046A32002E6AF1 /* HTTPError.swift */; };
+		AAAC83F12C049A2C002E6AF1 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC83F02C049A2C002E6AF1 /* EndPoint.swift */; };
+		AAAC83F32C049AC1002E6AF1 /* HTTPMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC83F22C049AC1002E6AF1 /* HTTPMethods.swift */; };
+		AAAC83F52C049B13002E6AF1 /* HTTPParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC83F42C049B13002E6AF1 /* HTTPParameter.swift */; };
+		AAAC83F72C049B4F002E6AF1 /* HTTPErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC83F62C049B4F002E6AF1 /* HTTPErrors.swift */; };
+		AAAC83F92C049B79002E6AF1 /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC83F82C049B79002E6AF1 /* Requestable.swift */; };
+		AAAC83FB2C049BC9002E6AF1 /* HTTPHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC83FA2C049BC9002E6AF1 /* HTTPHeader.swift */; };
+		AAAC83FD2C049D91002E6AF1 /* HTTPHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC83FC2C049D91002E6AF1 /* HTTPHeaders.swift */; };
+		AAAC83FF2C049DCD002E6AF1 /* APIProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC83FE2C049DCD002E6AF1 /* APIProvider.swift */; };
+		AAAC84012C049DF2002E6AF1 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC84002C049DF2002E6AF1 /* Session.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -40,10 +53,22 @@
 		AA30F22A2BC4CBDC00B97FA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA30F2372BE364BB00B97FA6 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		AA59DFE42BE4BC4E003A2A2A /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		AA70222F2BF7371300D958B1 /* HNetwork */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = HNetwork; sourceTree = SOURCE_ROOT; };
 		AAAC83D62BF739B9002E6AF1 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		AAAC83D82BF7426A002E6AF1 /* MachineListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineListCell.swift; sourceTree = "<group>"; };
 		AAAC83DA2BFB25D4002E6AF1 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		AAAC83DC2C04485F002E6AF1 /* LoginEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginEndPoint.swift; sourceTree = "<group>"; };
+		AAAC83E92C046903002E6AF1 /* LoginUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUseCase.swift; sourceTree = "<group>"; };
+		AAAC83EB2C04694E002E6AF1 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
+		AAAC83ED2C046A32002E6AF1 /* HTTPError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPError.swift; sourceTree = "<group>"; };
+		AAAC83F02C049A2C002E6AF1 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
+		AAAC83F22C049AC1002E6AF1 /* HTTPMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethods.swift; sourceTree = "<group>"; };
+		AAAC83F42C049B13002E6AF1 /* HTTPParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPParameter.swift; sourceTree = "<group>"; };
+		AAAC83F62C049B4F002E6AF1 /* HTTPErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPErrors.swift; sourceTree = "<group>"; };
+		AAAC83F82C049B79002E6AF1 /* Requestable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requestable.swift; sourceTree = "<group>"; };
+		AAAC83FA2C049BC9002E6AF1 /* HTTPHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPHeader.swift; sourceTree = "<group>"; };
+		AAAC83FC2C049D91002E6AF1 /* HTTPHeaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPHeaders.swift; sourceTree = "<group>"; };
+		AAAC83FE2C049DCD002E6AF1 /* APIProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIProvider.swift; sourceTree = "<group>"; };
+		AAAC84002C049DF2002E6AF1 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +85,7 @@
 		AA30F2102BC4CBDB00B97FA6 = {
 			isa = PBXGroup;
 			children = (
+				AAAC83EF2C049A1E002E6AF1 /* HNetwork */,
 				AA30F21B2BC4CBDB00B97FA6 /* JukoLock */,
 				AA30F21A2BC4CBDB00B97FA6 /* Products */,
 				AA7022292BF7341F00D958B1 /* Frameworks */,
@@ -77,10 +103,8 @@
 		AA30F21B2BC4CBDB00B97FA6 /* JukoLock */ = {
 			isa = PBXGroup;
 			children = (
-				AA70222F2BF7371300D958B1 /* HNetwork */,
+				AAAC83E02C04668D002E6AF1 /* Scene */,
 				AA30F2362BE3648A00B97FA6 /* ViewController */,
-				AA30F2352BE3646400B97FA6 /* Model */,
-				AAAC83D52BF73992002E6AF1 /* ViewModel */,
 				AA30F2342BE3645D00B97FA6 /* View */,
 				AA30F2302BE363E300B97FA6 /* App */,
 				AA30F2252BC4CBDC00B97FA6 /* Assets.xcassets */,
@@ -107,17 +131,9 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		AA30F2352BE3646400B97FA6 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		AA30F2362BE3648A00B97FA6 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				AA30F2372BE364BB00B97FA6 /* LoginViewController.swift */,
 				AA59DFE42BE4BC4E003A2A2A /* MainViewController.swift */,
 				AAAC83DA2BFB25D4002E6AF1 /* TabBarController.swift */,
 			);
@@ -131,12 +147,97 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		AAAC83D52BF73992002E6AF1 /* ViewModel */ = {
+		AAAC83E02C04668D002E6AF1 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				AAAC83E12C04669B002E6AF1 /* Login */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		AAAC83E12C04669B002E6AF1 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				AAAC83E22C04676A002E6AF1 /* Entities */,
+				AAAC83E32C046772002E6AF1 /* InterfaceAdapters */,
+				AAAC83E42C04677C002E6AF1 /* Network */,
+				AAAC83E52C046785002E6AF1 /* UseCases */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		AAAC83E22C04676A002E6AF1 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		AAAC83E32C046772002E6AF1 /* InterfaceAdapters */ = {
+			isa = PBXGroup;
+			children = (
+				AAAC83E72C04682E002E6AF1 /* View */,
+				AAAC83E82C046833002E6AF1 /* ViewModel */,
+			);
+			path = InterfaceAdapters;
+			sourceTree = "<group>";
+		};
+		AAAC83E42C04677C002E6AF1 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				AAAC83E62C0467C9002E6AF1 /* Model */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		AAAC83E52C046785002E6AF1 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				AAAC83E92C046903002E6AF1 /* LoginUseCase.swift */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		AAAC83E62C0467C9002E6AF1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AAAC83DC2C04485F002E6AF1 /* LoginEndPoint.swift */,
+				AAAC83EB2C04694E002E6AF1 /* LoginResponse.swift */,
+				AAAC83ED2C046A32002E6AF1 /* HTTPError.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		AAAC83E72C04682E002E6AF1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AA30F2372BE364BB00B97FA6 /* LoginViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		AAAC83E82C046833002E6AF1 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				AAAC83D62BF739B9002E6AF1 /* LoginViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		AAAC83EF2C049A1E002E6AF1 /* HNetwork */ = {
+			isa = PBXGroup;
+			children = (
+				AAAC83F02C049A2C002E6AF1 /* EndPoint.swift */,
+				AAAC83FA2C049BC9002E6AF1 /* HTTPHeader.swift */,
+				AAAC83FC2C049D91002E6AF1 /* HTTPHeaders.swift */,
+				AAAC83F22C049AC1002E6AF1 /* HTTPMethods.swift */,
+				AAAC83F42C049B13002E6AF1 /* HTTPParameter.swift */,
+				AAAC83F62C049B4F002E6AF1 /* HTTPErrors.swift */,
+				AAAC83F82C049B79002E6AF1 /* Requestable.swift */,
+				AAAC83FE2C049DCD002E6AF1 /* APIProvider.swift */,
+				AAAC84002C049DF2002E6AF1 /* Session.swift */,
+			);
+			path = HNetwork;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -210,13 +311,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAAC84012C049DF2002E6AF1 /* Session.swift in Sources */,
+				AAAC83FD2C049D91002E6AF1 /* HTTPHeaders.swift in Sources */,
+				AAAC83DD2C04485F002E6AF1 /* LoginEndPoint.swift in Sources */,
+				AAAC83EE2C046A32002E6AF1 /* HTTPError.swift in Sources */,
 				AA30F2382BE364BB00B97FA6 /* LoginViewController.swift in Sources */,
+				AAAC83FF2C049DCD002E6AF1 /* APIProvider.swift in Sources */,
 				AA30F21D2BC4CBDB00B97FA6 /* AppDelegate.swift in Sources */,
 				AA30F21F2BC4CBDB00B97FA6 /* SceneDelegate.swift in Sources */,
+				AAAC83F72C049B4F002E6AF1 /* HTTPErrors.swift in Sources */,
+				AAAC83EC2C04694E002E6AF1 /* LoginResponse.swift in Sources */,
+				AAAC83F32C049AC1002E6AF1 /* HTTPMethods.swift in Sources */,
+				AAAC83F12C049A2C002E6AF1 /* EndPoint.swift in Sources */,
+				AAAC83F92C049B79002E6AF1 /* Requestable.swift in Sources */,
 				AAAC83D92BF7426A002E6AF1 /* MachineListCell.swift in Sources */,
+				AAAC83FB2C049BC9002E6AF1 /* HTTPHeader.swift in Sources */,
 				AAAC83DB2BFB25D4002E6AF1 /* TabBarController.swift in Sources */,
 				AAAC83D72BF739B9002E6AF1 /* LoginViewModel.swift in Sources */,
 				AA59DFE52BE4BC4E003A2A2A /* MainViewController.swift in Sources */,
+				AAAC83EA2C046903002E6AF1 /* LoginUseCase.swift in Sources */,
+				AAAC83F52C049B13002E6AF1 /* HTTPParameter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

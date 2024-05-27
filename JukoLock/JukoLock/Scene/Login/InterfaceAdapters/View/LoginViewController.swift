@@ -13,7 +13,28 @@ final class LoginViewController: UIViewController {
     
     private var emailText: String?
     private var pwText: String?
+    private var isValidEmailState: Bool = false {
+        didSet(newState) {
+            self.emailValidationLabel.text = newState ? "" : "Email이 유효하지 않습니다."
+            self.isLoginPossible = isValidEmailState && isValidPWState
+            debugPrint("email : ", newState)
+        }
+    }
+    private var isValidPWState: Bool = false {
+        didSet(newState) {
+            self.pwValidationLabel.text = newState ? "" : "PW가 유효하지 않습니다."
+            self.isLoginPossible = isValidEmailState && isValidPWState
+            debugPrint("pw : ", newState)
+        }
+    }
     private var pwInvisibleState: Bool = true
+    private var isLoginPossible: Bool = false {
+        didSet(newState) {
+            debugPrint("login Possible : ", newState)
+            loginButton.isEnabled = newState
+            loginButton.setTitleColor(newState ? .black : .white, for: .normal)
+        }
+    }
     
     // MARK: - UI Components
     
@@ -109,6 +130,7 @@ final class LoginViewController: UIViewController {
         button.layer.cornerRadius = 10
         button.setTitle("Login", for: .normal)
         button.tintColor = UIColor.white
+        button.isEnabled = false
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -223,17 +245,14 @@ extension LoginViewController {
 
 extension LoginViewController: UITextFieldDelegate {
     
+    // TODO: - 옵저버블 패턴 넣을려다가 꼬임 이 부분을 여기서 처리해주면 안될거 같음
     @objc func emailTextFieldDidChanged(_ sender: Any?) {
         guard let email = self.emailInputTextField.text, email != "" else {
             self.emailValidationLabel.text = ""
             return
         }
         
-        if !isValidEmail(email) {
-            self.emailValidationLabel.text = "Email이 유효하지 않습니다."
-        } else {
-            self.emailValidationLabel.text = ""
-        }
+        isValidEmailState = isValidEmail(email)
     }
     
     @objc func pwTextFiledDidChanged(_ sender: Any?) {
@@ -242,11 +261,7 @@ extension LoginViewController: UITextFieldDelegate {
             return
         }
         
-        if !isValidPW(pw) {
-            self.pwValidationLabel.text = "PW가 유효하지 않습니다."
-        } else {
-            self.pwValidationLabel.text = ""
-        }
+        isValidPWState = isValidPW(pw)
     }
     
     @objc func changePWInvisibleState(_ sender: Any?) {
@@ -272,12 +287,14 @@ extension LoginViewController: UITextFieldDelegate {
     private func isValidEmail(_ email: String) -> Bool {
         let emailRegex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}$"
         let emailPredicate = NSPredicate(format: "SELF MATCHES[c] %@", emailRegex)
+
         return !email.isEmpty && emailPredicate.evaluate(with: email)
     }
     
     private func isValidPW(_ pw: String) -> Bool {
         let pwRegex = "^[A-Za-z0-9!_@$%^&+=]{8,20}$"
         let pwPredicate = NSPredicate(format: "SELF MATCHES[c] %@", pwRegex)
+
         return !pw.isEmpty && pwPredicate.evaluate(with: pw)
     }
 }
