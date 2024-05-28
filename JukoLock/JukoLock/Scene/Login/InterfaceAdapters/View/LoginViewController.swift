@@ -237,6 +237,10 @@ private extension LoginViewController {
                 switch output {
                 case .loginCompleted:
                     self?.loginStateSubject.send(.loggedIn)
+                case .loginFailed:
+                    self?.loginFailAlert()
+                case .loginError:
+                    self?.loginErrorAlert()
                 }
             }
             .store(in: &subscriptions)
@@ -321,5 +325,17 @@ extension LoginViewController: UITextFieldDelegate {
         let pwPredicate = NSPredicate(format: "SELF MATCHES[c] %@", pwRegex)
 
         return !pw.isEmpty && pwPredicate.evaluate(with: pw)
+    }
+    
+    private func loginFailAlert() {
+        let sheet = UIAlertController(title: "로그인 실패", message: "아이디나 비밀번호를 확인해주세요.", preferredStyle: .alert)
+        sheet.addAction(UIAlertAction(title: "확인", style: .default))
+        present(sheet, animated: true)
+    }
+    
+    private func loginErrorAlert() {
+        let sheet = UIAlertController(title: "로그인 실패", message: "네트워크 상태를 확인해주세요.", preferredStyle: .alert)
+        sheet.addAction(UIAlertAction(title: "확인", style: .default))
+        present(sheet, animated: true)
     }
 }

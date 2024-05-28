@@ -34,6 +34,8 @@ final class LoginViewModel {
     
     enum Output {
         case loginCompleted
+        case loginFailed
+        case loginError
     }
     
 }
@@ -65,14 +67,12 @@ extension LoginViewModel {
             } receiveValue: { [weak self] response in
                 switch response.status{
                 case "success":
-                    debugPrint("로그인 성공")
                     self?.outputSubject.send(.loginCompleted)
                 case "Fail":
-                    debugPrint("로그인 실패")
+                    self?.outputSubject.send(.loginFailed)
                 default:
-                    debugPrint("로그인 에러")
+                    self?.outputSubject.send(.loginError)
                 }
-                self?.outputSubject.send(.loginCompleted)
             }
             .store(in: &subscriptions)
     }
@@ -85,13 +85,14 @@ extension LoginViewModel {
                     debugPrint("SignUp Error : ", error)
                 }
             } receiveValue: { [weak self] response in
+                // TODO: - 회원가입 API 연결
                 switch response.status{
                 case "success":
-                    debugPrint("로그인 성공")
+                    debugPrint("회원가입 성공")
                 case "Fail":
-                    debugPrint("로그인 실패")
+                    debugPrint("회원가입 실패")
                 default:
-                    debugPrint("로그인 에러")
+                    debugPrint("회원가입 에러")
                 }
                 debugPrint(response)
             }
