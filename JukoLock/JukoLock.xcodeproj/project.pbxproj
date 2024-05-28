@@ -18,8 +18,6 @@
 		AAAC83DB2BFB25D4002E6AF1 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC83DA2BFB25D4002E6AF1 /* TabBarController.swift */; };
 		AAAC83DD2C04485F002E6AF1 /* LoginEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC83DC2C04485F002E6AF1 /* LoginEndPoint.swift */; };
 		AAAC83EA2C046903002E6AF1 /* LoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC83E92C046903002E6AF1 /* LoginUseCase.swift */; };
-		AAAC83EC2C04694E002E6AF1 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC83EB2C04694E002E6AF1 /* LoginResponse.swift */; };
-		AAAC83EE2C046A32002E6AF1 /* HTTPError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC83ED2C046A32002E6AF1 /* HTTPError.swift */; };
 		AAAC83F12C049A2C002E6AF1 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC83F02C049A2C002E6AF1 /* EndPoint.swift */; };
 		AAAC83F32C049AC1002E6AF1 /* HTTPMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC83F22C049AC1002E6AF1 /* HTTPMethods.swift */; };
 		AAAC83F52C049B13002E6AF1 /* HTTPParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC83F42C049B13002E6AF1 /* HTTPParameter.swift */; };
@@ -29,6 +27,8 @@
 		AAAC83FD2C049D91002E6AF1 /* HTTPHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC83FC2C049D91002E6AF1 /* HTTPHeaders.swift */; };
 		AAAC83FF2C049DCD002E6AF1 /* APIProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC83FE2C049DCD002E6AF1 /* APIProvider.swift */; };
 		AAAC84012C049DF2002E6AF1 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC84002C049DF2002E6AF1 /* Session.swift */; };
+		AAAC84072C05A5C2002E6AF1 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC84062C05A5C2002E6AF1 /* LoginResponse.swift */; };
+		AAAC840A2C05B5CF002E6AF1 /* LoginState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC84092C05B5CF002E6AF1 /* LoginState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -58,8 +58,6 @@
 		AAAC83DA2BFB25D4002E6AF1 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		AAAC83DC2C04485F002E6AF1 /* LoginEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginEndPoint.swift; sourceTree = "<group>"; };
 		AAAC83E92C046903002E6AF1 /* LoginUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginUseCase.swift; sourceTree = "<group>"; };
-		AAAC83EB2C04694E002E6AF1 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
-		AAAC83ED2C046A32002E6AF1 /* HTTPError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPError.swift; sourceTree = "<group>"; };
 		AAAC83F02C049A2C002E6AF1 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		AAAC83F22C049AC1002E6AF1 /* HTTPMethods.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethods.swift; sourceTree = "<group>"; };
 		AAAC83F42C049B13002E6AF1 /* HTTPParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPParameter.swift; sourceTree = "<group>"; };
@@ -69,6 +67,8 @@
 		AAAC83FC2C049D91002E6AF1 /* HTTPHeaders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPHeaders.swift; sourceTree = "<group>"; };
 		AAAC83FE2C049DCD002E6AF1 /* APIProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIProvider.swift; sourceTree = "<group>"; };
 		AAAC84002C049DF2002E6AF1 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		AAAC84062C05A5C2002E6AF1 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
+		AAAC84092C05B5CF002E6AF1 /* LoginState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +162,7 @@
 				AAAC83E32C046772002E6AF1 /* InterfaceAdapters */,
 				AAAC83E42C04677C002E6AF1 /* Network */,
 				AAAC83E52C046785002E6AF1 /* UseCases */,
+				AAAC84082C05B5B3002E6AF1 /* Model */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -169,6 +170,7 @@
 		AAAC83E22C04676A002E6AF1 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				AAAC84062C05A5C2002E6AF1 /* LoginResponse.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -202,8 +204,6 @@
 			isa = PBXGroup;
 			children = (
 				AAAC83DC2C04485F002E6AF1 /* LoginEndPoint.swift */,
-				AAAC83EB2C04694E002E6AF1 /* LoginResponse.swift */,
-				AAAC83ED2C046A32002E6AF1 /* HTTPError.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -238,6 +238,14 @@
 				AAAC84002C049DF2002E6AF1 /* Session.swift */,
 			);
 			path = HNetwork;
+			sourceTree = "<group>";
+		};
+		AAAC84082C05B5B3002E6AF1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AAAC84092C05B5CF002E6AF1 /* LoginState.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -312,15 +320,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAAC84012C049DF2002E6AF1 /* Session.swift in Sources */,
+				AAAC840A2C05B5CF002E6AF1 /* LoginState.swift in Sources */,
 				AAAC83FD2C049D91002E6AF1 /* HTTPHeaders.swift in Sources */,
 				AAAC83DD2C04485F002E6AF1 /* LoginEndPoint.swift in Sources */,
-				AAAC83EE2C046A32002E6AF1 /* HTTPError.swift in Sources */,
 				AA30F2382BE364BB00B97FA6 /* LoginViewController.swift in Sources */,
 				AAAC83FF2C049DCD002E6AF1 /* APIProvider.swift in Sources */,
 				AA30F21D2BC4CBDB00B97FA6 /* AppDelegate.swift in Sources */,
+				AAAC84072C05A5C2002E6AF1 /* LoginResponse.swift in Sources */,
 				AA30F21F2BC4CBDB00B97FA6 /* SceneDelegate.swift in Sources */,
 				AAAC83F72C049B4F002E6AF1 /* HTTPErrors.swift in Sources */,
-				AAAC83EC2C04694E002E6AF1 /* LoginResponse.swift in Sources */,
 				AAAC83F32C049AC1002E6AF1 /* HTTPMethods.swift in Sources */,
 				AAAC83F12C049A2C002E6AF1 /* EndPoint.swift in Sources */,
 				AAAC83F92C049B79002E6AF1 /* Requestable.swift in Sources */,

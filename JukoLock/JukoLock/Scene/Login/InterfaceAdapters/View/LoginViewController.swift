@@ -5,6 +5,7 @@
 //  Created by 김경호 on 5/2/24.
 //
 
+import Combine
 import UIKit
 
 final class LoginViewController: UIViewController {
@@ -13,24 +14,25 @@ final class LoginViewController: UIViewController {
     
     private var emailText: String?
     private var pwText: String?
+    private var subscriptions: Set<AnyCancellable> = []
+    private var viewModel: LoginViewModel
+    private let inputSubject: PassthroughSubject<LoginViewModel.Input, Never> = .init()
+    private let loginStateSubject: CurrentValueSubject<LoginState, Never>
     private var isValidEmailState: Bool = false {
         didSet(newState) {
             self.emailValidationLabel.text = newState ? "" : "Email이 유효하지 않습니다."
             self.isLoginPossible = isValidEmailState && isValidPWState
-            debugPrint("email : ", newState)
         }
     }
     private var isValidPWState: Bool = false {
         didSet(newState) {
             self.pwValidationLabel.text = newState ? "" : "PW가 유효하지 않습니다."
             self.isLoginPossible = isValidEmailState && isValidPWState
-            debugPrint("pw : ", newState)
         }
     }
     private var pwInvisibleState: Bool = true
     private var isLoginPossible: Bool = false {
         didSet(newState) {
-            debugPrint("login Possible : ", newState)
             loginButton.isEnabled = newState
             loginButton.setTitleColor(newState ? .black : .white, for: .normal)
         }
@@ -138,10 +140,20 @@ final class LoginViewController: UIViewController {
     
     // MARK: - Init
     
+    init(viewModel: LoginViewModel, loginStateSubject: CurrentValueSubject<LoginState, Never>) {
+        self.viewModel = viewModel
+        self.loginStateSubject = loginStateSubject
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        bind()
         self.view.backgroundColor = .white
         setUpLayout()
         emailInputTextField.delegate = self
@@ -214,14 +226,28 @@ extension LoginViewController {
     }
 }
 
+// MARK: - Bind
+private extension LoginViewController {
+    func bind() {
+        let outputSubject = viewModel.transform(with: inputSubject.eraseToAnyPublisher())
+        
+        outputSubject
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] output in
+                switch output {
+                case .loginCompleted:
+                    self?.loginStateSubject.send(.loggedIn)
+                }
+            }
+            .store(in: &subscriptions)
+    }
+}
+
 // MARK: - Methos
 
 extension LoginViewController {
     
     @objc func loginSubmitButtonTouched() {
-        emailText = emailInputTextField.text
-        pwText = pwInputTextField.text
-        
         guard let email = emailInputTextField.text, let pw = pwInputTextField.text else { return }
         
         guard !email.isEmpty, !pw.isEmpty else {
@@ -238,8 +264,7 @@ extension LoginViewController {
             return
         }
         
-        // TODO: - Login 전송
-        debugPrint("Login 전송")
+        self.inputSubject.send(.Login(email: email, password: pw))
     }
 }
 
