@@ -18,25 +18,7 @@ final class LoginViewController: UIViewController {
     private var viewModel: LoginViewModel
     private let inputSubject: PassthroughSubject<LoginViewModel.Input, Never> = .init()
     private let loginStateSubject: CurrentValueSubject<LoginState, Never>
-    private var isValidEmailState: Bool = false {
-        didSet(newState) {
-            self.emailValidationLabel.text = newState ? "" : "Email이 유효하지 않습니다."
-            self.isLoginPossible = isValidEmailState && isValidPWState
-        }
-    }
-    private var isValidPWState: Bool = false {
-        didSet(newState) {
-            self.pwValidationLabel.text = newState ? "" : "PW가 유효하지 않습니다."
-            self.isLoginPossible = isValidEmailState && isValidPWState
-        }
-    }
     private var pwInvisibleState: Bool = true
-    private var isLoginPossible: Bool = false {
-        didSet(newState) {
-            loginButton.isEnabled = newState
-            loginButton.setTitleColor(newState ? .black : .white, for: .normal)
-        }
-    }
     
     // MARK: - UI Components
     
@@ -138,6 +120,16 @@ final class LoginViewController: UIViewController {
         return button
     }()
     
+    private let signUpButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("아이디가 없으신가요?", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.textAlignment = .left
+        button.titleLabel?.font = .systemFont(ofSize: 15)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     // MARK: - Init
     
     init(viewModel: LoginViewModel, loginStateSubject: CurrentValueSubject<LoginState, Never>) {
@@ -167,7 +159,7 @@ final class LoginViewController: UIViewController {
 extension LoginViewController {
     
     private func addViews() {
-        [ firstTextTitle, secondTextTitle, thirdTextTitle, emailInputTextField, pwInputTextField, loginButton, emailValidationLabel, pwValidationLabel].forEach {
+        [ firstTextTitle, secondTextTitle, thirdTextTitle, emailInputTextField, pwInputTextField, loginButton, emailValidationLabel, pwValidationLabel, signUpButton].forEach {
             self.view.addSubview($0)
         }
     }
@@ -207,7 +199,11 @@ extension LoginViewController {
             loginButton.topAnchor.constraint(equalTo: pwInputTextField.bottomAnchor, constant: 50),
             loginButton.leadingAnchor.constraint(equalTo: pwInputTextField.leadingAnchor),
             loginButton.trailingAnchor.constraint(equalTo: pwInputTextField.trailingAnchor),
-            loginButton.heightAnchor.constraint(equalToConstant: 50)
+            loginButton.heightAnchor.constraint(equalToConstant: 50),
+            
+            signUpButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 10),
+            signUpButton.leadingAnchor.constraint(equalTo: loginButton.leadingAnchor),
+            signUpButton.trailingAnchor.constraint(equalTo: loginButton.trailingAnchor)
         ])
     }
     
@@ -223,6 +219,7 @@ extension LoginViewController {
         emailInputTextField.addTarget(self, action: #selector(emailTextFieldDidChanged(_:)), for: .editingChanged)
         pwInputTextField.addTarget(self, action: #selector(pwTextFiledDidChanged(_:)), for: .editingChanged)
         pwInvisibleToogleButton.addTarget(self, action: #selector(changePWInvisibleState(_:)), for: .touchUpInside)
+        signUpButton.addTarget(self, action: #selector(signupSubmitButtonTouched), for: .touchUpInside)
     }
 }
 
@@ -241,6 +238,16 @@ private extension LoginViewController {
                     self?.loginFailAlert()
                 case .loginError:
                     self?.loginErrorAlert()
+                case let .emailValid(text):
+                    self?.emailValidationLabel.text = text
+                case let .pwValid(text):
+                    self?.pwValidationLabel.text = text
+                case .isLoginPossible:
+                    self?.loginButton.isEnabled = true
+                    self?.loginButton.setTitleColor(.black, for: .normal)
+                case .isLoginImpossible:
+                    self?.loginButton.isEnabled = false
+                    self?.loginButton.setTitleColor(.white, for: .normal)
                 }
             }
             .store(in: &subscriptions)
@@ -252,45 +259,33 @@ private extension LoginViewController {
 extension LoginViewController {
     
     @objc func loginSubmitButtonTouched() {
-        guard let email = emailInputTextField.text, let pw = pwInputTextField.text else { return }
+        self.inputSubject.send(.loginButtonTouched)
+    }
+    
+    @objc func signupSubmitButtonTouched() {
+        let provider = APIProvider(session: URLSession.shared)
+        let signUpUseCase = SignUpUseCase(provider: provider)
+        let signUpViewModel = SignUpViewModel(signUpUseCase: signUpUseCase)
+        let signViewController = SignUpViewController(viewModel: signUpViewModel)
         
-        guard !email.isEmpty, !pw.isEmpty else {
-            // TODO: - ID & PW 미입력 알러트 출력
-            debugPrint("아이디와 비밀번호를 모두 입력해주세요.")
-            return
-        }
-        
-        guard isValidEmail(email) else {
-            return
-        }
-        
-        guard isValidPW(pw) else {
-            return
-        }
-        
-        self.inputSubject.send(.Login(email: email, password: pw))
+        self.navigationController?.pushViewController(signViewController, animated: true)
     }
 }
 
 extension LoginViewController: UITextFieldDelegate {
     
-    // TODO: - 옵저버블 패턴 넣을려다가 꼬임 이 부분을 여기서 처리해주면 안될거 같음
     @objc func emailTextFieldDidChanged(_ sender: Any?) {
-        guard let email = self.emailInputTextField.text, email != "" else {
-            self.emailValidationLabel.text = ""
+        guard let email = self.emailInputTextField.text else {
             return
         }
-        
-        isValidEmailState = isValidEmail(email)
+        inputSubject.send(.emailInput(email: email))
     }
     
     @objc func pwTextFiledDidChanged(_ sender: Any?) {
-        guard let pw = self.pwInputTextField.text, pw != "" else {
-            self.pwValidationLabel.text = ""
+        guard let pw = self.pwInputTextField.text else {
             return
         }
-        
-        isValidPWState = isValidPW(pw)
+        inputSubject.send(.passwordInput(pw: pw))
     }
     
     @objc func changePWInvisibleState(_ sender: Any?) {
@@ -311,20 +306,6 @@ extension LoginViewController: UITextFieldDelegate {
         }
         guard textField.text!.count < 20 else { return false } // 20 글자로 제한
         return true
-    }
-    
-    private func isValidEmail(_ email: String) -> Bool {
-        let emailRegex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}$"
-        let emailPredicate = NSPredicate(format: "SELF MATCHES[c] %@", emailRegex)
-
-        return !email.isEmpty && emailPredicate.evaluate(with: email)
-    }
-    
-    private func isValidPW(_ pw: String) -> Bool {
-        let pwRegex = "^[A-Za-z0-9!_@$%^&+=]{8,20}$"
-        let pwPredicate = NSPredicate(format: "SELF MATCHES[c] %@", pwRegex)
-
-        return !pw.isEmpty && pwPredicate.evaluate(with: pw)
     }
     
     private func loginFailAlert() {
