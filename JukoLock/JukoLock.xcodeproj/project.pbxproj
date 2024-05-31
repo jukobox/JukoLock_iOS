@@ -29,6 +29,9 @@
 		AAAC84012C049DF2002E6AF1 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC84002C049DF2002E6AF1 /* Session.swift */; };
 		AAAC84072C05A5C2002E6AF1 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC84062C05A5C2002E6AF1 /* LoginResponse.swift */; };
 		AAAC840A2C05B5CF002E6AF1 /* LoginState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC84092C05B5CF002E6AF1 /* LoginState.swift */; };
+		AAAC840C2C05C1E3002E6AF1 /* SignUpUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC840B2C05C1E3002E6AF1 /* SignUpUseCase.swift */; };
+		AAAC84162C05C430002E6AF1 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC84152C05C430002E6AF1 /* SignUpViewController.swift */; };
+		AAAC84182C05C43C002E6AF1 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC84172C05C43C002E6AF1 /* SignUpViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -69,6 +72,9 @@
 		AAAC84002C049DF2002E6AF1 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		AAAC84062C05A5C2002E6AF1 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		AAAC84092C05B5CF002E6AF1 /* LoginState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginState.swift; sourceTree = "<group>"; };
+		AAAC840B2C05C1E3002E6AF1 /* SignUpUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpUseCase.swift; sourceTree = "<group>"; };
+		AAAC84152C05C430002E6AF1 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		AAAC84172C05C43C002E6AF1 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +156,7 @@
 		AAAC83E02C04668D002E6AF1 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				AAAC840D2C05C3B8002E6AF1 /* SignUp */,
 				AAAC83E12C04669B002E6AF1 /* Login */,
 			);
 			path = Scene;
@@ -248,6 +255,64 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		AAAC840D2C05C3B8002E6AF1 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				AAAC840E2C05C3BE002E6AF1 /* Entities */,
+				AAAC840F2C05C3C4002E6AF1 /* InterfaceAdapters */,
+				AAAC84122C05C3EB002E6AF1 /* Model */,
+				AAAC84112C05C3DE002E6AF1 /* UseCases */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
+		AAAC840E2C05C3BE002E6AF1 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		AAAC840F2C05C3C4002E6AF1 /* InterfaceAdapters */ = {
+			isa = PBXGroup;
+			children = (
+				AAAC84132C05C40A002E6AF1 /* View */,
+				AAAC84142C05C410002E6AF1 /* ViewModel */,
+			);
+			path = InterfaceAdapters;
+			sourceTree = "<group>";
+		};
+		AAAC84112C05C3DE002E6AF1 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				AAAC840B2C05C1E3002E6AF1 /* SignUpUseCase.swift */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		AAAC84122C05C3EB002E6AF1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		AAAC84132C05C40A002E6AF1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AAAC84152C05C430002E6AF1 /* SignUpViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		AAAC84142C05C410002E6AF1 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				AAAC84172C05C43C002E6AF1 /* SignUpViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -319,6 +384,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAAC84162C05C430002E6AF1 /* SignUpViewController.swift in Sources */,
 				AAAC84012C049DF2002E6AF1 /* Session.swift in Sources */,
 				AAAC840A2C05B5CF002E6AF1 /* LoginState.swift in Sources */,
 				AAAC83FD2C049D91002E6AF1 /* HTTPHeaders.swift in Sources */,
@@ -331,11 +397,13 @@
 				AAAC83F72C049B4F002E6AF1 /* HTTPErrors.swift in Sources */,
 				AAAC83F32C049AC1002E6AF1 /* HTTPMethods.swift in Sources */,
 				AAAC83F12C049A2C002E6AF1 /* EndPoint.swift in Sources */,
+				AAAC84182C05C43C002E6AF1 /* SignUpViewModel.swift in Sources */,
 				AAAC83F92C049B79002E6AF1 /* Requestable.swift in Sources */,
 				AAAC83D92BF7426A002E6AF1 /* MachineListCell.swift in Sources */,
 				AAAC83FB2C049BC9002E6AF1 /* HTTPHeader.swift in Sources */,
 				AAAC83DB2BFB25D4002E6AF1 /* TabBarController.swift in Sources */,
 				AAAC83D72BF739B9002E6AF1 /* LoginViewModel.swift in Sources */,
+				AAAC840C2C05C1E3002E6AF1 /* SignUpUseCase.swift in Sources */,
 				AA59DFE52BE4BC4E003A2A2A /* MainViewController.swift in Sources */,
 				AAAC83EA2C046903002E6AF1 /* LoginUseCase.swift in Sources */,
 				AAAC83F52C049B13002E6AF1 /* HTTPParameter.swift in Sources */,
