@@ -84,6 +84,17 @@ extension LoginEndPoint: EndPoint {
     }
     
     var path: String {
-        return "/login"
+        switch self {
+        case .emailValidationCheck(_):
+            return "/register/email"
+        case .sendVerificationEmail(_):
+            return "/login"
+        case .checkVerificationEmail(_):
+            return "/login"
+        case .signUp(_, _):
+            return "/register/register"
+        case .login(_, _):
+            return "/login"
+        }
     }
 }

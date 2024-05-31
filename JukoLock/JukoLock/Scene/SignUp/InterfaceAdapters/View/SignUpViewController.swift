@@ -1,0 +1,366 @@
+//
+//  SignUpViewController.swift
+//  JukoLock
+//
+//  Created by 김경호 on 5/28/24.
+//
+
+import Combine
+import UIKit
+
+final class SignUpViewController: UIViewController {
+    // MARK: - Properties
+    
+    private var subscriptions: Set<AnyCancellable> = []
+    private var viewModel: SignUpViewModel
+    private let inputSubject: PassthroughSubject<SignUpViewModel.Input, Never> = .init()
+    
+    // MARK: - UI Components
+    
+    private let nameTextLabel: UILabel = {
+        let label = UILabel()
+        label.text = "이름"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
+    private let nameInputTextField: UITextField = {
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = "이름을 입력해주세요."
+        textField.autocapitalizationType = .none
+        textField.keyboardType = .emailAddress
+        textField.layer.cornerRadius = 5
+        textField.layer.borderWidth = 1
+        textField.leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 8.0, height: 0.0))
+        textField.leftViewMode = .always
+        return textField
+    }()
+    
+    private let emailTextLabel: UILabel = {
+        let label = UILabel()
+        label.text = "이메일"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
+    private let emailInputTextField: UITextField = {
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = "Email을 입력해주세요."
+        textField.autocapitalizationType = .none
+        textField.keyboardType = .emailAddress
+        textField.layer.cornerRadius = 5
+        textField.layer.borderWidth = 1
+        textField.leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 8.0, height: 0.0))
+        textField.leftViewMode = .always
+        return textField
+    }()
+    
+    // TODO: - 아이디 중복체크
+    
+    private let emailValidationLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 15)
+        label.textColor = .red
+        return label
+    }()
+    
+    private let passwordTextLabel: UILabel = {
+        let label = UILabel()
+        label.text = "비밀번호"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
+    private let passwordInputTextField: UITextField = {
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = "PW를 입력해주세요."
+        textField.isSecureTextEntry = true
+        textField.autocapitalizationType = .none
+        textField.layer.cornerRadius = 5
+        textField.layer.borderWidth = 1
+        textField.leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 8.0, height: 0.0))
+        textField.leftViewMode = .always
+        textField.rightViewMode = .always
+        return textField
+    }()
+    
+    private let passwordCheckTextLabel: UILabel = {
+        let label = UILabel()
+        label.text = "비밀번호 체크"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
+    private let pwValidationLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 15)
+        label.textColor = .red
+        return label
+    }()
+    
+    private let passwordCheckInputTextField: UITextField = {
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = "PW를 입력해주세요."
+        textField.isSecureTextEntry = true
+        textField.autocapitalizationType = .none
+        textField.layer.cornerRadius = 5
+        textField.layer.borderWidth = 1
+        textField.leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 8.0, height: 0.0))
+        textField.leftViewMode = .always
+        textField.rightViewMode = .always
+        return textField
+    }()
+    
+    private let pwCheckValidationLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 15)
+        label.textColor = .red
+        return label
+    }()
+    
+    private let signUpCompleteButton: UIButton = {
+        let button = UIButton()
+        button.layer.cornerRadius = 5
+        button.layer.borderWidth = 1
+        button.backgroundColor = .lightGray
+        button.setTitle("회원가입", for: .normal)
+        button.isEnabled = false
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
+    
+    // MARK: - Init
+    
+    init(viewModel: SignUpViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Life Cycle
+    
+    override func viewDidLoad() {
+        self.view.backgroundColor = .white
+        setUpLayout()
+    }
+}
+
+// MARK: - UI Settings
+
+
+extension SignUpViewController {
+    
+    private func setUpLayout() {
+        addViews()
+        setLayoutConstraints()
+        addTargets()
+        bind()
+    }
+    
+    private func addViews() {
+        [ nameTextLabel, nameInputTextField, emailTextLabel, emailInputTextField, emailValidationLabel, passwordTextLabel, passwordInputTextField, pwValidationLabel, passwordCheckTextLabel, passwordCheckInputTextField, pwCheckValidationLabel, signUpCompleteButton ].forEach {
+            self.view.addSubview($0)
+        }
+    }
+    
+    private func setLayoutConstraints() {
+        NSLayoutConstraint.activate ([
+            nameTextLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 100),
+            nameTextLabel.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 30),
+            nameTextLabel.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -30),
+            
+            nameInputTextField.topAnchor.constraint(equalTo: nameTextLabel.bottomAnchor),
+            nameInputTextField.leadingAnchor.constraint(equalTo: nameTextLabel.leadingAnchor),
+            nameInputTextField.trailingAnchor.constraint(equalTo: nameTextLabel.trailingAnchor),
+            nameInputTextField.heightAnchor.constraint(equalToConstant: 50),
+            
+            emailTextLabel.topAnchor.constraint(equalTo: nameInputTextField.bottomAnchor, constant: 20),
+            emailTextLabel.leadingAnchor.constraint(equalTo: nameInputTextField.leadingAnchor),
+            emailTextLabel.trailingAnchor.constraint(equalTo: nameInputTextField.trailingAnchor),
+            
+            emailInputTextField.topAnchor.constraint(equalTo: emailTextLabel.bottomAnchor),
+            emailInputTextField.leadingAnchor.constraint(equalTo: emailTextLabel.leadingAnchor),
+            emailInputTextField.trailingAnchor.constraint(equalTo: emailTextLabel.trailingAnchor),
+            emailInputTextField.heightAnchor.constraint(equalToConstant: 50),
+            
+            emailValidationLabel.topAnchor.constraint(equalTo: emailInputTextField.bottomAnchor),
+            emailValidationLabel.leadingAnchor.constraint(equalTo: emailInputTextField.leadingAnchor),
+            emailValidationLabel.trailingAnchor.constraint(equalTo: emailInputTextField.trailingAnchor),
+            
+            passwordTextLabel.topAnchor.constraint(equalTo: emailInputTextField.bottomAnchor, constant: 20),
+            passwordTextLabel.leadingAnchor.constraint(equalTo: emailInputTextField.leadingAnchor),
+            passwordTextLabel.trailingAnchor.constraint(equalTo: emailInputTextField.trailingAnchor),
+            
+            passwordInputTextField.topAnchor.constraint(equalTo: passwordTextLabel.bottomAnchor),
+            passwordInputTextField.leadingAnchor.constraint(equalTo: passwordTextLabel.leadingAnchor),
+            passwordInputTextField.trailingAnchor.constraint(equalTo: passwordTextLabel.trailingAnchor),
+            passwordInputTextField.heightAnchor.constraint(equalToConstant: 50),
+            
+            pwValidationLabel.topAnchor.constraint(equalTo: passwordInputTextField.bottomAnchor),
+            pwValidationLabel.leadingAnchor.constraint(equalTo: passwordInputTextField.leadingAnchor),
+            pwValidationLabel.trailingAnchor.constraint(equalTo: passwordInputTextField.trailingAnchor),
+            
+            passwordCheckTextLabel.topAnchor.constraint(equalTo: passwordInputTextField.bottomAnchor, constant: 20),
+            passwordCheckTextLabel.leadingAnchor.constraint(equalTo: passwordInputTextField.leadingAnchor),
+            passwordCheckTextLabel.trailingAnchor.constraint(equalTo: passwordInputTextField.trailingAnchor),
+            
+            passwordCheckInputTextField.topAnchor.constraint(equalTo: passwordCheckTextLabel.bottomAnchor),
+            passwordCheckInputTextField.leadingAnchor.constraint(equalTo: passwordCheckTextLabel.leadingAnchor),
+            passwordCheckInputTextField.trailingAnchor.constraint(equalTo: passwordCheckTextLabel.trailingAnchor),
+            passwordCheckInputTextField.heightAnchor.constraint(equalToConstant: 50),
+            
+            pwCheckValidationLabel.topAnchor.constraint(equalTo: passwordCheckInputTextField.bottomAnchor),
+            pwCheckValidationLabel.leadingAnchor.constraint(equalTo: passwordCheckInputTextField.leadingAnchor),
+            pwCheckValidationLabel.trailingAnchor.constraint(equalTo: passwordCheckInputTextField.trailingAnchor),
+            
+            signUpCompleteButton.topAnchor.constraint(equalTo: passwordCheckInputTextField.bottomAnchor, constant: 50),
+            signUpCompleteButton.leadingAnchor.constraint(equalTo: passwordCheckInputTextField.leadingAnchor),
+            signUpCompleteButton.trailingAnchor.constraint(equalTo: passwordCheckInputTextField.trailingAnchor),
+            signUpCompleteButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
+    }
+    
+    private func addTargets() {
+        nameInputTextField.addTarget(self, action: #selector(nameTextFieldDidChanged), for: .editingChanged)
+        emailInputTextField.addTarget(self, action: #selector(emailTextFieldDidChanged), for: .editingChanged)
+        passwordInputTextField.addTarget(self, action: #selector(pwTextFieldDidChanged), for: .editingChanged)
+        passwordCheckInputTextField.addTarget(self, action: #selector(pwCheckTextFieldDidChanged), for: .editingChanged)
+        signUpCompleteButton.addTarget(self, action: #selector(signupSubmitButtonTouched), for: .touchUpInside)
+    }
+}
+
+// MARK: - Bind
+private extension SignUpViewController {
+    func bind() {
+        let outputSubject = viewModel.transform(with: inputSubject.eraseToAnyPublisher())
+        
+        outputSubject
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] output in
+                switch output {
+                case let .nameValid(text):
+                    debugPrint("name : ", text)
+                case let .emailValid(text):
+                    self?.emailValidationLabel.text = text
+                case let .pwValid(text):
+                    self?.pwValidationLabel.text = text
+                case let .pwCheckValid(text):
+                    self?.pwCheckValidationLabel.text = text
+                case .isSignUpPossible:
+                    self?.signUpCompleteButton.isEnabled = true
+                    self?.signUpCompleteButton.backgroundColor = .blue
+                case .isSignUpImpossible:
+                    self?.signUpCompleteButton.isEnabled = false
+                    self?.signUpCompleteButton.backgroundColor = .lightGray
+                case .signUpCompleted:
+                    self?.signupCompleted()
+                case .signUpFailed:
+                    self?.signupFailAlert()
+                case .signUpError:
+                    self?.signupErrorAlert()
+                }
+            }
+            .store(in: &subscriptions)
+    }
+}
+
+// MARK: - Methos
+
+extension SignUpViewController {
+    private func isValidEmail(_ email: String) -> Bool {
+        let emailRegex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}$"
+        let emailPredicate = NSPredicate(format: "SELF MATCHES[c] %@", emailRegex)
+
+        return !email.isEmpty && emailPredicate.evaluate(with: email)
+    }
+    
+    private func isValidPW(_ pw: String) -> Bool {
+        let pwRegex = "^[A-Za-z0-9!_@$%^&+=]{8,20}$"
+        let pwPredicate = NSPredicate(format: "SELF MATCHES[c] %@", pwRegex)
+
+        return !pw.isEmpty && pwPredicate.evaluate(with: pw)
+    }
+    
+    private func signupCompleted() {
+        let sheet = UIAlertController(title: "회원가입 성공", message: "", preferredStyle: .alert)
+        sheet.addAction(UIAlertAction(title: "확인", style: .default) { (action) in
+            self.navigationController?.popViewController(animated: true)
+        })
+        present(sheet, animated: true)
+    }
+    
+    private func signupFailAlert() {
+        let sheet = UIAlertController(title: "회원가입 실패", message: "아이디나 비밀번호를 확인해주세요.", preferredStyle: .alert)
+        sheet.addAction(UIAlertAction(title: "확인", style: .default))
+        present(sheet, animated: true)
+    }
+    
+    private func signupErrorAlert() {
+        let sheet = UIAlertController(title: "회원가입 실패", message: "네트워크 상태를 확인해주세요.", preferredStyle: .alert)
+        sheet.addAction(UIAlertAction(title: "확인", style: .default))
+        present(sheet, animated: true)
+    }
+}
+
+// MARK: - objc
+
+extension SignUpViewController: UITextFieldDelegate {
+    
+    @objc func nameTextFieldDidChanged(_ sender: Any?) {
+        guard let name = self.nameInputTextField.text else {
+            return
+        }
+        inputSubject.send(.nameInput(name))
+    }
+    
+    @objc func emailTextFieldDidChanged(_ sender: Any?) {
+        guard let email = self.emailInputTextField.text else {
+            return
+        }
+        inputSubject.send(.emailInput(email))
+    }
+    
+    @objc func pwTextFieldDidChanged(_ sender: Any?) {
+        guard let pw = self.passwordInputTextField.text else {
+            return
+        }
+        inputSubject.send(.passwordInput(pw))
+    }
+    
+    @objc func pwCheckTextFieldDidChanged(_ sender: Any?) {
+        guard let pwCheck = self.passwordCheckInputTextField.text else {
+            return
+        }
+        inputSubject.send(.passwordCheckInput(pwCheck))
+    }
+    
+    @objc func signupSubmitButtonTouched(_ sender: Any?) {
+        self.inputSubject.send(.signUp)
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if let char = string.cString(using: String.Encoding.utf8) {
+            let isBackSpace = strcmp(char, "\\b")
+            if isBackSpace == -92 {
+                return true
+            }
+        }
+        guard textField.text!.count < 20 else { return false } // 20 글자로 제한
+        return true
+    }
+}
