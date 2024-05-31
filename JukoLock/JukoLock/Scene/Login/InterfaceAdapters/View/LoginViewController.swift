@@ -53,6 +53,14 @@ final class LoginViewController: UIViewController {
         return text
     }()
     
+    private let emailTextLabel: UILabel = {
+        let label = UILabel()
+        label.text = "이메일"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
+    
     private let emailInputTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
@@ -71,6 +79,14 @@ final class LoginViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 15)
         label.textColor = .red
+        return label
+    }()
+    
+    private let passwordTextLabel: UILabel = {
+        let label = UILabel()
+        label.text = "비밀번호"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
         return label
     }()
     
@@ -110,7 +126,7 @@ final class LoginViewController: UIViewController {
     
     private let loginButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = .green
+        button.backgroundColor = .lightGray
         button.layer.cornerRadius = 10
         button.setTitle("Login", for: .normal)
         button.tintColor = UIColor.white
@@ -159,7 +175,7 @@ final class LoginViewController: UIViewController {
 extension LoginViewController {
     
     private func addViews() {
-        [ firstTextTitle, secondTextTitle, thirdTextTitle, emailInputTextField, pwInputTextField, loginButton, emailValidationLabel, pwValidationLabel, signUpButton].forEach {
+        [ firstTextTitle, secondTextTitle, thirdTextTitle, emailTextLabel, emailInputTextField, passwordTextLabel, pwInputTextField, loginButton, emailValidationLabel, pwValidationLabel, signUpButton].forEach {
             self.view.addSubview($0)
         }
     }
@@ -178,18 +194,26 @@ extension LoginViewController {
             thirdTextTitle.leadingAnchor.constraint(equalTo: secondTextTitle.leadingAnchor),
             thirdTextTitle.trailingAnchor.constraint(equalTo: secondTextTitle.trailingAnchor),
             
-            emailInputTextField.topAnchor.constraint(equalTo: thirdTextTitle.bottomAnchor, constant: 100),
-            emailInputTextField.leadingAnchor.constraint(equalTo: thirdTextTitle.leadingAnchor),
-            emailInputTextField.trailingAnchor.constraint(equalTo: thirdTextTitle.trailingAnchor),
+            emailTextLabel.topAnchor.constraint(equalTo: thirdTextTitle.bottomAnchor, constant: 100),
+            emailTextLabel.leadingAnchor.constraint(equalTo: thirdTextTitle.leadingAnchor),
+            emailTextLabel.trailingAnchor.constraint(equalTo: thirdTextTitle.trailingAnchor),
+            
+            emailInputTextField.topAnchor.constraint(equalTo: emailTextLabel.bottomAnchor),
+            emailInputTextField.leadingAnchor.constraint(equalTo: emailTextLabel.leadingAnchor),
+            emailInputTextField.trailingAnchor.constraint(equalTo: emailTextLabel.trailingAnchor),
             emailInputTextField.heightAnchor.constraint(equalToConstant: 50),
             
             emailValidationLabel.topAnchor.constraint(equalTo: emailInputTextField.bottomAnchor),
             emailValidationLabel.leadingAnchor.constraint(equalTo: emailInputTextField.leadingAnchor, constant: 10),
             emailValidationLabel.trailingAnchor.constraint(equalTo: emailInputTextField.trailingAnchor),
             
-            pwInputTextField.topAnchor.constraint(equalTo: emailInputTextField.bottomAnchor, constant: 20),
-            pwInputTextField.leadingAnchor.constraint(equalTo: emailInputTextField.leadingAnchor),
-            pwInputTextField.trailingAnchor.constraint(equalTo: emailInputTextField.trailingAnchor),
+            passwordTextLabel.topAnchor.constraint(equalTo: emailInputTextField.bottomAnchor, constant: 20),
+            passwordTextLabel.leadingAnchor.constraint(equalTo: emailInputTextField.leadingAnchor),
+            passwordTextLabel.trailingAnchor.constraint(equalTo: emailInputTextField.trailingAnchor),
+            
+            pwInputTextField.topAnchor.constraint(equalTo: passwordTextLabel.bottomAnchor),
+            pwInputTextField.leadingAnchor.constraint(equalTo: passwordTextLabel.leadingAnchor),
+            pwInputTextField.trailingAnchor.constraint(equalTo: passwordTextLabel.trailingAnchor),
             pwInputTextField.heightAnchor.constraint(equalToConstant: 50),
             
             pwValidationLabel.topAnchor.constraint(equalTo: pwInputTextField.bottomAnchor),
@@ -219,7 +243,7 @@ extension LoginViewController {
         emailInputTextField.addTarget(self, action: #selector(emailTextFieldDidChanged(_:)), for: .editingChanged)
         pwInputTextField.addTarget(self, action: #selector(pwTextFiledDidChanged(_:)), for: .editingChanged)
         pwInvisibleToogleButton.addTarget(self, action: #selector(changePWInvisibleState(_:)), for: .touchUpInside)
-        signUpButton.addTarget(self, action: #selector(signupSubmitButtonTouched), for: .touchUpInside)
+        signUpButton.addTarget(self, action: #selector(signupButtonTouched), for: .touchUpInside)
     }
 }
 
@@ -244,10 +268,10 @@ private extension LoginViewController {
                     self?.pwValidationLabel.text = text
                 case .isLoginPossible:
                     self?.loginButton.isEnabled = true
-                    self?.loginButton.setTitleColor(.black, for: .normal)
+                    self?.loginButton.backgroundColor = .blue
                 case .isLoginImpossible:
                     self?.loginButton.isEnabled = false
-                    self?.loginButton.setTitleColor(.white, for: .normal)
+                    self?.loginButton.backgroundColor = .lightGray
                 }
             }
             .store(in: &subscriptions)
@@ -262,7 +286,7 @@ extension LoginViewController {
         self.inputSubject.send(.loginButtonTouched)
     }
     
-    @objc func signupSubmitButtonTouched() {
+    @objc func signupButtonTouched() {
         let provider = APIProvider(session: URLSession.shared)
         let signUpUseCase = SignUpUseCase(provider: provider)
         let signUpViewModel = SignUpViewModel(signUpUseCase: signUpUseCase)
