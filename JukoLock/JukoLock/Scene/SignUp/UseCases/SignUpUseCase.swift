@@ -12,7 +12,7 @@ protocol SignUpUseCaseProtocol {
     func execute(signUpEmail: String, password: String) -> AnyPublisher<LoginResponse, HTTPError> // 회원가입
     func execute(validationEmail: String) -> AnyPublisher<Never, HTTPError> // 인증번호 발송
     func execute(sendEmail: String) -> AnyPublisher<Never, HTTPError> // 인증번호 인증
-    func execute(checkVerification: String) -> AnyPublisher<Never, HTTPError> // 이메일 중복 체크
+    func execute(checkVerification: String) -> AnyPublisher<LoginResponse, HTTPError> // 이메일 중복 체크
 }
 
 struct SignUpUseCase: SignUpUseCaseProtocol {
@@ -35,7 +35,7 @@ struct SignUpUseCase: SignUpUseCaseProtocol {
         return provider.request(LoginEndPoint.sendVerificationEmail(email: sendEmail))
     }
     
-    func execute(checkVerification: String) -> AnyPublisher<Never, HTTPError> {
-        return provider.request(LoginEndPoint.checkVerificationEmail(email: checkVerification))
+    func execute(checkVerification: String) -> AnyPublisher<LoginResponse, HTTPError> {
+        return provider.request(LoginEndPoint.emailValidationCheck(email: checkVerification))
     }
 }

@@ -19,6 +19,7 @@ final class SignUpViewModel {
     private var email: String = ""
     private var pw: String = ""
     private var pwCheck: String = ""
+    private var emailDuplicationCheck: Bool = false
     
     // MARK: - Init
     
@@ -33,6 +34,7 @@ final class SignUpViewModel {
         case emailInput(_ email: String)
         case passwordInput(_ pw: String)
         case passwordCheckInput(_ pwCheck: String)
+        case emailDuplicationCheck
         case signUp
     }
     
@@ -45,6 +47,8 @@ final class SignUpViewModel {
         case pwCheckValid(_ text: String)
         case isSignUpPossible
         case isSignUpImpossible
+        case emailNotDuplication
+        case emailDuplication
         case signUpCompleted
         case signUpFailed
         case signUpError
@@ -68,6 +72,8 @@ extension SignUpViewModel {
                     self?.inputPasswordCheck(pwCheck)
                 case .signUp:
                     self?.signUp()
+                case .emailDuplicationCheck:
+                    self?.checkVerificationEmail()
                 }
             }
             .store(in: &subscriptions)
@@ -82,7 +88,6 @@ extension SignUpViewModel {
                     debugPrint("SignUp Error : ", error)
                 }
             } receiveValue: { [weak self] response in
-                // TODO: - 회원가입 API 연결
                 switch response.status{
                 case "success":
                     self?.outputSubject.send(.signUpCompleted)
@@ -96,11 +101,13 @@ extension SignUpViewModel {
     }
     
     private func inputName(_ name: String) {
+        self.emailDuplicationCheck = false
         self.name = name
     }
     
     private func inputEmail(_ email: String) {
         self.email = email
+        self.emailDuplicationCheck = false
         
         if !isValidEmail(self.email) {
             outputSubject.send(.emailValid("Email이 유효하지 않습니다."))
@@ -133,7 +140,7 @@ extension SignUpViewModel {
     }
     
     private func isSignUpPossible() {
-        if !name.isEmpty && !email.isEmpty && !pw.isEmpty && !pwCheck.isEmpty && isValidEmail(email) && isValidPW(pw) && isValidPWCheck(pwCheck) {
+        if !name.isEmpty && !email.isEmpty && !pw.isEmpty && !pwCheck.isEmpty && isValidEmail(email) && isValidPW(pw) && isValidPWCheck(pwCheck) && emailDuplicationCheck {
             outputSubject.send(.isSignUpPossible)
         } else {
             outputSubject.send(.isSignUpImpossible)
@@ -184,7 +191,7 @@ extension SignUpViewModel {
             .store(in: &subscriptions)
     }
     
-    private func checkVerificationEmail(email: String) {
+    private func checkVerificationEmail() {
         signUpUseCase.execute(checkVerification: email)
             .receive(on: DispatchQueue.main)
             .sink { completion in
@@ -192,7 +199,13 @@ extension SignUpViewModel {
                     debugPrint("Send Email Error : ", error)
                 }
             } receiveValue: { [weak self] response in
-                debugPrint(response)
+                switch response.status{
+                case "success":
+                    self?.emailDuplicationCheck = true
+                    self?.outputSubject.send(.emailNotDuplication)
+                default:
+                    self?.outputSubject.send(.emailDuplication)
+                }
             }
             .store(in: &subscriptions)
     }

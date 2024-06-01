@@ -42,7 +42,6 @@ final class SignUpViewController: UIViewController {
         let label = UILabel()
         label.text = "이메일"
         label.translatesAutoresizingMaskIntoConstraints = false
-        
         return label
     }()
     
@@ -59,7 +58,14 @@ final class SignUpViewController: UIViewController {
         return textField
     }()
     
-    // TODO: - 아이디 중복체크
+    private let emailDuplicationCheckButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("중복체크", for: .normal)
+        button.backgroundColor = .blue
+        button.layer.cornerRadius = 5
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
     
     private let emailValidationLabel: UILabel = {
         let label = UILabel()
@@ -173,7 +179,7 @@ extension SignUpViewController {
     }
     
     private func addViews() {
-        [ nameTextLabel, nameInputTextField, emailTextLabel, emailInputTextField, emailValidationLabel, passwordTextLabel, passwordInputTextField, pwValidationLabel, passwordCheckTextLabel, passwordCheckInputTextField, pwCheckValidationLabel, signUpCompleteButton ].forEach {
+        [ nameTextLabel, nameInputTextField, emailTextLabel, emailInputTextField, emailDuplicationCheckButton, emailValidationLabel, passwordTextLabel, passwordInputTextField, pwValidationLabel, passwordCheckTextLabel, passwordCheckInputTextField, pwCheckValidationLabel, signUpCompleteButton ].forEach {
             self.view.addSubview($0)
         }
     }
@@ -195,16 +201,21 @@ extension SignUpViewController {
             
             emailInputTextField.topAnchor.constraint(equalTo: emailTextLabel.bottomAnchor),
             emailInputTextField.leadingAnchor.constraint(equalTo: emailTextLabel.leadingAnchor),
-            emailInputTextField.trailingAnchor.constraint(equalTo: emailTextLabel.trailingAnchor),
+            emailInputTextField.widthAnchor.constraint(equalToConstant: (self.view.frame.width - 20) / 3 * 2),
             emailInputTextField.heightAnchor.constraint(equalToConstant: 50),
+            
+            emailDuplicationCheckButton.topAnchor.constraint(equalTo: emailInputTextField.topAnchor),
+            emailDuplicationCheckButton.leadingAnchor.constraint(equalTo: emailInputTextField.trailingAnchor, constant: 5),
+            emailDuplicationCheckButton.trailingAnchor.constraint(equalTo: emailTextLabel.trailingAnchor),
+            emailDuplicationCheckButton.heightAnchor.constraint(equalTo: emailInputTextField.heightAnchor),
             
             emailValidationLabel.topAnchor.constraint(equalTo: emailInputTextField.bottomAnchor),
             emailValidationLabel.leadingAnchor.constraint(equalTo: emailInputTextField.leadingAnchor),
-            emailValidationLabel.trailingAnchor.constraint(equalTo: emailInputTextField.trailingAnchor),
+            emailValidationLabel.trailingAnchor.constraint(equalTo: emailDuplicationCheckButton.trailingAnchor),
             
             passwordTextLabel.topAnchor.constraint(equalTo: emailInputTextField.bottomAnchor, constant: 20),
             passwordTextLabel.leadingAnchor.constraint(equalTo: emailInputTextField.leadingAnchor),
-            passwordTextLabel.trailingAnchor.constraint(equalTo: emailInputTextField.trailingAnchor),
+            passwordTextLabel.trailingAnchor.constraint(equalTo: emailValidationLabel.trailingAnchor),
             
             passwordInputTextField.topAnchor.constraint(equalTo: passwordTextLabel.bottomAnchor),
             passwordInputTextField.leadingAnchor.constraint(equalTo: passwordTextLabel.leadingAnchor),
@@ -241,6 +252,7 @@ extension SignUpViewController {
         passwordInputTextField.addTarget(self, action: #selector(pwTextFieldDidChanged), for: .editingChanged)
         passwordCheckInputTextField.addTarget(self, action: #selector(pwCheckTextFieldDidChanged), for: .editingChanged)
         signUpCompleteButton.addTarget(self, action: #selector(signupSubmitButtonTouched), for: .touchUpInside)
+        emailDuplicationCheckButton.addTarget(self, action: #selector(emailDuplicationCheckButtonTouched), for: .touchUpInside)
     }
 }
 
@@ -256,6 +268,7 @@ private extension SignUpViewController {
                 case let .nameValid(text):
                     debugPrint("name : ", text)
                 case let .emailValid(text):
+                    self?.emailValidationLabel.textColor = .red
                     self?.emailValidationLabel.text = text
                 case let .pwValid(text):
                     self?.pwValidationLabel.text = text
@@ -273,6 +286,10 @@ private extension SignUpViewController {
                     self?.signupFailAlert()
                 case .signUpError:
                     self?.signupErrorAlert()
+                case .emailNotDuplication:
+                    self?.emailNotDuplication()
+                case .emailDuplication:
+                    self?.emailDuplication()
                 }
             }
             .store(in: &subscriptions)
@@ -294,6 +311,24 @@ extension SignUpViewController {
         let pwPredicate = NSPredicate(format: "SELF MATCHES[c] %@", pwRegex)
 
         return !pw.isEmpty && pwPredicate.evaluate(with: pw)
+    }
+    
+    private func emailDuplication() {
+        let sheet = UIAlertController(title: "중복된 이메일입니다.", message: "다른 이메일을 입력해주세요.", preferredStyle: .alert)
+        sheet.addAction(UIAlertAction(title: "확인", style: .default))
+        present(sheet, animated: true)
+    }
+    
+    private func emailNotDuplication() {
+        self.emailDuplicationCheckButton.backgroundColor = .lightGray
+        self.emailDuplicationCheckButton.isEnabled = false
+        
+        self.emailValidationLabel.textColor = .green
+        self.emailValidationLabel.text = "인증되었습니다."
+        
+        let sheet = UIAlertController(title: "사용가능한 이메일입니다.", message: "", preferredStyle: .alert)
+        sheet.addAction(UIAlertAction(title: "확인", style: .default))
+        present(sheet, animated: true)
     }
     
     private func signupCompleted() {
@@ -329,6 +364,9 @@ extension SignUpViewController: UITextFieldDelegate {
     }
     
     @objc func emailTextFieldDidChanged(_ sender: Any?) {
+        self.emailDuplicationCheckButton.isEnabled = true
+        self.emailDuplicationCheckButton.backgroundColor = .blue
+        
         guard let email = self.emailInputTextField.text else {
             return
         }
@@ -351,6 +389,10 @@ extension SignUpViewController: UITextFieldDelegate {
     
     @objc func signupSubmitButtonTouched(_ sender: Any?) {
         self.inputSubject.send(.signUp)
+    }
+    
+    @objc func emailDuplicationCheckButtonTouched(_ sender: Any?) {
+        self.inputSubject.send(.emailDuplicationCheck)
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {

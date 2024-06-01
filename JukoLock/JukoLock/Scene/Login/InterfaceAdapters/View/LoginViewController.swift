@@ -27,9 +27,7 @@ final class LoginViewController: UIViewController {
         text.text = "스마트하게"
         text.textAlignment = .left
         text.translatesAutoresizingMaskIntoConstraints = false
-        
         text.font = UIFont.systemFont(ofSize: 50)
-        
         return text
     }()
     
@@ -38,9 +36,7 @@ final class LoginViewController: UIViewController {
         text.text = "내 안전을"
         text.textAlignment = .right
         text.translatesAutoresizingMaskIntoConstraints = false
-        
         text.font = UIFont.systemFont(ofSize: 50)
-        
         return text
     }()
     
@@ -139,7 +135,7 @@ final class LoginViewController: UIViewController {
     private let signUpButton: UIButton = {
         let button = UIButton()
         button.setTitle("아이디가 없으신가요?", for: .normal)
-        button.setTitleColor(.black, for: .normal)
+        button.setTitleColor(.blue, for: .normal)
         button.titleLabel?.textAlignment = .left
         button.titleLabel?.font = .systemFont(ofSize: 15)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -290,9 +286,9 @@ extension LoginViewController {
         let provider = APIProvider(session: URLSession.shared)
         let signUpUseCase = SignUpUseCase(provider: provider)
         let signUpViewModel = SignUpViewModel(signUpUseCase: signUpUseCase)
-        let signViewController = SignUpViewController(viewModel: signUpViewModel)
-        
-        self.navigationController?.pushViewController(signViewController, animated: true)
+        let signupViewController = SignUpViewController(viewModel: signUpViewModel)
+        signupViewController.navigationItem.title = "회원가입"
+        self.navigationController?.pushViewController(signupViewController, animated: true)
     }
 }
 

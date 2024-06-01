@@ -26,19 +26,20 @@ extension LoginEndPoint: EndPoint {
         case .emailValidationCheck(_):
             return [
                 "Content-Type": "application/json",
-                "Contents-Length": "1000"
+                "Contents-Length": "1000",
+                "Host": "JukoLock.App"
             ]
         case .sendVerificationEmail(_):
             return [
                 "Content-Type": "application/json",
                 "Contents-Length": "1000",
-                "Host": "jijihuny.store"
+                "Host": "JukoLock.App"
             ]
         case .checkVerificationEmail(_):
             return [
                 "Content-Type": "application/json",
                 "Contents-Length": "1000",
-                "Host": "jijihuny.store"
+                "Host": "JukoLock.App"
             ]
         case .signUp(_, _):
             return [
@@ -58,7 +59,7 @@ extension LoginEndPoint: EndPoint {
     var parameter: HTTPParameter {
         switch self {
         case let .emailValidationCheck(email):
-            return .body(["email" : email])
+            return .query(["email":email])
         case let .sendVerificationEmail(email):
             return .body(["email" : email])
         case let .checkVerificationEmail(email):
@@ -86,11 +87,11 @@ extension LoginEndPoint: EndPoint {
     var path: String {
         switch self {
         case .emailValidationCheck(_):
-            return "/register/email"
+            return "/register/email-validation"
         case .sendVerificationEmail(_):
-            return "/login"
+            return "/register/verification"
         case .checkVerificationEmail(_):
-            return "/login"
+            return "/register/verification"
         case .signUp(_, _):
             return "/register/register"
         case .login(_, _):
