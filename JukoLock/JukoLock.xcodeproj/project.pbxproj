@@ -32,6 +32,8 @@
 		AAAC840C2C05C1E3002E6AF1 /* SignUpUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC840B2C05C1E3002E6AF1 /* SignUpUseCase.swift */; };
 		AAAC84162C05C430002E6AF1 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC84152C05C430002E6AF1 /* SignUpViewController.swift */; };
 		AAAC84182C05C43C002E6AF1 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC84172C05C43C002E6AF1 /* SignUpViewModel.swift */; };
+		AAAC84212C0B5317002E6AF1 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC84202C0B5317002E6AF1 /* MainViewModel.swift */; };
+		AAAC842A2C0B674D002E6AF1 /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC84292C0B674D002E6AF1 /* MyProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -75,6 +77,8 @@
 		AAAC840B2C05C1E3002E6AF1 /* SignUpUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpUseCase.swift; sourceTree = "<group>"; };
 		AAAC84152C05C430002E6AF1 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		AAAC84172C05C43C002E6AF1 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		AAAC84202C0B5317002E6AF1 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		AAAC84292C0B674D002E6AF1 /* MyProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,8 +114,6 @@
 			isa = PBXGroup;
 			children = (
 				AAAC83E02C04668D002E6AF1 /* Scene */,
-				AA30F2362BE3648A00B97FA6 /* ViewController */,
-				AA30F2342BE3645D00B97FA6 /* View */,
 				AA30F2302BE363E300B97FA6 /* App */,
 				AA30F2252BC4CBDC00B97FA6 /* Assets.xcassets */,
 				AA30F2272BC4CBDC00B97FA6 /* LaunchScreen.storyboard */,
@@ -129,23 +131,6 @@
 			path = App;
 			sourceTree = "<group>";
 		};
-		AA30F2342BE3645D00B97FA6 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				AAAC83D82BF7426A002E6AF1 /* MachineListCell.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		AA30F2362BE3648A00B97FA6 /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				AA59DFE42BE4BC4E003A2A2A /* MainViewController.swift */,
-				AAAC83DA2BFB25D4002E6AF1 /* TabBarController.swift */,
-			);
-			path = ViewController;
-			sourceTree = "<group>";
-		};
 		AA7022292BF7341F00D958B1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -158,6 +143,8 @@
 			children = (
 				AAAC840D2C05C3B8002E6AF1 /* SignUp */,
 				AAAC83E12C04669B002E6AF1 /* Login */,
+				AAAC84192C0B5255002E6AF1 /* Main */,
+				AAAC84222C0B58C7002E6AF1 /* MyProfile */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -313,6 +300,121 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		AAAC84192C0B5255002E6AF1 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				AAAC841A2C0B5285002E6AF1 /* Entities */,
+				AAAC841B2C0B528D002E6AF1 /* InterfaceAdapters */,
+				AAAC841C2C0B52A3002E6AF1 /* Network */,
+				AAAC841D2C0B52AC002E6AF1 /* UseCases */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		AAAC841A2C0B5285002E6AF1 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		AAAC841B2C0B528D002E6AF1 /* InterfaceAdapters */ = {
+			isa = PBXGroup;
+			children = (
+				AAAC841F2C0B52DA002E6AF1 /* View */,
+				AAAC841E2C0B52D3002E6AF1 /* ViewModel */,
+			);
+			path = InterfaceAdapters;
+			sourceTree = "<group>";
+		};
+		AAAC841C2C0B52A3002E6AF1 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		AAAC841D2C0B52AC002E6AF1 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		AAAC841E2C0B52D3002E6AF1 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				AAAC84202C0B5317002E6AF1 /* MainViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		AAAC841F2C0B52DA002E6AF1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AAAC83DA2BFB25D4002E6AF1 /* TabBarController.swift */,
+				AA59DFE42BE4BC4E003A2A2A /* MainViewController.swift */,
+				AAAC83D82BF7426A002E6AF1 /* MachineListCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		AAAC84222C0B58C7002E6AF1 /* MyProfile */ = {
+			isa = PBXGroup;
+			children = (
+				AAAC84262C0B672D002E6AF1 /* Entities */,
+				AAAC84252C0B6723002E6AF1 /* InterfaceAdapters */,
+				AAAC84242C0B671E002E6AF1 /* Model */,
+				AAAC84232C0B6718002E6AF1 /* UseCases */,
+			);
+			path = MyProfile;
+			sourceTree = "<group>";
+		};
+		AAAC84232C0B6718002E6AF1 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		AAAC84242C0B671E002E6AF1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		AAAC84252C0B6723002E6AF1 /* InterfaceAdapters */ = {
+			isa = PBXGroup;
+			children = (
+				AAAC84282C0B6738002E6AF1 /* View */,
+				AAAC84272C0B6734002E6AF1 /* ViewModel */,
+			);
+			path = InterfaceAdapters;
+			sourceTree = "<group>";
+		};
+		AAAC84262C0B672D002E6AF1 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		AAAC84272C0B6734002E6AF1 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		AAAC84282C0B6738002E6AF1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AAAC84292C0B674D002E6AF1 /* MyProfileViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -399,6 +501,7 @@
 				AAAC83F12C049A2C002E6AF1 /* EndPoint.swift in Sources */,
 				AAAC84182C05C43C002E6AF1 /* SignUpViewModel.swift in Sources */,
 				AAAC83F92C049B79002E6AF1 /* Requestable.swift in Sources */,
+				AAAC842A2C0B674D002E6AF1 /* MyProfileViewController.swift in Sources */,
 				AAAC83D92BF7426A002E6AF1 /* MachineListCell.swift in Sources */,
 				AAAC83FB2C049BC9002E6AF1 /* HTTPHeader.swift in Sources */,
 				AAAC83DB2BFB25D4002E6AF1 /* TabBarController.swift in Sources */,
@@ -407,6 +510,7 @@
 				AA59DFE52BE4BC4E003A2A2A /* MainViewController.swift in Sources */,
 				AAAC83EA2C046903002E6AF1 /* LoginUseCase.swift in Sources */,
 				AAAC83F52C049B13002E6AF1 /* HTTPParameter.swift in Sources */,
+				AAAC84212C0B5317002E6AF1 /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
