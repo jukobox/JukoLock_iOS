@@ -54,13 +54,38 @@ final class MainViewController: UIViewController {
         return button
     }()
     
-    private let controllMachineButton: UIButton = {
-        let button = UIButton()
-        let imageConfig = UIImage.SymbolConfiguration(pointSize: 150)
-        let image = UIImage(systemName: "lock.fill", withConfiguration: imageConfig)
-        button.setImage(image, for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
+    private let welcomeLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Welcome to\nJukoLock"
+        label.textAlignment = .left
+        label.numberOfLines = 2
+        label.font = UIFont.systemFont(ofSize: 50)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private let carouselView: UICollectionView = {
+        // CollectionViewFlowLayout
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.itemSize = CarouselConst.itemSize
+        layout.minimumLineSpacing = CarouselConst.itemSpacing
+        layout.minimumInteritemSpacing = 0
+        
+        // CollectionView
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.isScrollEnabled = true
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.showsVerticalScrollIndicator = true
+        collectionView.backgroundColor = .clear
+        collectionView.clipsToBounds = true
+        collectionView.register(CarouselViewCell.self, forCellWithReuseIdentifier: "CarouselViewCell")
+        collectionView.isPagingEnabled = false
+        collectionView.contentInsetAdjustmentBehavior = .never
+        collectionView.contentInset = CarouselConst.collectionViewContentInset
+        collectionView.decelerationRate = .fast
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
     }()
     
     private let machineListCollectionView: UICollectionView = {
@@ -97,6 +122,12 @@ final class MainViewController: UIViewController {
         dropDownButton.setTitle("▼ \(testData.first!)", for: .normal)
         dropTableView.dataSource = self
         dropTableView.delegate = self
+        carouselView.dataSource = self
+        carouselView.delegate = self
+        machineListCollectionView.dataSource = self
+        machineListCollectionView.delegate = self
+        
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
 }
 
@@ -114,19 +145,12 @@ extension MainViewController {
     private func addViews() {
         self.view.addSubview(scrollView)
         self.scrollView.addSubview(scrollContentsView)
-        [ controllMachineButton, dropTableView ].forEach {
+        [ dropDownButton, logButton, addMachineButton, welcomeLabel, carouselView, dropTableView, machineListCollectionView ].forEach {
             self.scrollContentsView.addSubview($0)
         }
-        
-        navigationItem.rightBarButtonItems = [
-            UIBarButtonItem(customView: logButton),
-            UIBarButtonItem(customView: addMachineButton)
-        ]
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: dropDownButton)
     }
     
     private func addTargets() {
-        controllMachineButton.addTarget(self, action: #selector(controllMachineButtonTouched), for: .touchUpInside)
         dropDownButton.addTarget(self, action: #selector(groupDropDownButtonTouched), for: .touchUpInside)
     }
     
@@ -143,15 +167,34 @@ extension MainViewController {
             scrollContentsView.bottomAnchor.constraint(equalTo: self.scrollView.bottomAnchor),
             scrollContentsView.widthAnchor.constraint(equalTo: self.scrollView.widthAnchor),
             
-            controllMachineButton.topAnchor.constraint(equalTo: self.scrollContentsView.topAnchor),
-            controllMachineButton.leadingAnchor.constraint(equalTo: self.scrollContentsView.leadingAnchor),
-            controllMachineButton.trailingAnchor.constraint(equalTo: self.scrollContentsView.trailingAnchor),
-            controllMachineButton.bottomAnchor.constraint(equalTo: self.scrollContentsView.bottomAnchor),
+            dropDownButton.topAnchor.constraint(equalTo: self.scrollContentsView.topAnchor),
+            dropDownButton.leadingAnchor.constraint(equalTo: self.scrollContentsView.leadingAnchor, constant: 20),
             
-            dropTableView.topAnchor.constraint(equalTo: self.scrollContentsView.topAnchor, constant: 5),
-            dropTableView.leadingAnchor.constraint(equalTo: self.scrollContentsView.leadingAnchor),
+            addMachineButton.topAnchor.constraint(equalTo: self.scrollContentsView.topAnchor),
+            addMachineButton.trailingAnchor.constraint(equalTo: self.scrollContentsView.trailingAnchor, constant: -20),
+            
+            logButton.topAnchor.constraint(equalTo: self.scrollContentsView.topAnchor),
+            logButton.trailingAnchor.constraint(equalTo: addMachineButton.leadingAnchor),
+            
+            dropTableView.topAnchor.constraint(equalTo: dropDownButton.bottomAnchor, constant: 5),
+            dropTableView.leadingAnchor.constraint(equalTo: dropDownButton.leadingAnchor),
             dropTableView.widthAnchor.constraint(equalToConstant: 150),
-            dropTableView.heightAnchor.constraint(equalToConstant: 150)
+            dropTableView.heightAnchor.constraint(equalToConstant: 150),
+            
+            welcomeLabel.topAnchor.constraint(equalTo: dropDownButton.bottomAnchor, constant: 20),
+            welcomeLabel.leadingAnchor.constraint(equalTo: self.scrollContentsView.leadingAnchor, constant: 20),
+            welcomeLabel.trailingAnchor.constraint(equalTo: self.scrollContentsView.trailingAnchor, constant: 20),
+            
+            carouselView.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: 20),
+            carouselView.leadingAnchor.constraint(equalTo: self.scrollContentsView.leadingAnchor),
+            carouselView.trailingAnchor.constraint(equalTo: self.scrollContentsView.trailingAnchor),
+            carouselView.heightAnchor.constraint(equalToConstant: 120),
+            
+            machineListCollectionView.topAnchor.constraint(equalTo: carouselView.bottomAnchor, constant: 20),
+            machineListCollectionView.leadingAnchor.constraint(equalTo: scrollContentsView.leadingAnchor, constant: 20),
+            machineListCollectionView.trailingAnchor.constraint(equalTo: scrollContentsView.trailingAnchor, constant: -20),
+            machineListCollectionView.bottomAnchor.constraint(equalTo: scrollContentsView.bottomAnchor),
+            machineListCollectionView.heightAnchor.constraint(equalToConstant: 1200)
         ])
     }
 }
@@ -159,47 +202,82 @@ extension MainViewController {
 // MARK: - Methos
 
 extension MainViewController {
-    
-    @objc func controllMachineButtonTouched() {
-        debugPrint("혹시 몰라서")
-        // 이미지 변경
-        machineLockState.toggle()
-        let imageConfig = UIImage.SymbolConfiguration(pointSize: 150)
-        let image = machineLockState ? UIImage(systemName: "lock.fill", withConfiguration: imageConfig) : UIImage(systemName: "lock.open.fill", withConfiguration: imageConfig)
-        controllMachineButton.setImage(image, for: .normal)
-        
-        
-        // TODO: - 통신 코드 구현
-    }
-    
     @objc func groupDropDownButtonTouched() { // TODO: - 이름 바꾸기
         self.dropTableView.isHidden = !self.dropTableView.isHidden
+    }
+    
+    func updateScrollViewHeight() {
+        let newHeight = machineListCollectionView.collectionViewLayout.collectionViewContentSize.height + 200
+        scrollView.contentSize = CGSize(width: scrollView.frame.width, height: newHeight)
+        scrollContentsView.frame = CGRect(x: 0, y: 0, width: scrollView.frame.width, height: newHeight)
     }
 }
 
 extension MainViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return datas.count
+        if collectionView == machineListCollectionView {
+            return datas.count
+        } else {
+            return datas.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MachineListCell", for: indexPath) as? MachineListCell else {
-            fatalError("Failed to load cell!")
+        if collectionView == machineListCollectionView {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MachineListCell", for: indexPath) as? MachineListCell else {
+                fatalError("Failed to load cell!")
+            }
+            
+            if indexPath.item == datas.count - 1 {
+                updateScrollViewHeight()
+            }
+            
+            cell.setData()
+            return cell
+        } else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CarouselViewCell", for: indexPath) as? CarouselViewCell else {
+                fatalError("Failed to load cell!")
+            }
+            
+            // TODO: - 도어락 이름, log 연결
+            cell.setData(name: "김경호 집 도어락 - \(indexPath.row + 1)", log: "2024.07.02 15:37")
+            return cell
         }
-        cell.setData()
-        return cell
     }
     
+    // cell 크기 지정
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let padding: CGFloat = 20
-        let collectionViewSize = collectionView.frame.size.width - padding
-        
-        return CGSize(width: collectionViewSize / 2, height: collectionViewSize / 2)
+        if collectionView == machineListCollectionView {
+            let padding: CGFloat = 20
+            let collectionViewSize = collectionView.frame.size.width - padding
+            return CGSize(width: collectionViewSize / 2, height: collectionViewSize / 2)
+        } else {
+            let padding: CGFloat = CarouselConst.padding
+            return CGSize(width: collectionView.frame.size.width - padding, height: collectionView.frame.size.height)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == machineListCollectionView {
+            // TODO: - 데이터 보내기
+            let viewController = MachineSettingViewController()
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
+    }
+    
+    func scrollViewWillEndDragging(
+        _ scrollView: UIScrollView,
+        withVelocity velocity: CGPoint,
+        targetContentOffset: UnsafeMutablePointer<CGPoint>
+    ) {
+        let scrolledOffsetX = targetContentOffset.pointee.x + scrollView.contentInset.left
+        let cellWidth = CarouselConst.itemSize.width + (CarouselConst.itemSpacing / 2)
+        let index = round(scrolledOffsetX / cellWidth)
+        targetContentOffset.pointee = CGPoint(x: index * carouselView.frame.width, y: scrollView.contentInset.top)
     }
 }
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return testData.count
     }
@@ -212,8 +290,20 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedItem = testData[indexPath.row]
-        debugPrint(selectedItem)
         dropDownButton.setTitle("▼ \(selectedItem)", for: .normal)
         dropTableView.isHidden = !dropTableView.isHidden
+    }
+}
+
+// MARK: - Const
+extension MainViewController {
+    private enum CarouselConst {
+        static let itemSize = CGSize(width: UIScreen.main.bounds.width, height: 400)
+        static let itemSpacing = 24.0
+        static let padding: CGFloat = 20
+        
+        static var collectionViewContentInset: UIEdgeInsets {
+            UIEdgeInsets(top: 0, left: padding / 2, bottom: 0, right: padding / 2)
+        }
     }
 }

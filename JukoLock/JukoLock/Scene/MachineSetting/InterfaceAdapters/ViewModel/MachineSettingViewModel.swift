@@ -1,14 +1,15 @@
 //
-//  LoginViewModel.swift
+//  MachineSettingViewModel.swift
 //  JukoLock
 //
-//  Created by 김경호 on 5/17/24.
+//  Created by 김경호 on 6/7/24.
 //
+
 
 import Combine
 import Foundation
 
-final class LoginViewModel {
+final class MachineSettingViewModel {
     
     // MARK: - Properties
     
@@ -49,7 +50,7 @@ final class LoginViewModel {
 
 // MARK: - Methods
 
-extension LoginViewModel {
+extension MachineSettingViewModel {
     func transform(with input: AnyPublisher<Input, Never>) -> AnyPublisher<Output, Never> {
         input
             .sink { [weak self] input in
@@ -89,7 +90,7 @@ extension LoginViewModel {
     private func inputEmail(_ email: String) {
         self.email = email
         
-        if !isValidEmail(self.email) && !self.email.isEmpty {
+        if !isValidEmail(self.email) {
             outputSubject.send(.emailValid(text: "Email이 유효하지 않습니다."))
         } else {
             outputSubject.send(.emailValid(text: ""))
@@ -100,7 +101,7 @@ extension LoginViewModel {
     private func inputPassword(_ pw: String) {
         self.pw = pw
         
-        if !isValidPW(pw) && !self.email.isEmpty {
+        if !isValidPW(pw) {
             outputSubject.send(.pwValid(text: "PW가 유효하지 않습니다."))
         } else {
             outputSubject.send(.pwValid(text: ""))

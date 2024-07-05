@@ -109,7 +109,7 @@ extension SignUpViewModel {
         self.email = email
         self.emailDuplicationCheck = false
         
-        if !isValidEmail(self.email) {
+        if !isValidEmail(self.email) && !self.email.isEmpty {
             outputSubject.send(.emailValid("Email이 유효하지 않습니다."))
         } else {
             outputSubject.send(.emailValid(""))
@@ -120,7 +120,7 @@ extension SignUpViewModel {
     private func inputPassword(_ pw: String) {
         self.pw = pw
         
-        if !isValidPW(pw) {
+        if !isValidPW(pw) && !self.email.isEmpty {
             outputSubject.send(.pwValid("PassWord가 유효하지 않습니다."))
         } else {
             outputSubject.send(.pwValid(""))
@@ -203,6 +203,7 @@ extension SignUpViewModel {
                 case "success":
                     self?.emailDuplicationCheck = true
                     self?.outputSubject.send(.emailNotDuplication)
+                    self?.isSignUpPossible()
                 default:
                     self?.outputSubject.send(.emailDuplication)
                 }

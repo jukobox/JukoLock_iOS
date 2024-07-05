@@ -10,45 +10,84 @@ import UIKit
 final class MachineListCell: UICollectionViewCell {
     static let id = "MachineListCell"
     
-    let imgView: UIImageView = {
-        let imgView = UIImageView()
-        imgView.contentMode = .scaleAspectFit
-        imgView.translatesAutoresizingMaskIntoConstraints = false
-        return imgView
+    private let view: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "MainColor")
+        view.layer.cornerRadius = 15
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
-    let label: UILabel = {
+    
+    private let machineTypeImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(systemName: "lock.open.fill")
+        imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = .white
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+    private let lastLogLabel: UILabel = {
         let label = UILabel()
+        label.font = .systemFont(ofSize: 15)
+        label.textColor = .systemGray
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .center
         return label
     }()
+    
+    private let machineNameLabel: UILabel = {
+        let label = UILabel()
+        label.font = .boldSystemFont(ofSize: 20)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setView()
     }
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setView()
     }
+    
     func setView() {
         self.backgroundColor = UIColor(named: "Side200")
-        addSubview(imgView)
-        addSubview(label)
-        imgView.widthAnchor.constraint(equalToConstant: 32).isActive = true
-        imgView.heightAnchor.constraint(equalToConstant: 32).isActive = true
-        imgView.topAnchor.constraint(equalTo: self.topAnchor, constant: 24).isActive = true
-        imgView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        label.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
-        label.heightAnchor.constraint(equalToConstant: 19).isActive = true
-        label.topAnchor.constraint(equalTo: imgView.bottomAnchor, constant: 15).isActive = true
+        [ view, lastLogLabel, machineNameLabel ].forEach {
+            self.addSubview($0)
+        }
+        
+        view.addSubview(machineTypeImageView)
+        
+        NSLayoutConstraint.activate([
+            view.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
+            view.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
+            view.widthAnchor.constraint(equalToConstant: 32),
+            view.heightAnchor.constraint(equalToConstant: 32),
+            
+            machineTypeImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            machineTypeImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            lastLogLabel.topAnchor.constraint(equalTo: machineTypeImageView.bottomAnchor, constant: 10),
+            lastLogLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10),
+            lastLogLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10),
+            
+            machineNameLabel.topAnchor.constraint(equalTo: lastLogLabel.bottomAnchor, constant: 5),
+            machineNameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            machineNameLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10)
+        ])
+        
+        self.backgroundColor = .systemGray4
     }
-    func setImageandLabel(imgName: String, text: String) {
-//        imgView.image = UIImage(named: imgName)
-        imgView.image = UIImage(systemName: "lock.open.fill")
-        label.text = text
+    
+    func setOwnerNameLa(_ owner: String, _ lastLog: String) {
+        lastLogLabel.text = lastLog
+        machineNameLabel.text = owner
     }
+    
     func setData() {
-        self.setImageandLabel(imgName: "TestImage", text: "test")
+        self.setOwnerNameLa("김경호 집 도어락", "2024.06.25")
         self.layer.masksToBounds = true
         self.layer.cornerRadius = 20
     }
