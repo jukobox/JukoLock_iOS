@@ -13,12 +13,14 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     var navigationController: UINavigationController?
     private var cancellables = Set<AnyCancellable>()
-    private var loginStateSubject = CurrentValueSubject<LoginState, Never>(.loogedOut)
+    private var loginStateSubject = CurrentValueSubject<LoginState, Never>(.logOut)
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
         self.window = window
+        
+        loginStateSubject.value = TokenManager.isTokenExpired()
         
         bind()
     }
@@ -28,11 +30,11 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 extension SceneDelegate {
     func switchViewController(for loginState: LoginState) {
         switch loginState {
-        case .loggedIn:
+        case .logIn:
             let tabBarViewController = TabBarController()
             self.navigationController = UINavigationController(rootViewController: tabBarViewController)
             self.window?.rootViewController = self.navigationController
-        case .loogedOut:
+        case .logOut:
             let provider = APIProvider(session: URLSession.shared)
             let useCase = LoginUseCase(provider: provider)
             let viewModel = LoginViewModel(loginUseCase: useCase)

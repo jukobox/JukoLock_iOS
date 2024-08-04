@@ -37,6 +37,9 @@
 		AAE8A5372C37995C00D4A5D6 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE8A52E2C37995C00D4A5D6 /* SignUpViewController.swift */; };
 		AAE8A5382C37995C00D4A5D6 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE8A5302C37995C00D4A5D6 /* SignUpViewModel.swift */; };
 		AAE8A5392C37995C00D4A5D6 /* SignUpUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE8A5342C37995C00D4A5D6 /* SignUpUseCase.swift */; };
+		AAE8A53B2C37DB7A00D4A5D6 /* MyProfileMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE8A53A2C37DB7A00D4A5D6 /* MyProfileMenuCell.swift */; };
+		AAE8A53E2C5F900600D4A5D6 /* KeyChainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE8A53D2C5F900600D4A5D6 /* KeyChainManager.swift */; };
+		AAE8A5402C5F936800D4A5D6 /* TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE8A53F2C5F936800D4A5D6 /* TokenManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -85,6 +88,9 @@
 		AAE8A52E2C37995C00D4A5D6 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		AAE8A5302C37995C00D4A5D6 /* SignUpViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		AAE8A5342C37995C00D4A5D6 /* SignUpUseCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpUseCase.swift; sourceTree = "<group>"; };
+		AAE8A53A2C37DB7A00D4A5D6 /* MyProfileMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileMenuCell.swift; sourceTree = "<group>"; };
+		AAE8A53D2C5F900600D4A5D6 /* KeyChainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainManager.swift; sourceTree = "<group>"; };
+		AAE8A53F2C5F936800D4A5D6 /* TokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +125,7 @@
 		AA30F21B2BC4CBDB00B97FA6 /* JukoLock */ = {
 			isa = PBXGroup;
 			children = (
+				AAE8A53C2C5F8FF600D4A5D6 /* Common */,
 				AAAC83E02C04668D002E6AF1 /* Scene */,
 				AA30F2302BE363E300B97FA6 /* App */,
 				AA30F2252BC4CBDC00B97FA6 /* Assets.xcassets */,
@@ -377,6 +384,7 @@
 			isa = PBXGroup;
 			children = (
 				AAE8A51F2C37982200D4A5D6 /* MyProfileViewController.swift */,
+				AAE8A53A2C37DB7A00D4A5D6 /* MyProfileMenuCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -480,6 +488,15 @@
 			path = SignUp;
 			sourceTree = "<group>";
 		};
+		AAE8A53C2C5F8FF600D4A5D6 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				AAE8A53D2C5F900600D4A5D6 /* KeyChainManager.swift */,
+				AAE8A53F2C5F936800D4A5D6 /* TokenManager.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -556,11 +573,14 @@
 				AAAC83FD2C049D91002E6AF1 /* HTTPHeaders.swift in Sources */,
 				AAAC83DD2C04485F002E6AF1 /* LoginEndPoint.swift in Sources */,
 				AAE8A5272C37982200D4A5D6 /* MachineSettingViewModel.swift in Sources */,
+				AAE8A53B2C37DB7A00D4A5D6 /* MyProfileMenuCell.swift in Sources */,
 				AAE8A5382C37995C00D4A5D6 /* SignUpViewModel.swift in Sources */,
+				AAE8A53E2C5F900600D4A5D6 /* KeyChainManager.swift in Sources */,
 				AAE8A5372C37995C00D4A5D6 /* SignUpViewController.swift in Sources */,
 				AA30F2382BE364BB00B97FA6 /* LoginViewController.swift in Sources */,
 				AAAC83FF2C049DCD002E6AF1 /* APIProvider.swift in Sources */,
 				AA30F21D2BC4CBDB00B97FA6 /* AppDelegate.swift in Sources */,
+				AAE8A5402C5F936800D4A5D6 /* TokenManager.swift in Sources */,
 				AAE8A5262C37982200D4A5D6 /* MachineSettingViewController.swift in Sources */,
 				AAAC84072C05A5C2002E6AF1 /* LoginResponse.swift in Sources */,
 				AA30F21F2BC4CBDB00B97FA6 /* SceneDelegate.swift in Sources */,

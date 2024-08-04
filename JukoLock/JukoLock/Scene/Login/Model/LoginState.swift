@@ -8,6 +8,6 @@
 import Foundation
 
 enum LoginState {
-    case loggedIn
-    case loogedOut
+    case logIn
+    case logOut
 }

@@ -253,7 +253,7 @@ private extension LoginViewController {
             .sink { [weak self] output in
                 switch output {
                 case .loginCompleted:
-                    self?.loginStateSubject.send(.loggedIn)
+                    self?.loginStateSubject.send(.logIn)
                 case .loginFailed:
                     self?.loginFailAlert()
                 case .loginError:

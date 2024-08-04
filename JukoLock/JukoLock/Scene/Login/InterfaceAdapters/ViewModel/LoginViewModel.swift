@@ -76,7 +76,16 @@ extension LoginViewModel {
             } receiveValue: { [weak self] response in
                 switch response.status{
                 case "success":
-                    self?.outputSubject.send(.loginCompleted)
+                    guard let token = response.data else {
+                        debugPrint("Token Get Fail!")
+                        return // TODO: - throw로 수정
+                    }
+                    KeyChainManager.save(key: KeyChainManager.Keywords.accessToken, token: token)
+                    if KeyChainManager.load(key: "AccessToken") != nil {
+                        self?.outputSubject.send(.loginCompleted)
+                                    } else {
+                                        debugPrint("Token Save Fail")
+                                    }
                 case "Fail":
                     self?.outputSubject.send(.loginFailed)
                 default:
