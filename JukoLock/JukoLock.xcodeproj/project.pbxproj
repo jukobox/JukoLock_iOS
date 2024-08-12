@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA1A202B2C69CE19005A3307 /* CreateEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A202A2C69CE19005A3307 /* CreateEndPoint.swift */; };
+		AA1A202D2C69D284005A3307 /* GroupManagementEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A202C2C69D284005A3307 /* GroupManagementEndPoint.swift */; };
+		AA1A202F2C69DE75005A3307 /* GroupListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A202E2C69DE75005A3307 /* GroupListResponse.swift */; };
+		AA1A20312C69E7F2005A3307 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A20302C69E7F2005A3307 /* Group.swift */; };
+		AA1A20332C69F010005A3307 /* CreateGroupResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A20322C69F010005A3307 /* CreateGroupResponse.swift */; };
 		AA30F21D2BC4CBDB00B97FA6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA30F21C2BC4CBDB00B97FA6 /* AppDelegate.swift */; };
 		AA30F21F2BC4CBDB00B97FA6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA30F21E2BC4CBDB00B97FA6 /* SceneDelegate.swift */; };
 		AA30F2262BC4CBDC00B97FA6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA30F2252BC4CBDC00B97FA6 /* Assets.xcassets */; };
@@ -63,6 +68,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AA1A202A2C69CE19005A3307 /* CreateEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEndPoint.swift; sourceTree = "<group>"; };
+		AA1A202C2C69D284005A3307 /* GroupManagementEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupManagementEndPoint.swift; sourceTree = "<group>"; };
+		AA1A202E2C69DE75005A3307 /* GroupListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupListResponse.swift; sourceTree = "<group>"; };
+		AA1A20302C69E7F2005A3307 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		AA1A20322C69F010005A3307 /* CreateGroupResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupResponse.swift; sourceTree = "<group>"; };
 		AA30F2192BC4CBDB00B97FA6 /* JukoLock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JukoLock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA30F21C2BC4CBDB00B97FA6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AA30F21E2BC4CBDB00B97FA6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -535,6 +545,8 @@
 		AAE8A5482C5FADC800D4A5D6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				AA1A202C2C69D284005A3307 /* GroupManagementEndPoint.swift */,
+				AA1A20302C69E7F2005A3307 /* Group.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -551,6 +563,7 @@
 		AAE8A54A2C5FADD800D4A5D6 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				AA1A202E2C69DE75005A3307 /* GroupListResponse.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -594,6 +607,7 @@
 		AAE8A5572C60AFFB00D4A5D6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				AA1A202A2C69CE19005A3307 /* CreateEndPoint.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -618,6 +632,7 @@
 		AAE8A55A2C60B01400D4A5D6 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				AA1A20322C69F010005A3307 /* CreateGroupResponse.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -712,6 +727,7 @@
 				AAE8A5522C60530700D4A5D6 /* GroupManagementUseCase.swift in Sources */,
 				AAE8A5372C37995C00D4A5D6 /* SignUpViewController.swift in Sources */,
 				AA30F2382BE364BB00B97FA6 /* LoginViewController.swift in Sources */,
+				AA1A202D2C69D284005A3307 /* GroupManagementEndPoint.swift in Sources */,
 				AAAC83FF2C049DCD002E6AF1 /* APIProvider.swift in Sources */,
 				AA30F21D2BC4CBDB00B97FA6 /* AppDelegate.swift in Sources */,
 				AAE8A5402C5F936800D4A5D6 /* TokenManager.swift in Sources */,
@@ -721,16 +737,20 @@
 				AA30F21F2BC4CBDB00B97FA6 /* SceneDelegate.swift in Sources */,
 				AAE8A5282C37982200D4A5D6 /* MyProfileViewController.swift in Sources */,
 				AAAC83F72C049B4F002E6AF1 /* HTTPErrors.swift in Sources */,
+				AA1A20312C69E7F2005A3307 /* Group.swift in Sources */,
 				AAE8A55E2C60B04000D4A5D6 /* CreateViewController.swift in Sources */,
 				AAE8A5542C60598800D4A5D6 /* GroupListCell.swift in Sources */,
+				AA1A202B2C69CE19005A3307 /* CreateEndPoint.swift in Sources */,
 				AAAC83F32C049AC1002E6AF1 /* HTTPMethods.swift in Sources */,
 				AAE8A5622C60B30C00D4A5D6 /* CreateGroupUseCase.swift in Sources */,
 				AAAC83F12C049A2C002E6AF1 /* EndPoint.swift in Sources */,
 				AAAC83F92C049B79002E6AF1 /* Requestable.swift in Sources */,
+				AA1A20332C69F010005A3307 /* CreateGroupResponse.swift in Sources */,
 				AAAC83D92BF7426A002E6AF1 /* MachineListCell.swift in Sources */,
 				AAAC83FB2C049BC9002E6AF1 /* HTTPHeader.swift in Sources */,
 				AAAC83DB2BFB25D4002E6AF1 /* TabBarController.swift in Sources */,
 				AAAC83D72BF739B9002E6AF1 /* LoginViewModel.swift in Sources */,
+				AA1A202F2C69DE75005A3307 /* GroupListResponse.swift in Sources */,
 				AAE8A52B2C3798B300D4A5D6 /* CarouselViewCell.swift in Sources */,
 				AAE8A5392C37995C00D4A5D6 /* SignUpUseCase.swift in Sources */,
 				AA59DFE52BE4BC4E003A2A2A /* MainViewController.swift in Sources */,

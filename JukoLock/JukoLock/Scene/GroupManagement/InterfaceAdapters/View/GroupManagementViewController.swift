@@ -16,10 +16,6 @@ final class GroupManagementViewController: UIViewController {
     private var viewModel: GroupManagementViewModel
     private let inputSubject: PassthroughSubject<GroupManagementViewModel.Input, Never> = .init()
     
-    // TODO: - API로 ViewModel에서 가져오기
-    private let menu = ["A Group", "B Group", "C Group", "D Group", "E Group", "F Group", "B Group", "C Group", "D Group", "E Group", "F Group"]
-    
-    
     // MARK: - UI Components
     
     private let scrollView: UIScrollView = {
@@ -76,6 +72,8 @@ final class GroupManagementViewController: UIViewController {
         tableView.register(GroupListCell.self, forCellReuseIdentifier: "GroupListCell")
         tableView.dataSource = self
         tableView.delegate = self
+        
+        self.inputSubject.send(.getGroupList)
     }
     
 }
@@ -134,6 +132,17 @@ extension GroupManagementViewController {
 private extension GroupManagementViewController {
     // TODO: - 추후 ViewModel 연결
     func bind() {
+        let outputSubject = viewModel.transform(with: inputSubject.eraseToAnyPublisher())
+        
+        outputSubject
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] output in
+                switch output {
+                case .listGetComplete:
+                    self?.listGetComplete()
+                }
+            }
+            .store(in: &subscriptions)
     }
 }
 
@@ -146,7 +155,7 @@ extension GroupManagementViewController: UITableViewDelegate, UITableViewDataSou
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return menu.count
+        return viewModel.groupList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -154,7 +163,7 @@ extension GroupManagementViewController: UITableViewDelegate, UITableViewDataSou
             return MyProfileMenuCell(frame: .zero)
         }
         
-        cell.setGroupName(menu[indexPath.row])
+        cell.setGroupName(viewModel.groupList[indexPath.row].name)
         cell.selectionStyle = .none
         
         return cell
@@ -175,4 +184,9 @@ extension GroupManagementViewController {
         let createGroupViewController = CreateViewController(viewModel: CreateViewModel(createGroupUseCase: CreateGroupUseCase(provider: APIProvider(session: URLSession.shared))))
         self.present(createGroupViewController, animated: true)
     }
+    
+    private func listGetComplete() {
+        self.tableView.reloadData()
+    }
 }
+
