@@ -66,6 +66,7 @@ extension MainViewModel {
         return outputSubject.eraseToAnyPublisher()
     }
     
+    // TODO: - 레거시 코드들 제거
     private func login() {
         loginUseCase.execute(email: email, password: pw)
             .receive(on: DispatchQueue.main)

@@ -40,6 +40,13 @@
 		AAE8A53B2C37DB7A00D4A5D6 /* MyProfileMenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE8A53A2C37DB7A00D4A5D6 /* MyProfileMenuCell.swift */; };
 		AAE8A53E2C5F900600D4A5D6 /* KeyChainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE8A53D2C5F900600D4A5D6 /* KeyChainManager.swift */; };
 		AAE8A5402C5F936800D4A5D6 /* TokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE8A53F2C5F936800D4A5D6 /* TokenManager.swift */; };
+		AAE8A54E2C5FAE0600D4A5D6 /* GroupManagementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE8A54D2C5FAE0600D4A5D6 /* GroupManagementViewModel.swift */; };
+		AAE8A5502C5FAE1600D4A5D6 /* GroupManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE8A54F2C5FAE1600D4A5D6 /* GroupManagementViewController.swift */; };
+		AAE8A5522C60530700D4A5D6 /* GroupManagementUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE8A5512C60530700D4A5D6 /* GroupManagementUseCase.swift */; };
+		AAE8A5542C60598800D4A5D6 /* GroupListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE8A5532C60598800D4A5D6 /* GroupListCell.swift */; };
+		AAE8A55E2C60B04000D4A5D6 /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE8A55D2C60B04000D4A5D6 /* CreateViewController.swift */; };
+		AAE8A5602C60B0F500D4A5D6 /* CreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE8A55F2C60B0F500D4A5D6 /* CreateViewModel.swift */; };
+		AAE8A5622C60B30C00D4A5D6 /* CreateGroupUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE8A5612C60B30C00D4A5D6 /* CreateGroupUseCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -91,6 +98,13 @@
 		AAE8A53A2C37DB7A00D4A5D6 /* MyProfileMenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileMenuCell.swift; sourceTree = "<group>"; };
 		AAE8A53D2C5F900600D4A5D6 /* KeyChainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainManager.swift; sourceTree = "<group>"; };
 		AAE8A53F2C5F936800D4A5D6 /* TokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenManager.swift; sourceTree = "<group>"; };
+		AAE8A54D2C5FAE0600D4A5D6 /* GroupManagementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupManagementViewModel.swift; sourceTree = "<group>"; };
+		AAE8A54F2C5FAE1600D4A5D6 /* GroupManagementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupManagementViewController.swift; sourceTree = "<group>"; };
+		AAE8A5512C60530700D4A5D6 /* GroupManagementUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupManagementUseCase.swift; sourceTree = "<group>"; };
+		AAE8A5532C60598800D4A5D6 /* GroupListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupListCell.swift; sourceTree = "<group>"; };
+		AAE8A55D2C60B04000D4A5D6 /* CreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
+		AAE8A55F2C60B0F500D4A5D6 /* CreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewModel.swift; sourceTree = "<group>"; };
+		AAE8A5612C60B30C00D4A5D6 /* CreateGroupUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupUseCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +173,8 @@
 				AAAC84192C0B5255002E6AF1 /* Main */,
 				AAE8A51D2C37982200D4A5D6 /* MachineSetting */,
 				AAE8A5252C37982200D4A5D6 /* MyProfile */,
+				AAE8A5452C5FAD8700D4A5D6 /* GroupManagement */,
+				AAE8A5552C60AE5900D4A5D6 /* CreateGroup */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -497,6 +513,123 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		AAE8A5452C5FAD8700D4A5D6 /* GroupManagement */ = {
+			isa = PBXGroup;
+			children = (
+				AAE8A54A2C5FADD800D4A5D6 /* Entities */,
+				AAE8A5492C5FADCE00D4A5D6 /* InterfaceAdapters */,
+				AAE8A5482C5FADC800D4A5D6 /* Model */,
+				AAE8A5472C5FADC200D4A5D6 /* UseCases */,
+			);
+			path = GroupManagement;
+			sourceTree = "<group>";
+		};
+		AAE8A5472C5FADC200D4A5D6 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				AAE8A5512C60530700D4A5D6 /* GroupManagementUseCase.swift */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		AAE8A5482C5FADC800D4A5D6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		AAE8A5492C5FADCE00D4A5D6 /* InterfaceAdapters */ = {
+			isa = PBXGroup;
+			children = (
+				AAE8A54C2C5FADED00D4A5D6 /* View */,
+				AAE8A54B2C5FADE800D4A5D6 /* ViewModel */,
+			);
+			path = InterfaceAdapters;
+			sourceTree = "<group>";
+		};
+		AAE8A54A2C5FADD800D4A5D6 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		AAE8A54B2C5FADE800D4A5D6 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				AAE8A54D2C5FAE0600D4A5D6 /* GroupManagementViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		AAE8A54C2C5FADED00D4A5D6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AAE8A54F2C5FAE1600D4A5D6 /* GroupManagementViewController.swift */,
+				AAE8A5532C60598800D4A5D6 /* GroupListCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		AAE8A5552C60AE5900D4A5D6 /* CreateGroup */ = {
+			isa = PBXGroup;
+			children = (
+				AAE8A55A2C60B01400D4A5D6 /* Entities */,
+				AAE8A5592C60B00900D4A5D6 /* InterfaceAdapters */,
+				AAE8A5572C60AFFB00D4A5D6 /* Model */,
+				AAE8A5562C60AFF200D4A5D6 /* UseCases */,
+			);
+			path = CreateGroup;
+			sourceTree = "<group>";
+		};
+		AAE8A5562C60AFF200D4A5D6 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				AAE8A5612C60B30C00D4A5D6 /* CreateGroupUseCase.swift */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		AAE8A5572C60AFFB00D4A5D6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		AAE8A5582C60B00300D4A5D6 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				AAE8A55F2C60B0F500D4A5D6 /* CreateViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		AAE8A5592C60B00900D4A5D6 /* InterfaceAdapters */ = {
+			isa = PBXGroup;
+			children = (
+				AAE8A55B2C60B01C00D4A5D6 /* View */,
+				AAE8A5582C60B00300D4A5D6 /* ViewModel */,
+			);
+			path = InterfaceAdapters;
+			sourceTree = "<group>";
+		};
+		AAE8A55A2C60B01400D4A5D6 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		AAE8A55B2C60B01C00D4A5D6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AAE8A55D2C60B04000D4A5D6 /* CreateViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -576,6 +709,7 @@
 				AAE8A53B2C37DB7A00D4A5D6 /* MyProfileMenuCell.swift in Sources */,
 				AAE8A5382C37995C00D4A5D6 /* SignUpViewModel.swift in Sources */,
 				AAE8A53E2C5F900600D4A5D6 /* KeyChainManager.swift in Sources */,
+				AAE8A5522C60530700D4A5D6 /* GroupManagementUseCase.swift in Sources */,
 				AAE8A5372C37995C00D4A5D6 /* SignUpViewController.swift in Sources */,
 				AA30F2382BE364BB00B97FA6 /* LoginViewController.swift in Sources */,
 				AAAC83FF2C049DCD002E6AF1 /* APIProvider.swift in Sources */,
@@ -583,10 +717,14 @@
 				AAE8A5402C5F936800D4A5D6 /* TokenManager.swift in Sources */,
 				AAE8A5262C37982200D4A5D6 /* MachineSettingViewController.swift in Sources */,
 				AAAC84072C05A5C2002E6AF1 /* LoginResponse.swift in Sources */,
+				AAE8A54E2C5FAE0600D4A5D6 /* GroupManagementViewModel.swift in Sources */,
 				AA30F21F2BC4CBDB00B97FA6 /* SceneDelegate.swift in Sources */,
 				AAE8A5282C37982200D4A5D6 /* MyProfileViewController.swift in Sources */,
 				AAAC83F72C049B4F002E6AF1 /* HTTPErrors.swift in Sources */,
+				AAE8A55E2C60B04000D4A5D6 /* CreateViewController.swift in Sources */,
+				AAE8A5542C60598800D4A5D6 /* GroupListCell.swift in Sources */,
 				AAAC83F32C049AC1002E6AF1 /* HTTPMethods.swift in Sources */,
+				AAE8A5622C60B30C00D4A5D6 /* CreateGroupUseCase.swift in Sources */,
 				AAAC83F12C049A2C002E6AF1 /* EndPoint.swift in Sources */,
 				AAAC83F92C049B79002E6AF1 /* Requestable.swift in Sources */,
 				AAAC83D92BF7426A002E6AF1 /* MachineListCell.swift in Sources */,
@@ -597,8 +735,10 @@
 				AAE8A5392C37995C00D4A5D6 /* SignUpUseCase.swift in Sources */,
 				AA59DFE52BE4BC4E003A2A2A /* MainViewController.swift in Sources */,
 				AAAC83EA2C046903002E6AF1 /* LoginUseCase.swift in Sources */,
+				AAE8A5502C5FAE1600D4A5D6 /* GroupManagementViewController.swift in Sources */,
 				AAAC83F52C049B13002E6AF1 /* HTTPParameter.swift in Sources */,
 				AAAC84212C0B5317002E6AF1 /* MainViewModel.swift in Sources */,
+				AAE8A5602C60B0F500D4A5D6 /* CreateViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
