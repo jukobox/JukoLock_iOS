@@ -15,6 +15,7 @@ final class CreateViewModel {
     private var subscriptions: Set<AnyCancellable> = []
     private let outputSubject = PassthroughSubject<Output, Never>()
     private var createGroupUseCase: CreateGroupUseCaseProtocol
+    private var groupName: String = ""
     
     // MARK: - Init
     
@@ -26,13 +27,15 @@ final class CreateViewModel {
     
     
     enum Input {
-
+        case groupCreateCompleteButtonTouched
+        case groupNameInput(groupName: String)
     }
     
     // MARK: - Output
     
     enum Output {
-
+        case groupCreateComplete
+        case groupCreateFail
     }
     
 }
@@ -44,11 +47,31 @@ extension CreateViewModel {
         input
             .sink { [weak self] input in
                 switch input {
-
+                case .groupCreateCompleteButtonTouched:
+                    self?.groupCreate()
+                case let .groupNameInput(groupName):
+                    self?.groupName = groupName
                 }
             }
             .store(in: &subscriptions)
         return outputSubject.eraseToAnyPublisher()
     }
     
+    private func groupCreate(){
+        createGroupUseCase.execute(groupName: groupName)
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                if case let .failure(error) = completion {
+                    debugPrint("List Get Fail : ", error)
+                }
+            } receiveValue: { [weak self] response in
+                switch response.status {
+                case "success":
+                    self?.outputSubject.send(.groupCreateComplete)
+                default:
+                    self?.outputSubject.send(.groupCreateFail)
+                }
+            }
+            .store(in: &subscriptions)
+    }
 }

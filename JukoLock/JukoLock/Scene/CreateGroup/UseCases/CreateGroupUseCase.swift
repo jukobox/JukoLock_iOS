@@ -9,15 +9,18 @@ import Combine
 import Foundation
 
 protocol CreateGroupUseCaseProtocol {
-
+    func execute(groupName: String) -> AnyPublisher<CreateGroupResponse, HTTPError>
 }
 
 struct CreateGroupUseCase: CreateGroupUseCaseProtocol {
-    
+
     private let provider: Requestable
     
     init(provider: APIProvider) {
         self.provider = provider
     }
 
+    func execute(groupName: String) -> AnyPublisher<CreateGroupResponse, HTTPError> {
+        return provider.request(CreateEndPoint.createGroup(groupName: groupName))
+    }
 }

@@ -54,13 +54,13 @@ final class CreateViewController: UIViewController {
         return tableView
     }()
     
+    // TODO: - 이름값 필터링으로 버튼 활성화 여부
     private let completeButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .lightGray
         button.layer.cornerRadius = 10
         button.setTitle("완료", for: .normal)
         button.tintColor = UIColor.white
-        button.isEnabled = false
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -83,6 +83,8 @@ final class CreateViewController: UIViewController {
         bind()
         self.view.backgroundColor = .white
         setUpLayout()
+        
+        groupNameInputTextField.delegate = self
     }
     
 }
@@ -132,7 +134,8 @@ extension CreateViewController {
     }
     
     private func addTargets() {
-
+        groupNameInputTextField.addTarget(self, action: #selector(groupNameInputTextFieldDidChanged), for: .editingChanged)
+        completeButton.addTarget(self, action: #selector(groupCreateCompleteButtonTouched), for: .touchUpInside)
     }
     
     private func setUpLayout() {
@@ -145,6 +148,39 @@ extension CreateViewController {
 // MARK: - Bind
 private extension CreateViewController {
     func bind() {
+        let outputSubject = viewModel.transform(with: inputSubject.eraseToAnyPublisher())
+        
+        outputSubject
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] output in
+                switch output {
+                case .groupCreateComplete:
+                    // TODO: - Alert 만들기
+                    debugPrint("Group Create Complete")
+                    self?.dismiss(animated: true)
+                case .groupCreateFail:
+                    // TODO: - Alert 만들기
+                    debugPrint("Group Create Fail")
+                    self?.dismiss(animated: true)
+                }
+            }
+            .store(in: &subscriptions)
+    }
+}
 
+// MARK: - Methods
+extension CreateViewController: UITextFieldDelegate {
+    @objc func groupNameInputTextFieldDidChanged(_ sender: Any?) {
+        guard let groupName = self.groupNameInputTextField.text else {
+            return
+        }
+        
+        inputSubject.send(.groupNameInput(groupName: groupName))
+    }
+}
+
+extension CreateViewController {
+    @objc func groupCreateCompleteButtonTouched(_ sender: Any?) {
+        inputSubject.send(.groupCreateCompleteButtonTouched)
     }
 }
