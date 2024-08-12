@@ -112,6 +112,7 @@ extension CreateViewController {
             scrollContentsView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             scrollContentsView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             scrollContentsView.widthAnchor.constraint(equalTo: self.scrollView.widthAnchor),
+            scrollContentsView.heightAnchor.constraint(equalToConstant: 1000),
             
             groupNameInputTextField.topAnchor.constraint(equalTo: scrollContentsView.topAnchor, constant: 10),
             groupNameInputTextField.leadingAnchor.constraint(equalTo: scrollContentsView.leadingAnchor, constant: 10),
