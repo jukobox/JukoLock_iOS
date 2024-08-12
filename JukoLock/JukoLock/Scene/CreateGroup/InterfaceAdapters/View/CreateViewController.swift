@@ -54,10 +54,10 @@ final class CreateViewController: UIViewController {
         return tableView
     }()
     
-    // TODO: - 이름값 필터링으로 버튼 활성화 여부
     private let completeButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .lightGray
+        button.isEnabled = false
         button.layer.cornerRadius = 10
         button.setTitle("완료", for: .normal)
         button.tintColor = UIColor.white
@@ -162,6 +162,12 @@ private extension CreateViewController {
                     // TODO: - Alert 만들기
                     debugPrint("Group Create Fail")
                     self?.dismiss(animated: true)
+                case .createGroupPossible:
+                    self?.completeButton.isEnabled = true
+                    self?.completeButton.backgroundColor = .blue
+                case .createGroupImpossible:
+                    self?.completeButton.isEnabled = false
+                    self?.completeButton.backgroundColor = .systemGray
                 }
             }
             .store(in: &subscriptions)

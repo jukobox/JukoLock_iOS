@@ -17,6 +17,8 @@ final class CreateViewModel {
     private var createGroupUseCase: CreateGroupUseCaseProtocol
     private var groupName: String = ""
     
+    // TODO: - 친구 목록 가져오기
+    
     // MARK: - Init
     
     init(createGroupUseCase: CreateGroupUseCaseProtocol) {
@@ -24,7 +26,6 @@ final class CreateViewModel {
     }
     
     // MARK: - Input
-    
     
     enum Input {
         case groupCreateCompleteButtonTouched
@@ -36,6 +37,8 @@ final class CreateViewModel {
     enum Output {
         case groupCreateComplete
         case groupCreateFail
+        case createGroupPossible
+        case createGroupImpossible
     }
     
 }
@@ -51,6 +54,11 @@ extension CreateViewModel {
                     self?.groupCreate()
                 case let .groupNameInput(groupName):
                     self?.groupName = groupName
+                    if (3...20).contains(groupName.count) {
+                        self?.outputSubject.send(.createGroupPossible)
+                    } else {
+                        self?.outputSubject.send(.createGroupImpossible)
+                    }
                 }
             }
             .store(in: &subscriptions)
