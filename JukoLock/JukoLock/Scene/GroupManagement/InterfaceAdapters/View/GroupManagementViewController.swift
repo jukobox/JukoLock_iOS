@@ -165,7 +165,6 @@ extension GroupManagementViewController: UITableViewDelegate, UITableViewDataSou
         tableView.reloadData()
         tableView.layoutIfNeeded()
         let height = tableView.contentSize.height * 10
-        debugPrint(height)
         tableView.heightAnchor.constraint(equalToConstant: height).isActive = true
         scrollView.contentSize = CGSize(width: view.frame.width, height: height)
     }

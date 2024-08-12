@@ -18,6 +18,53 @@ final class CreateViewController: UIViewController {
 
     // MARK: - UI Components
     
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return scrollView
+    }()
+    
+    private let scrollContentsView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
+    private let groupNameInputTextField: UITextField = {
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = "그룹 이름을 입력해주세요."
+        textField.autocapitalizationType = .none
+        textField.layer.cornerRadius = 5
+        textField.layer.borderWidth = 1
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 8, height: 0))
+        textField.leftViewMode = .always
+        
+        return textField
+    }()
+    
+    private let followListTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.layer.cornerRadius = 5
+        tableView.layer.borderWidth = 1
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return tableView
+    }()
+    
+    private let completeButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .lightGray
+        button.layer.cornerRadius = 10
+        button.setTitle("완료", for: .normal)
+        button.tintColor = UIColor.white
+        button.isEnabled = false
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
     
     // MARK: - Init
     
@@ -45,23 +92,52 @@ final class CreateViewController: UIViewController {
 extension CreateViewController {
     
     private func addViews() {
-
+        self.view.addSubview(scrollView)
+        self.scrollView.addSubview(scrollContentsView)
+        
+        [ groupNameInputTextField, followListTableView, completeButton ].forEach {
+            scrollContentsView.addSubview($0)
+        }
     }
     
     private func setLayoutConstraints() {
         NSLayoutConstraint.activate ([
-
+            scrollView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            
+            scrollContentsView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            scrollContentsView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            scrollContentsView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            scrollContentsView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            scrollContentsView.widthAnchor.constraint(equalTo: self.scrollView.widthAnchor),
+            
+            groupNameInputTextField.topAnchor.constraint(equalTo: scrollContentsView.topAnchor, constant: 10),
+            groupNameInputTextField.leadingAnchor.constraint(equalTo: scrollContentsView.leadingAnchor, constant: 10),
+            groupNameInputTextField.trailingAnchor.constraint(equalTo: scrollContentsView.trailingAnchor, constant: -10),
+            groupNameInputTextField.heightAnchor.constraint(equalToConstant: 50),
+            
+            followListTableView.topAnchor.constraint(equalTo: groupNameInputTextField.bottomAnchor, constant: 10),
+            followListTableView.leadingAnchor.constraint(equalTo: scrollContentsView.leadingAnchor, constant: 10),
+            followListTableView.trailingAnchor.constraint(equalTo: scrollContentsView.trailingAnchor, constant: -10),
+            followListTableView.heightAnchor.constraint(equalToConstant: 600),
+            
+            completeButton.topAnchor.constraint(equalTo: followListTableView.bottomAnchor, constant: 20),
+            completeButton.leadingAnchor.constraint(equalTo: groupNameInputTextField.leadingAnchor),
+            completeButton.trailingAnchor.constraint(equalTo: groupNameInputTextField.trailingAnchor),
+            completeButton.heightAnchor.constraint(equalToConstant: 50)
         ])
+    }
+    
+    private func addTargets() {
+
     }
     
     private func setUpLayout() {
         addViews()
         setLayoutConstraints()
         addTargets()
-    }
-    
-    private func addTargets() {
-
     }
 }
 
