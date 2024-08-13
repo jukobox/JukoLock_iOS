@@ -130,7 +130,6 @@ extension GroupManagementViewController {
 
 // MARK: - Bind
 private extension GroupManagementViewController {
-    // TODO: - 추후 ViewModel 연결
     func bind() {
         let outputSubject = viewModel.transform(with: inputSubject.eraseToAnyPublisher())
         
