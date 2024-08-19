@@ -9,7 +9,7 @@ import Combine
 import Foundation
 
 protocol CreateGroupUseCaseProtocol {
-    func execute(groupName: String) -> AnyPublisher<CreateGroupResponse, HTTPError>
+    func execute(groupName: String) -> AnyPublisher<CreateGroupResponse, HTTPError> // 그룹 생성
 }
 
 struct CreateGroupUseCase: CreateGroupUseCaseProtocol {

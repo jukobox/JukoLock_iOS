@@ -129,6 +129,7 @@ extension GroupManagementViewController {
 }
 
 // MARK: - Bind
+
 private extension GroupManagementViewController {
     func bind() {
         let outputSubject = viewModel.transform(with: inputSubject.eraseToAnyPublisher())

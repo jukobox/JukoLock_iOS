@@ -5,14 +5,18 @@
 //  Created by 김경호 on 5/3/24.
 //
 
+import Combine
 import UIKit
 
 final class MainViewController: UIViewController {
     
     // MARK: - Properties
+    private var subscriptions: Set<AnyCancellable> = []
     private var machineLockState: Bool = true // TODO: - 이미지 서버에서 불러오기
     private let datas = ["aa", "a", "a", "a", "a", "te", "sd", "d"]
     let testData: [String] = ["김경호", "a 그룹", "b 그룹"] // TODO: - ViewModel에서 가져오기
+    private var viewModel: MainViewModel
+    private let inputSubject: PassthroughSubject<MainViewModel.Input, Never> = .init()
     
     // MARK: - UI Components
     
@@ -36,11 +40,13 @@ final class MainViewController: UIViewController {
         return button
     }()
     
-    private let logButton: UIButton = {
+    private let invitationListButton: UIButton = {
         let button = UIButton()
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 30)
         let image = UIImage(systemName: "text.bubble.fill", withConfiguration: imageConfig)
         button.setImage(image, for: .normal)
+        button.tintColor = .systemGray
+        button.isEnabled = false
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -109,7 +115,14 @@ final class MainViewController: UIViewController {
     
     // MARK: - Init
     
+    init(viewModel: MainViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Life Cycle
     
@@ -129,6 +142,10 @@ final class MainViewController: UIViewController {
         
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        inputSubject.send(.checkInvite)
+    }
 }
 
 
@@ -140,18 +157,20 @@ extension MainViewController {
         addViews()
         setLayoutConstraints()
         addTargets()
+        bind()
     }
     
     private func addViews() {
         self.view.addSubview(scrollView)
         self.scrollView.addSubview(scrollContentsView)
-        [ dropDownButton, logButton, addMachineButton, welcomeLabel, carouselView, dropTableView, machineListCollectionView ].forEach {
+        [ dropDownButton, invitationListButton, addMachineButton, welcomeLabel, carouselView, dropTableView, machineListCollectionView ].forEach {
             self.scrollContentsView.addSubview($0)
         }
     }
     
     private func addTargets() {
         dropDownButton.addTarget(self, action: #selector(groupDropDownButtonTouched), for: .touchUpInside)
+        invitationListButton.addTarget(self, action: #selector(invitationListButtonTouched), for: .touchUpInside)
     }
     
     private func setLayoutConstraints() {
@@ -173,8 +192,8 @@ extension MainViewController {
             addMachineButton.topAnchor.constraint(equalTo: self.scrollContentsView.topAnchor),
             addMachineButton.trailingAnchor.constraint(equalTo: self.scrollContentsView.trailingAnchor, constant: -20),
             
-            logButton.topAnchor.constraint(equalTo: self.scrollContentsView.topAnchor),
-            logButton.trailingAnchor.constraint(equalTo: addMachineButton.leadingAnchor),
+            invitationListButton.topAnchor.constraint(equalTo: self.scrollContentsView.topAnchor),
+            invitationListButton.trailingAnchor.constraint(equalTo: addMachineButton.leadingAnchor),
             
             dropTableView.topAnchor.constraint(equalTo: dropDownButton.bottomAnchor, constant: 5),
             dropTableView.leadingAnchor.constraint(equalTo: dropDownButton.leadingAnchor),
@@ -199,6 +218,27 @@ extension MainViewController {
     }
 }
 
+// MARK: - Bind
+extension MainViewController {
+    func bind() {
+        let outputSubject = viewModel.transform(with: inputSubject.eraseToAnyPublisher())
+        
+        outputSubject
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] output in
+                switch output {
+                case .isInvitationReceived:
+                    self?.invitationListButton.tintColor = .blue
+                    self?.invitationListButton.isEnabled = true
+                case .isInvitationNotReceived:
+                    self?.invitationListButton.tintColor = .systemGray
+                    self?.invitationListButton.isEnabled = false
+                }
+            }
+            .store(in: &subscriptions)
+    }
+}
+
 // MARK: - Methos
 
 extension MainViewController {
@@ -210,6 +250,11 @@ extension MainViewController {
         let newHeight = machineListCollectionView.collectionViewLayout.collectionViewContentSize.height + 200
         scrollView.contentSize = CGSize(width: scrollView.frame.width, height: newHeight)
         scrollContentsView.frame = CGRect(x: 0, y: 0, width: scrollView.frame.width, height: newHeight)
+    }
+    
+    @objc func invitationListButtonTouched(_ sender: Any?) {
+        let invitationListViewController = InvitationListViewController(viewModel: InvitationListViewModel(invitationListUseCase: InvitationListUseCase(provider: APIProvider(session: URLSession.shared)), noties: viewModel.noties))
+        self.navigationController?.present(invitationListViewController, animated: true)
     }
 }
 
@@ -296,6 +341,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 // MARK: - Const
+
 extension MainViewController {
     private enum CarouselConst {
         static let itemSize = CGSize(width: UIScreen.main.bounds.width, height: 400)

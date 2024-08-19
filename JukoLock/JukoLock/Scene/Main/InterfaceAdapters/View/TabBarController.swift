@@ -11,7 +11,7 @@ final class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let navMainVC = UINavigationController(rootViewController: MainViewController())
+        let navMainVC = UINavigationController(rootViewController: MainViewController(viewModel: MainViewModel(mainUseCase: MainUseCase(provider: APIProvider(session: URLSession.shared)))))
         let navMyProfile = UINavigationController(rootViewController: MyProfileViewController())
         
         navMainVC.tabBarItem = UITabBarItem(title: "Main", image: UIImage(systemName: "house.fill"), tag: 0)

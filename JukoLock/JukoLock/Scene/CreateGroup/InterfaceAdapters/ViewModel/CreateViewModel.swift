@@ -84,7 +84,7 @@ extension CreateViewModel {
         return outputSubject.eraseToAnyPublisher()
     }
     
-    private func groupCreate(){
+    private func groupCreate() {
         createGroupUseCase.execute(groupName: groupName)
             .receive(on: DispatchQueue.main)
             .sink { completion in
@@ -95,11 +95,19 @@ extension CreateViewModel {
                 switch response.status {
                 case "success":
                     self?.outputSubject.send(.groupCreateComplete)
+                    self?.userInvite()
                 default:
                     self?.outputSubject.send(.groupCreateFail)
                 }
             }
             .store(in: &subscriptions)
+    }
+    
+    private func userInvite() {
+        if !addEmails.isEmpty {
+            // TODO: - API 수정되면 하기
+            debugPrint("API 호출")
+        }
     }
     
     // TODO: - 공통으로 빼기

@@ -12,6 +12,16 @@
 		AA1A202F2C69DE75005A3307 /* GroupListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A202E2C69DE75005A3307 /* GroupListResponse.swift */; };
 		AA1A20312C69E7F2005A3307 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A20302C69E7F2005A3307 /* Group.swift */; };
 		AA1A20332C69F010005A3307 /* CreateGroupResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A20322C69F010005A3307 /* CreateGroupResponse.swift */; };
+		AA1A20352C6B374E005A3307 /* Invite.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A20342C6B374E005A3307 /* Invite.swift */; };
+		AA1A20372C6B3828005A3307 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A20362C6B3828005A3307 /* User.swift */; };
+		AA1A20392C6B3850005A3307 /* InviteResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A20382C6B3850005A3307 /* InviteResponse.swift */; };
+		AA1A203B2C6B3951005A3307 /* MainUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A203A2C6B3951005A3307 /* MainUseCase.swift */; };
+		AA1A203D2C6B39BC005A3307 /* MainEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A203C2C6B39BC005A3307 /* MainEndPoint.swift */; };
+		AA1A20472C6B4234005A3307 /* InvitationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A20462C6B4234005A3307 /* InvitationListViewController.swift */; };
+		AA1A20492C6B42D5005A3307 /* InvitationListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A20482C6B42D5005A3307 /* InvitationListViewModel.swift */; };
+		AA1A204B2C6B4308005A3307 /* InvitationListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A204A2C6B4308005A3307 /* InvitationListUseCase.swift */; };
+		AA1A204D2C6B4369005A3307 /* InvitationAcceptResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A204C2C6B4369005A3307 /* InvitationAcceptResponse.swift */; };
+		AA1A204F2C6B4401005A3307 /* InvitationAcceptEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A204E2C6B4401005A3307 /* InvitationAcceptEndPoint.swift */; };
 		AA30F21D2BC4CBDB00B97FA6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA30F21C2BC4CBDB00B97FA6 /* AppDelegate.swift */; };
 		AA30F21F2BC4CBDB00B97FA6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA30F21E2BC4CBDB00B97FA6 /* SceneDelegate.swift */; };
 		AA30F2262BC4CBDC00B97FA6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA30F2252BC4CBDC00B97FA6 /* Assets.xcassets */; };
@@ -73,6 +83,16 @@
 		AA1A202E2C69DE75005A3307 /* GroupListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupListResponse.swift; sourceTree = "<group>"; };
 		AA1A20302C69E7F2005A3307 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		AA1A20322C69F010005A3307 /* CreateGroupResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupResponse.swift; sourceTree = "<group>"; };
+		AA1A20342C6B374E005A3307 /* Invite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Invite.swift; sourceTree = "<group>"; };
+		AA1A20362C6B3828005A3307 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		AA1A20382C6B3850005A3307 /* InviteResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InviteResponse.swift; sourceTree = "<group>"; };
+		AA1A203A2C6B3951005A3307 /* MainUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainUseCase.swift; sourceTree = "<group>"; };
+		AA1A203C2C6B39BC005A3307 /* MainEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainEndPoint.swift; sourceTree = "<group>"; };
+		AA1A20462C6B4234005A3307 /* InvitationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitationListViewController.swift; sourceTree = "<group>"; };
+		AA1A20482C6B42D5005A3307 /* InvitationListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitationListViewModel.swift; sourceTree = "<group>"; };
+		AA1A204A2C6B4308005A3307 /* InvitationListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitationListUseCase.swift; sourceTree = "<group>"; };
+		AA1A204C2C6B4369005A3307 /* InvitationAcceptResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitationAcceptResponse.swift; sourceTree = "<group>"; };
+		AA1A204E2C6B4401005A3307 /* InvitationAcceptEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitationAcceptEndPoint.swift; sourceTree = "<group>"; };
 		AA30F2192BC4CBDB00B97FA6 /* JukoLock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JukoLock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA30F21C2BC4CBDB00B97FA6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AA30F21E2BC4CBDB00B97FA6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -128,6 +148,66 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AA1A203E2C6B41D5005A3307 /* InvitationList */ = {
+			isa = PBXGroup;
+			children = (
+				AA1A20432C6B420C005A3307 /* Entities */,
+				AA1A20422C6B4203005A3307 /* InterfaceAdapters */,
+				AA1A20412C6B41FD005A3307 /* Model */,
+				AA1A20402C6B41F7005A3307 /* UseCases */,
+			);
+			path = InvitationList;
+			sourceTree = "<group>";
+		};
+		AA1A20402C6B41F7005A3307 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				AA1A204A2C6B4308005A3307 /* InvitationListUseCase.swift */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		AA1A20412C6B41FD005A3307 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AA1A204E2C6B4401005A3307 /* InvitationAcceptEndPoint.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		AA1A20422C6B4203005A3307 /* InterfaceAdapters */ = {
+			isa = PBXGroup;
+			children = (
+				AA1A20452C6B421D005A3307 /* View */,
+				AA1A20442C6B4217005A3307 /* ViewModel */,
+			);
+			path = InterfaceAdapters;
+			sourceTree = "<group>";
+		};
+		AA1A20432C6B420C005A3307 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				AA1A204C2C6B4369005A3307 /* InvitationAcceptResponse.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		AA1A20442C6B4217005A3307 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				AA1A20482C6B42D5005A3307 /* InvitationListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		AA1A20452C6B421D005A3307 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AA1A20462C6B4234005A3307 /* InvitationListViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		AA30F2102BC4CBDB00B97FA6 = {
 			isa = PBXGroup;
 			children = (
@@ -185,6 +265,7 @@
 				AAE8A5252C37982200D4A5D6 /* MyProfile */,
 				AAE8A5452C5FAD8700D4A5D6 /* GroupManagement */,
 				AAE8A5552C60AE5900D4A5D6 /* CreateGroup */,
+				AA1A203E2C6B41D5005A3307 /* InvitationList */,
 			);
 			path = Scene;
 			sourceTree = "<group>";
@@ -287,7 +368,7 @@
 			children = (
 				AAAC841A2C0B5285002E6AF1 /* Entities */,
 				AAAC841B2C0B528D002E6AF1 /* InterfaceAdapters */,
-				AAAC841C2C0B52A3002E6AF1 /* Network */,
+				AAAC841C2C0B52A3002E6AF1 /* Model */,
 				AAAC841D2C0B52AC002E6AF1 /* UseCases */,
 			);
 			path = Main;
@@ -296,6 +377,8 @@
 		AAAC841A2C0B5285002E6AF1 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				AA1A20382C6B3850005A3307 /* InviteResponse.swift */,
+				AA1A203C2C6B39BC005A3307 /* MainEndPoint.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -309,16 +392,19 @@
 			path = InterfaceAdapters;
 			sourceTree = "<group>";
 		};
-		AAAC841C2C0B52A3002E6AF1 /* Network */ = {
+		AAAC841C2C0B52A3002E6AF1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				AA1A20342C6B374E005A3307 /* Invite.swift */,
+				AA1A20362C6B3828005A3307 /* User.swift */,
 			);
-			path = Network;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		AAAC841D2C0B52AC002E6AF1 /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
+				AA1A203A2C6B3951005A3307 /* MainUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -733,12 +819,16 @@
 				AAE8A5402C5F936800D4A5D6 /* TokenManager.swift in Sources */,
 				AAE8A5262C37982200D4A5D6 /* MachineSettingViewController.swift in Sources */,
 				AAAC84072C05A5C2002E6AF1 /* LoginResponse.swift in Sources */,
+				AA1A204F2C6B4401005A3307 /* InvitationAcceptEndPoint.swift in Sources */,
+				AA1A204D2C6B4369005A3307 /* InvitationAcceptResponse.swift in Sources */,
 				AAE8A54E2C5FAE0600D4A5D6 /* GroupManagementViewModel.swift in Sources */,
 				AA30F21F2BC4CBDB00B97FA6 /* SceneDelegate.swift in Sources */,
 				AAE8A5282C37982200D4A5D6 /* MyProfileViewController.swift in Sources */,
 				AAAC83F72C049B4F002E6AF1 /* HTTPErrors.swift in Sources */,
 				AA1A20312C69E7F2005A3307 /* Group.swift in Sources */,
+				AA1A20472C6B4234005A3307 /* InvitationListViewController.swift in Sources */,
 				AAE8A55E2C60B04000D4A5D6 /* CreateViewController.swift in Sources */,
+				AA1A20372C6B3828005A3307 /* User.swift in Sources */,
 				AAE8A5542C60598800D4A5D6 /* GroupListCell.swift in Sources */,
 				AA1A202B2C69CE19005A3307 /* CreateEndPoint.swift in Sources */,
 				AAAC83F32C049AC1002E6AF1 /* HTTPMethods.swift in Sources */,
@@ -750,10 +840,16 @@
 				AAAC83FB2C049BC9002E6AF1 /* HTTPHeader.swift in Sources */,
 				AAAC83DB2BFB25D4002E6AF1 /* TabBarController.swift in Sources */,
 				AAAC83D72BF739B9002E6AF1 /* LoginViewModel.swift in Sources */,
+				AA1A20392C6B3850005A3307 /* InviteResponse.swift in Sources */,
+				AA1A204B2C6B4308005A3307 /* InvitationListUseCase.swift in Sources */,
 				AA1A202F2C69DE75005A3307 /* GroupListResponse.swift in Sources */,
 				AAE8A52B2C3798B300D4A5D6 /* CarouselViewCell.swift in Sources */,
+				AA1A20492C6B42D5005A3307 /* InvitationListViewModel.swift in Sources */,
+				AA1A203D2C6B39BC005A3307 /* MainEndPoint.swift in Sources */,
 				AAE8A5392C37995C00D4A5D6 /* SignUpUseCase.swift in Sources */,
 				AA59DFE52BE4BC4E003A2A2A /* MainViewController.swift in Sources */,
+				AA1A20352C6B374E005A3307 /* Invite.swift in Sources */,
+				AA1A203B2C6B3951005A3307 /* MainUseCase.swift in Sources */,
 				AAAC83EA2C046903002E6AF1 /* LoginUseCase.swift in Sources */,
 				AAE8A5502C5FAE1600D4A5D6 /* GroupManagementViewController.swift in Sources */,
 				AAAC83F52C049B13002E6AF1 /* HTTPParameter.swift in Sources */,
