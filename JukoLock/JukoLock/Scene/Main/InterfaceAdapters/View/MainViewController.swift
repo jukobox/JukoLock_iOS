@@ -130,7 +130,6 @@ final class MainViewController: UIViewController {
         
         setUpLayout()
         
-        dropDownButton.setTitle("▼ \(viewModel.groupNames.first!)", for: .normal)
         dropTableView.dataSource = self
         dropTableView.delegate = self
         carouselView.dataSource = self
@@ -143,6 +142,7 @@ final class MainViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         inputSubject.send(.checkInvite)
+        inputSubject.send(.mainPageInit)
     }
 }
 
@@ -231,6 +231,9 @@ extension MainViewController {
                 case .isInvitationNotReceived:
                     self?.invitationListButton.tintColor = .systemGray
                     self?.invitationListButton.isEnabled = false
+                case .dataLoadSuccess:
+                    self?.dropTableView.reloadData()
+                    self?.dropDownButton.setTitle("▼ \(self?.viewModel.groupList.first?.name ?? "")", for: .normal)
                 }
             }
             .store(in: &subscriptions)
@@ -317,17 +320,17 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.groupNames.count
+        return viewModel.groupList.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") ?? UITableViewCell(style: .default, reuseIdentifier: "cell")
-        cell.textLabel?.text = viewModel.groupNames[indexPath.row]
+        cell.textLabel?.text = viewModel.groupList[indexPath.row].name
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedItem = viewModel.groupNames[indexPath.row]
+        let selectedItem = viewModel.groupList[indexPath.row].name
         dropDownButton.setTitle("▼ \(selectedItem)", for: .normal)
         dropTableView.isHidden = !dropTableView.isHidden
     }

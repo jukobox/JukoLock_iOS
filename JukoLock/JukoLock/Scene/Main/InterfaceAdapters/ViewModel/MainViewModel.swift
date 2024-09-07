@@ -20,7 +20,7 @@ final class MainViewModel {
     var noties: [Invite] = []
     
     // TODO: - API 연결되면 Static 데이터 삭제
-    private(set) var groupNames: [String] = ["김경호", "박준형", "배성두"]
+    private(set) var groupList: [Group] = []
     private(set) var machines: [Machine] = [
         Machine(machineName: "도어락 1", machineLastDay: "2024.07.02 15:37"),
         Machine(machineName: "도어락 2", machineLastDay: "2024.07.04 08:48"),
@@ -49,6 +49,7 @@ final class MainViewModel {
     enum Output {
         case isInvitationReceived
         case isInvitationNotReceived
+        case dataLoadSuccess
     }
     
 }
@@ -63,7 +64,7 @@ extension MainViewModel {
                 case .checkInvite:
                     self?.getInvitation()
                 case .mainPageInit:
-                    self?.loadDatas()
+                    self?.getGroupList()
                 }
             }
             .store(in: &subscriptions)
@@ -91,19 +92,19 @@ extension MainViewModel {
             .store(in: &subscriptions)
     }
     
-    private func loadDatas() {
-        mainUseCase.execute()
+    private func getGroupList() {
+        mainUseCase.getGroupList()
             .receive(on: DispatchQueue.main)
             .sink { completion in
-                if case let .failure(errror) = completion {
-                    debugPrint("Main Data Load Fail")
+                if case let .failure(error) = completion {
+                    debugPrint("Group List Get Fail")
                 }
             } receiveValue: { [weak self] response in
-                if response.status == "success" {
-                    if !response.data.isEmpty {
-                        // TODO: API 연결
-                    }
+                if response.status == "success" && !response.data.isEmpty {
+                    self?.groupList = response.data
+                    self?.outputSubject.send(.dataLoadSuccess)
                 }
             }
+            .store(in: &subscriptions)
     }
 }

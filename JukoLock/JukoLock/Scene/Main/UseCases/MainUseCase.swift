@@ -10,6 +10,7 @@ import Foundation
 
 protocol MainUseCaseProtocol {
     func execute() -> AnyPublisher<InviteResponse, HTTPError> // 초대 목록 받아오기
+    func getGroupList() -> AnyPublisher<GroupListResponse, HTTPError> // 그룹 목록 받아오기
 }
 
 struct MainUseCase: MainUseCaseProtocol {
@@ -22,5 +23,9 @@ struct MainUseCase: MainUseCaseProtocol {
 
     func execute() -> AnyPublisher<InviteResponse, HTTPError> {
         return provider.request(MainEndPoint.getInvites)
+    }
+    
+    func getGroupList() -> AnyPublisher<GroupListResponse, HTTPError> {
+        return provider.request(MainEndPoint.getGroupList)
     }
 }
