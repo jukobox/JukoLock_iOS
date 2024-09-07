@@ -234,7 +234,6 @@ extension MainViewController {
                 case .getGroupListSuccess:
                     self?.dropTableView.reloadData()
                     self?.dropDownButton.setTitle("▼ \(self?.viewModel.groupList.first?.name ?? "")", for: .normal)
-                    debugPrint(self?.viewModel.groupList.first?.name ?? "")
                     self?.inputSubject.send(.getMachineList)
                 case .getMachineListSuccess:
                     self?.machineListCollectionView.reloadData()

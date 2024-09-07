@@ -64,7 +64,6 @@ extension InvitationListViewModel {
                     debugPrint("Accept Fail! : ", error)
                 }
             } receiveValue: { [weak self] response in
-                debugPrint(response)
                 switch response.status {
                 case "success":
                     self?.noties.remove(at: index)

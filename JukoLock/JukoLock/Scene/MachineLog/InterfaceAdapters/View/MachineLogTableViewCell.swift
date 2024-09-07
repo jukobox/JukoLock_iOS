@@ -53,7 +53,6 @@ final class MachineLogTableViewCell: UITableViewCell {
     
     func setData(log: MachineLog) {
         logLabel.text = "\(log.user) - \(log.date)"
-        debugPrint(log)
     }
 }
 
