@@ -13,6 +13,7 @@ protocol SignUpUseCaseProtocol {
     func execute(validationEmail: String) -> AnyPublisher<Never, HTTPError> // 인증번호 발송
     func execute(sendEmail: String) -> AnyPublisher<Never, HTTPError> // 인증번호 인증
     func execute(checkVerification: String) -> AnyPublisher<LoginResponse, HTTPError> // 이메일 중복 체크
+    func execute(groupName: String) -> AnyPublisher<LoginResponse, HTTPError> // 기본 그룹 생성
 }
 
 struct SignUpUseCase: SignUpUseCaseProtocol {
@@ -37,5 +38,9 @@ struct SignUpUseCase: SignUpUseCaseProtocol {
     
     func execute(checkVerification: String) -> AnyPublisher<LoginResponse, HTTPError> {
         return provider.request(LoginEndPoint.emailValidationCheck(email: checkVerification))
+    }
+    
+    func execute(groupName: String) -> AnyPublisher<LoginResponse, HTTPError> {
+        return provider.request(LoginEndPoint.groupCreate(groupName: groupName))
     }
 }

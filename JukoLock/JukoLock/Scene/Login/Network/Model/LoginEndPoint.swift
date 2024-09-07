@@ -13,6 +13,7 @@ enum LoginEndPoint {
     case checkVerificationEmail(email: String) // 인증번호 인증
     case signUp(email: String, password: String) // 회원가입
     case login(email: String, password: String) // 로그인
+    case groupCreate(groupName: String) // 기본 그룹 생성
 }
 
 extension LoginEndPoint: EndPoint {
@@ -23,35 +24,42 @@ extension LoginEndPoint: EndPoint {
     
     var headers: HTTPHeaders {
         switch self {
-        case .emailValidationCheck(_):
+        case .emailValidationCheck:
             return [
                 "Content-Type": "application/json",
                 "Contents-Length": "1000",
                 "Host": "JukoLock.App"
             ]
-        case .sendVerificationEmail(_):
+        case .sendVerificationEmail:
             return [
                 "Content-Type": "application/json",
                 "Contents-Length": "1000",
                 "Host": "JukoLock.App"
             ]
-        case .checkVerificationEmail(_):
+        case .checkVerificationEmail:
             return [
                 "Content-Type": "application/json",
                 "Contents-Length": "1000",
                 "Host": "JukoLock.App"
             ]
-        case .signUp(_, _):
+        case .signUp:
             return [
                 "Content-Type": "application/json",
                 "Contents-Length": "1000",
                 "Host": "JukoLock.App"
             ]
-        case .login(_, _):
+        case .login:
             return [
                 "Content-Type": "application/json",
                 "Contents-Length": "1000",
                 "Host": "JukoLock.App"
+            ]
+        case .groupCreate:
+            return [
+                "Content-Type": "application/json",
+                "Contents-Length": "1000",
+                "Host": "JukoLock.App",
+                "Authorization": "Bearer \(KeyChainManager.load(key: KeyChainManager.Keywords.accessToken)!)"
             ]
         }
     }
@@ -72,6 +80,9 @@ extension LoginEndPoint: EndPoint {
             return .body(["email" : email,
                           "password" : password
                          ])
+        case let .groupCreate(groupName):
+            return .body(["groupName" : groupName
+            ])
         }
     }
     
@@ -79,23 +90,25 @@ extension LoginEndPoint: EndPoint {
         switch self {
         case .checkVerificationEmail, .emailValidationCheck:
             return .get
-        case .sendVerificationEmail, .login, .signUp:
+        case .sendVerificationEmail, .login, .signUp, .groupCreate:
             return .post
         }
     }
     
     var path: String {
         switch self {
-        case .emailValidationCheck(_):
+        case .emailValidationCheck:
             return "/register/email-validation"
-        case .sendVerificationEmail(_):
+        case .sendVerificationEmail:
             return "/register/verification"
-        case .checkVerificationEmail(_):
+        case .checkVerificationEmail:
             return "/register/verification"
-        case .signUp(_, _):
+        case .signUp:
             return "/register/register"
-        case .login(_, _):
+        case .login:
             return "/login"
+        case .groupCreate:
+            return "/group/create"
         }
     }
 }

@@ -90,7 +90,7 @@ extension SignUpViewModel {
             } receiveValue: { [weak self] response in
                 switch response.status{
                 case "success":
-                    self?.outputSubject.send(.signUpCompleted)
+                    self?.initGroupCreate(name: self?.name ?? "내 그룹")
                 case "Fail":
                     self?.outputSubject.send(.signUpFailed)
                 default:
@@ -209,5 +209,24 @@ extension SignUpViewModel {
                 }
             }
             .store(in: &subscriptions)
+    }
+    
+    private func initGroupCreate(name: String) {
+        signUpUseCase.execute(groupName: name)
+            .receive(on: DispatchQueue.global())
+            .sink { completion in
+                if case let .failure(error) = completion {
+                    debugPrint("Group Create Fail")
+                }
+            } receiveValue: { [weak self] response in
+                switch response.status {
+                case "success":
+                    self?.outputSubject.send(.signUpCompleted)
+                case "Fail":
+                    self?.outputSubject.send(.signUpFailed)
+                default:
+                    self?.outputSubject.send(.signUpError)
+                }
+            }
     }
 }
