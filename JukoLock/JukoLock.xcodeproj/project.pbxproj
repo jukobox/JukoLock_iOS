@@ -22,6 +22,12 @@
 		AA1A204B2C6B4308005A3307 /* InvitationListUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A204A2C6B4308005A3307 /* InvitationListUseCase.swift */; };
 		AA1A204D2C6B4369005A3307 /* InvitationAcceptResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A204C2C6B4369005A3307 /* InvitationAcceptResponse.swift */; };
 		AA1A204F2C6B4401005A3307 /* InvitationAcceptEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A204E2C6B4401005A3307 /* InvitationAcceptEndPoint.swift */; };
+		AA1A20512C745A1F005A3307 /* UserInviteResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A20502C745A1F005A3307 /* UserInviteResponse.swift */; };
+		AA1A20532C8C3F35005A3307 /* Machine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A20522C8C3F35005A3307 /* Machine.swift */; };
+		AA1A205C2C8C5AFB005A3307 /* MachineLogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A205B2C8C5AFA005A3307 /* MachineLogViewController.swift */; };
+		AA1A205E2C8C5B98005A3307 /* MachineLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A205D2C8C5B98005A3307 /* MachineLogViewModel.swift */; };
+		AA1A20602C8C5FD3005A3307 /* MachineLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A205F2C8C5FD3005A3307 /* MachineLog.swift */; };
+		AA1A20622C8C6143005A3307 /* MachineLogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A20612C8C6143005A3307 /* MachineLogTableViewCell.swift */; };
 		AA30F21D2BC4CBDB00B97FA6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA30F21C2BC4CBDB00B97FA6 /* AppDelegate.swift */; };
 		AA30F21F2BC4CBDB00B97FA6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA30F21E2BC4CBDB00B97FA6 /* SceneDelegate.swift */; };
 		AA30F2262BC4CBDC00B97FA6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA30F2252BC4CBDC00B97FA6 /* Assets.xcassets */; };
@@ -93,6 +99,12 @@
 		AA1A204A2C6B4308005A3307 /* InvitationListUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitationListUseCase.swift; sourceTree = "<group>"; };
 		AA1A204C2C6B4369005A3307 /* InvitationAcceptResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitationAcceptResponse.swift; sourceTree = "<group>"; };
 		AA1A204E2C6B4401005A3307 /* InvitationAcceptEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvitationAcceptEndPoint.swift; sourceTree = "<group>"; };
+		AA1A20502C745A1F005A3307 /* UserInviteResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInviteResponse.swift; sourceTree = "<group>"; };
+		AA1A20522C8C3F35005A3307 /* Machine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Machine.swift; sourceTree = "<group>"; };
+		AA1A205B2C8C5AFA005A3307 /* MachineLogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineLogViewController.swift; sourceTree = "<group>"; };
+		AA1A205D2C8C5B98005A3307 /* MachineLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineLogViewModel.swift; sourceTree = "<group>"; };
+		AA1A205F2C8C5FD3005A3307 /* MachineLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineLog.swift; sourceTree = "<group>"; };
+		AA1A20612C8C6143005A3307 /* MachineLogTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineLogTableViewCell.swift; sourceTree = "<group>"; };
 		AA30F2192BC4CBDB00B97FA6 /* JukoLock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JukoLock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA30F21C2BC4CBDB00B97FA6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AA30F21E2BC4CBDB00B97FA6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -208,6 +220,65 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		AA1A20542C8C5A95005A3307 /* MachineLog */ = {
+			isa = PBXGroup;
+			children = (
+				AA1A20582C8C5AD0005A3307 /* Entities */,
+				AA1A20572C8C5ABD005A3307 /* InterfaceAdapters */,
+				AA1A20562C8C5AB6005A3307 /* Model */,
+				AA1A20552C8C5AAE005A3307 /* UseCases */,
+			);
+			path = MachineLog;
+			sourceTree = "<group>";
+		};
+		AA1A20552C8C5AAE005A3307 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		AA1A20562C8C5AB6005A3307 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AA1A205F2C8C5FD3005A3307 /* MachineLog.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		AA1A20572C8C5ABD005A3307 /* InterfaceAdapters */ = {
+			isa = PBXGroup;
+			children = (
+				AA1A205A2C8C5AE3005A3307 /* View */,
+				AA1A20592C8C5AD9005A3307 /* ViewModel */,
+			);
+			path = InterfaceAdapters;
+			sourceTree = "<group>";
+		};
+		AA1A20582C8C5AD0005A3307 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		AA1A20592C8C5AD9005A3307 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				AA1A205D2C8C5B98005A3307 /* MachineLogViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		AA1A205A2C8C5AE3005A3307 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				AA1A205B2C8C5AFA005A3307 /* MachineLogViewController.swift */,
+				AA1A20612C8C6143005A3307 /* MachineLogTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		AA30F2102BC4CBDB00B97FA6 = {
 			isa = PBXGroup;
 			children = (
@@ -262,6 +333,7 @@
 				AAAC83E12C04669B002E6AF1 /* Login */,
 				AAAC84192C0B5255002E6AF1 /* Main */,
 				AAE8A51D2C37982200D4A5D6 /* MachineSetting */,
+				AA1A20542C8C5A95005A3307 /* MachineLog */,
 				AAE8A5252C37982200D4A5D6 /* MyProfile */,
 				AAE8A5452C5FAD8700D4A5D6 /* GroupManagement */,
 				AAE8A5552C60AE5900D4A5D6 /* CreateGroup */,
@@ -397,6 +469,7 @@
 			children = (
 				AA1A20342C6B374E005A3307 /* Invite.swift */,
 				AA1A20362C6B3828005A3307 /* User.swift */,
+				AA1A20522C8C3F35005A3307 /* Machine.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -719,6 +792,7 @@
 			isa = PBXGroup;
 			children = (
 				AA1A20322C69F010005A3307 /* CreateGroupResponse.swift */,
+				AA1A20502C745A1F005A3307 /* UserInviteResponse.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -811,10 +885,13 @@
 				AAE8A5382C37995C00D4A5D6 /* SignUpViewModel.swift in Sources */,
 				AAE8A53E2C5F900600D4A5D6 /* KeyChainManager.swift in Sources */,
 				AAE8A5522C60530700D4A5D6 /* GroupManagementUseCase.swift in Sources */,
+				AA1A20512C745A1F005A3307 /* UserInviteResponse.swift in Sources */,
 				AAE8A5372C37995C00D4A5D6 /* SignUpViewController.swift in Sources */,
 				AA30F2382BE364BB00B97FA6 /* LoginViewController.swift in Sources */,
 				AA1A202D2C69D284005A3307 /* GroupManagementEndPoint.swift in Sources */,
 				AAAC83FF2C049DCD002E6AF1 /* APIProvider.swift in Sources */,
+				AA1A205E2C8C5B98005A3307 /* MachineLogViewModel.swift in Sources */,
+				AA1A20622C8C6143005A3307 /* MachineLogTableViewCell.swift in Sources */,
 				AA30F21D2BC4CBDB00B97FA6 /* AppDelegate.swift in Sources */,
 				AAE8A5402C5F936800D4A5D6 /* TokenManager.swift in Sources */,
 				AAE8A5262C37982200D4A5D6 /* MachineSettingViewController.swift in Sources */,
@@ -834,6 +911,7 @@
 				AAAC83F32C049AC1002E6AF1 /* HTTPMethods.swift in Sources */,
 				AAE8A5622C60B30C00D4A5D6 /* CreateGroupUseCase.swift in Sources */,
 				AAAC83F12C049A2C002E6AF1 /* EndPoint.swift in Sources */,
+				AA1A20602C8C5FD3005A3307 /* MachineLog.swift in Sources */,
 				AAAC83F92C049B79002E6AF1 /* Requestable.swift in Sources */,
 				AA1A20332C69F010005A3307 /* CreateGroupResponse.swift in Sources */,
 				AAAC83D92BF7426A002E6AF1 /* MachineListCell.swift in Sources */,
@@ -848,6 +926,7 @@
 				AA1A203D2C6B39BC005A3307 /* MainEndPoint.swift in Sources */,
 				AAE8A5392C37995C00D4A5D6 /* SignUpUseCase.swift in Sources */,
 				AA59DFE52BE4BC4E003A2A2A /* MainViewController.swift in Sources */,
+				AA1A20532C8C3F35005A3307 /* Machine.swift in Sources */,
 				AA1A20352C6B374E005A3307 /* Invite.swift in Sources */,
 				AA1A203B2C6B3951005A3307 /* MainUseCase.swift in Sources */,
 				AAAC83EA2C046903002E6AF1 /* LoginUseCase.swift in Sources */,
@@ -855,6 +934,7 @@
 				AAAC83F52C049B13002E6AF1 /* HTTPParameter.swift in Sources */,
 				AAAC84212C0B5317002E6AF1 /* MainViewModel.swift in Sources */,
 				AAE8A5602C60B0F500D4A5D6 /* CreateViewModel.swift in Sources */,
+				AA1A205C2C8C5AFB005A3307 /* MachineLogViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

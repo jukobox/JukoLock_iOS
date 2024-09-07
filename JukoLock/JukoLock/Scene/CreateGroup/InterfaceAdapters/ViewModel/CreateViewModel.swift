@@ -89,13 +89,13 @@ extension CreateViewModel {
             .receive(on: DispatchQueue.main)
             .sink { completion in
                 if case let .failure(error) = completion {
-                    debugPrint("List Get Fail : ", error)
+                    debugPrint("Group Create Error : ", error)
                 }
             } receiveValue: { [weak self] response in
                 switch response.status {
                 case "success":
+                    self?.userInvite(groupId: "\(response.data?.id)")
                     self?.outputSubject.send(.groupCreateComplete)
-                    self?.userInvite()
                 default:
                     self?.outputSubject.send(.groupCreateFail)
                 }
@@ -103,10 +103,24 @@ extension CreateViewModel {
             .store(in: &subscriptions)
     }
     
-    private func userInvite() {
-        if !addEmails.isEmpty {
-            // TODO: - API 수정되면 하기
-            debugPrint("API 호출")
+    private func userInvite(groupId: String) {
+        debugPrint(groupId)
+        for i in addEmails {
+            createGroupUseCase.execute(userEmail: i, groupId: groupId)
+                .receive(on: DispatchQueue.global())
+                .sink { completion in
+                    if case let .failure(error) = completion {
+                        debugPrint("User Invite Error : ", error)
+                    }
+                } receiveValue: { response in
+                    switch response.status {
+                    case "success":
+                        debugPrint("유저 초대 성공")
+                    default:
+                        debugPrint("유저 초대 실패")
+                    }
+                }
+                .store(in: &subscriptions)
         }
     }
     

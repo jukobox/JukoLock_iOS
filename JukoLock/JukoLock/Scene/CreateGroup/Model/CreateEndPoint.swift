@@ -9,6 +9,7 @@ import Foundation
 
 enum CreateEndPoint {
     case createGroup(groupName: String)
+    case inviteUser(userEmail: String, groupId: String)
 }
 
 extension CreateEndPoint: EndPoint {
@@ -26,6 +27,13 @@ extension CreateEndPoint: EndPoint {
                 "Host": "JukoLock.App",
                 "Authorization": "Bearer \(KeyChainManager.load(key: KeyChainManager.Keywords.accessToken)!)"
             ]
+        case .inviteUser(_, _):
+            return [
+                "Content-Type": "application/json",
+                "Contents-Length": "1000",
+                "Host": "JukoLock.App",
+                "Authorization": "Bearer \(KeyChainManager.load(key: KeyChainManager.Keywords.accessToken)!)"
+            ]
         }
     }
     
@@ -33,12 +41,17 @@ extension CreateEndPoint: EndPoint {
         switch self {
         case let .createGroup(groupName):
             return .body(["groupName": groupName])
+        case let .inviteUser(userEmail, groupId):
+            return .body([
+                "receiveUserEmail": userEmail,
+                "groupId": groupId
+            ])
         }
     }
     
     var method: HTTPMethod {
         switch self {
-        case .createGroup:
+        case .createGroup, .inviteUser:
             return .post
         }
     }
@@ -47,6 +60,8 @@ extension CreateEndPoint: EndPoint {
         switch self {
         case .createGroup(_):
             return "/group/create"
+        case .inviteUser(_, _):
+            return "/group/invite"
         }
     }
 }
