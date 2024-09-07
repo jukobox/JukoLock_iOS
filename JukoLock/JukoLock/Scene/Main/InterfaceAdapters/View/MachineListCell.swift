@@ -20,7 +20,7 @@ final class MachineListCell: UICollectionViewCell {
     
     private let machineTypeImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "lock.open.fill")
+        imageView.image = UIImage(systemName: "lock.fill")
         imageView.contentMode = .scaleAspectFit
         imageView.tintColor = .white
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -86,8 +86,10 @@ final class MachineListCell: UICollectionViewCell {
         machineNameLabel.text = owner
     }
     
-    func setData() {
-        self.setOwnerNameLa("김경호 집 도어락", "2024.06.25")
+    func setData(machine: Machine) {
+        machineNameLabel.text = machine.machineName
+        lastLogLabel.text = machine.machineLastDay
+        
         self.layer.masksToBounds = true
         self.layer.cornerRadius = 20
     }
