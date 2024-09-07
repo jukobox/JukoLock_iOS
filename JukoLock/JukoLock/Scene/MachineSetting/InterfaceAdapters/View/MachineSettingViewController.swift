@@ -13,11 +13,20 @@ final class MachineSettingViewController: UIViewController {
     // MARK: - Properties
     
     private var subscriptions: Set<AnyCancellable> = []
-//    private var viewModel: SignUpViewModel
-//    private let inputSubject: PassthroughSubject<SignUpViewModel.Input, Never> = .init()
+    private var viewModel: MachineSettingViewModel
+    
+    // MARK: - Init
+    
+    init(viewModel: MachineSettingViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("Machine Setting ViewController init(coder:) has not been implemented")
+    }
     
     // MARK: - UI Components
-    // TODO: - adminButton 추가하기
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -32,7 +41,7 @@ final class MachineSettingViewController: UIViewController {
     
     private let machineImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .blue
+        imageView.image = UIImage(systemName: "lock.fill")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -45,53 +54,27 @@ final class MachineSettingViewController: UIViewController {
         return label
     }()
     
-    private let nameTextField: UITextField = {
-        let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "이름을 입력해주세요."
-        textField.autocapitalizationType = .none
-        textField.keyboardType = .emailAddress
-        textField.layer.cornerRadius = 5
-        textField.layer.borderWidth = 1
-        textField.leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 8.0, height: 0.0))
-        textField.leftViewMode = .always
-        return textField
-    }()
-    
-    private let adminLabel: UILabel = {
-        let label = UILabel()
-        label.text = "관리자 "
-        label.font = UIFont.systemFont(ofSize: 20)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let adminSelectedButton: UIButton = {
+    private let setMachineNameButton: UIButton = {
         let button = UIButton()
-        button.setTitle("김경호", for: .normal)
+        button.setTitleColor(.black, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
-    private let passwordLabel: UILabel = {
+    private let lastLogNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "비밀번호"
+        label.text = "사용 시간"
         label.font = UIFont.systemFont(ofSize: 20)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private let passwordTextField: UITextField = {
-        let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "기계 비밀번호 입력해주세요."
-        textField.autocapitalizationType = .none
-        textField.keyboardType = .emailAddress
-        textField.layer.cornerRadius = 5
-        textField.layer.borderWidth = 1
-        textField.leftView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 8.0, height: 0.0))
-        textField.leftViewMode = .always
-        return textField
+    private let lastLogLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 20)
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     private let permissionSettingButton: UIButton = {
@@ -125,6 +108,8 @@ final class MachineSettingViewController: UIViewController {
     
     override func viewDidLoad() {
         self.view.backgroundColor = .white
+        self.setMachineNameButton.setTitle(viewModel.machine.machineName, for: .normal)
+        self.lastLogLabel.text = viewModel.machine.machineLastDay
         setUpLayout()
     }
 }
@@ -145,7 +130,7 @@ extension MachineSettingViewController {
         self.view.addSubview(scrollView)
         scrollView.addSubview(scrollContentsView)
         
-        [ machineImageView, nameLabel, nameTextField, adminLabel, adminSelectedButton, passwordLabel, passwordTextField, permissionSettingButton, logCheckButton, machineDeleteButton ].forEach {
+        [ machineImageView, nameLabel, setMachineNameButton, lastLogNameLabel, lastLogLabel, permissionSettingButton, logCheckButton, machineDeleteButton ].forEach {
             self.scrollContentsView.addSubview($0)
         }
     }
@@ -174,32 +159,22 @@ extension MachineSettingViewController {
             nameLabel.heightAnchor.constraint(equalToConstant: 50),
             nameLabel.widthAnchor.constraint(equalToConstant: 80),
             
-            nameTextField.topAnchor.constraint(equalTo: nameLabel.topAnchor),
-            nameTextField.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 10),
-            nameTextField.trailingAnchor.constraint(equalTo: scrollContentsView.trailingAnchor, constant: -20),
-            nameTextField.bottomAnchor.constraint(equalTo: nameLabel.bottomAnchor),
+            setMachineNameButton.topAnchor.constraint(equalTo: nameLabel.topAnchor),
+            setMachineNameButton.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 10),
+            setMachineNameButton.trailingAnchor.constraint(equalTo: scrollContentsView.trailingAnchor, constant: -20),
+            setMachineNameButton.bottomAnchor.constraint(equalTo: nameLabel.bottomAnchor),
             
-            adminLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10),
-            adminLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
-            adminLabel.heightAnchor.constraint(equalToConstant: 50),
-            adminLabel.widthAnchor.constraint(equalToConstant: 80),
+            lastLogNameLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10),
+            lastLogNameLabel.leadingAnchor.constraint(equalTo: nameLabel.leadingAnchor),
+            lastLogNameLabel.heightAnchor.constraint(equalToConstant: 50),
+            lastLogNameLabel.widthAnchor.constraint(equalToConstant: 80),
             
-            adminSelectedButton.topAnchor.constraint(equalTo: adminLabel.topAnchor),
-            adminSelectedButton.leadingAnchor.constraint(equalTo: adminLabel.trailingAnchor, constant: 10),
-            adminSelectedButton.trailingAnchor.constraint(equalTo: scrollContentsView.trailingAnchor, constant: -20),
-            adminSelectedButton.bottomAnchor.constraint(equalTo: adminLabel.bottomAnchor),
+            lastLogLabel.topAnchor.constraint(equalTo: lastLogNameLabel.topAnchor),
+            lastLogLabel.leadingAnchor.constraint(equalTo: lastLogNameLabel.trailingAnchor, constant: 10),
+            lastLogLabel.trailingAnchor.constraint(equalTo: scrollContentsView.trailingAnchor, constant: -20),
+            lastLogLabel.bottomAnchor.constraint(equalTo: lastLogNameLabel.bottomAnchor),
             
-            passwordLabel.topAnchor.constraint(equalTo: adminLabel.bottomAnchor, constant: 10),
-            passwordLabel.leadingAnchor.constraint(equalTo: adminLabel.leadingAnchor),
-            passwordLabel.heightAnchor.constraint(equalToConstant: 50),
-            passwordLabel.widthAnchor.constraint(equalToConstant: 80),
-            
-            passwordTextField.topAnchor.constraint(equalTo: passwordLabel.topAnchor),
-            passwordTextField.leadingAnchor.constraint(equalTo: passwordLabel.trailingAnchor, constant: 10),
-            passwordTextField.trailingAnchor.constraint(equalTo: scrollContentsView.trailingAnchor,constant: -20),
-            passwordTextField.bottomAnchor.constraint(equalTo: passwordLabel.bottomAnchor),
-            
-            permissionSettingButton.topAnchor.constraint(equalTo: passwordLabel.bottomAnchor, constant: 30),
+            permissionSettingButton.topAnchor.constraint(equalTo: lastLogNameLabel.bottomAnchor, constant: 30),
             permissionSettingButton.leadingAnchor.constraint(equalTo: scrollContentsView.leadingAnchor, constant: 20),
             permissionSettingButton.trailingAnchor.constraint(equalTo: scrollContentsView.trailingAnchor, constant: -20),
             permissionSettingButton.heightAnchor.constraint(equalToConstant: 50),
@@ -218,52 +193,14 @@ extension MachineSettingViewController {
     }
     
     private func addTargets() {
-//        nameInputTextField.addTarget(self, action: #selector(nameTextFieldDidChanged), for: .editingChanged)
-//        emailInputTextField.addTarget(self, action: #selector(emailTextFieldDidChanged), for: .editingChanged)
-//        passwordInputTextField.addTarget(self, action: #selector(pwTextFieldDidChanged), for: .editingChanged)
-//        passwordCheckInputTextField.addTarget(self, action: #selector(pwCheckTextFieldDidChanged), for: .editingChanged)
-//        signUpCompleteButton.addTarget(self, action: #selector(signupSubmitButtonTouched), for: .touchUpInside)
-//        emailDuplicationCheckButton.addTarget(self, action: #selector(emailDuplicationCheckButtonTouched), for: .touchUpInside)
+        self.setMachineNameButton.addTarget(self, action: #selector(setMachineNameButtonTouched), for: .touchUpInside)
+        self.logCheckButton.addTarget(self, action: #selector(logCheckButtonTouched), for: .touchUpInside)
     }
 }
 
 // MARK: - Bind
 private extension MachineSettingViewController {
     func bind() {
-//        let outputSubject = viewModel.transform(with: inputSubject.eraseToAnyPublisher())
-        
-//        outputSubject
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self] output in
-//                switch output {
-//                case let .nameValid(text):
-//                    debugPrint("name : ", text)
-//                case let .emailValid(text):
-//                    self?.emailValidationLabel.textColor = .red
-//                    self?.emailValidationLabel.text = text
-//                case let .pwValid(text):
-//                    self?.pwValidationLabel.text = text
-//                case let .pwCheckValid(text):
-//                    self?.pwCheckValidationLabel.text = text
-//                case .isSignUpPossible:
-//                    self?.signUpCompleteButton.isEnabled = true
-//                    self?.signUpCompleteButton.backgroundColor = .blue
-//                case .isSignUpImpossible:
-//                    self?.signUpCompleteButton.isEnabled = false
-//                    self?.signUpCompleteButton.backgroundColor = .lightGray
-//                case .signUpCompleted:
-//                    self?.signupCompleted()
-//                case .signUpFailed:
-//                    self?.signupFailAlert()
-//                case .signUpError:
-//                    self?.signupErrorAlert()
-//                case .emailNotDuplication:
-//                    self?.emailNotDuplication()
-//                case .emailDuplication:
-//                    self?.emailDuplication()
-//                }
-//            }
-//            .store(in: &subscriptions)
     }
 }
 
@@ -275,55 +212,23 @@ extension MachineSettingViewController {
 
 // MARK: - objc
 
-//extension MachineSettingViewController: UITextFieldDelegate {
-//
-//    @objc func nameTextFieldDidChanged(_ sender: Any?) {
-//        guard let name = self.nameInputTextField.text else {
-//            return
-//        }
-//        inputSubject.send(.nameInput(name))
-//    }
-//
-//    @objc func emailTextFieldDidChanged(_ sender: Any?) {
-//        self.emailDuplicationCheckButton.isEnabled = true
-//        self.emailDuplicationCheckButton.backgroundColor = .blue
-//
-//        guard let email = self.emailInputTextField.text else {
-//            return
-//        }
-//        inputSubject.send(.emailInput(email))
-//    }
-//
-//    @objc func pwTextFieldDidChanged(_ sender: Any?) {
-//        guard let pw = self.passwordInputTextField.text else {
-//            return
-//        }
-//        inputSubject.send(.passwordInput(pw))
-//    }
-//
-//    @objc func pwCheckTextFieldDidChanged(_ sender: Any?) {
-//        guard let pwCheck = self.passwordCheckInputTextField.text else {
-//            return
-//        }
-//        inputSubject.send(.passwordCheckInput(pwCheck))
-//    }
-//
-//    @objc func signupSubmitButtonTouched(_ sender: Any?) {
-//        self.inputSubject.send(.signUp)
-//    }
-//
-//    @objc func emailDuplicationCheckButtonTouched(_ sender: Any?) {
-//        self.inputSubject.send(.emailDuplicationCheck)
-//    }
-//
-//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//        if let char = string.cString(using: String.Encoding.utf8) {
-//            let isBackSpace = strcmp(char, "\\b")
-//            if isBackSpace == -92 {
-//                return true
-//            }
-//        }
-//        guard textField.text!.count < 20 else { return false } // 20 글자로 제한
-//        return true
-//    }
-//}
+private extension MachineSettingViewController {
+    @objc func setMachineNameButtonTouched(_ sender: Any) {
+        let sheet = UIAlertController(title: "이름", message: "수정할 이름을 입력해주세요.", preferredStyle: .alert)
+        sheet.addTextField()
+        
+        let setNameAction = UIAlertAction(title: "확인", style: .default)
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+        
+        sheet.addAction(setNameAction)
+        sheet.addAction(cancelAction)
+        
+        present(sheet, animated: true)
+    }
+    
+    @objc func logCheckButtonTouched(_ sender: Any) {
+        let viewModel = MachineLogViewModel()
+        let viewController = MachineLogViewController(viewModel: viewModel)
+        self.present(viewController, animated: true)
+    }
+}
