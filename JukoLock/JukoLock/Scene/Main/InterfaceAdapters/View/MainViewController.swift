@@ -299,8 +299,7 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
         if collectionView == machineListCollectionView {
             let machineSettingviewModel = MachineSettingViewModel(machine: viewModel.machines[indexPath.row])
             let viewController = MachineSettingViewController(viewModel: machineSettingviewModel)
-            self.navigationController?.pushViewController(viewController, animated: true)
-//            self.present(viewController, animated: true)
+            self.present(viewController, animated: true)
         }
     }
     
