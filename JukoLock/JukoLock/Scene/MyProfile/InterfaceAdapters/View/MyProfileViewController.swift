@@ -5,14 +5,15 @@
 //  Created by 김경호 on 6/1/24.
 //
 
+import Combine
 import UIKit
 
 final class MyProfileViewController: UIViewController {
     
     // MARK: - Properties
 
-    private let menu = ["친구 관리", "그룹 설정", "앱 설정"]
-    private let menuSymbol = ["person.circle.fill", "lock.square.stack", "tray.and.arrow.up.fill"]
+    private let menu = ["친구 관리", "그룹 설정", "앱 설정", "로그아웃"]
+    private let menuSymbol = ["person.circle.fill", "lock.square.stack", "tray.and.arrow.up.fill", "rectangle.portrait.and.arrow.right"]
     
     // MARK: - UI Components
     
@@ -25,7 +26,13 @@ final class MyProfileViewController: UIViewController {
     
     // MARK: - Init
     
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Life Cycle
     
@@ -107,8 +114,20 @@ extension MyProfileViewController: UITableViewDelegate, UITableViewDataSource {
             let groupManagementViewController = GroupManagementViewController(viewModel: GroupManagementViewModel(groupManagementUseCase: GroupManagementUseCase(provider: APIProvider(session: URLSession.shared))))
             self.navigationController?.present(groupManagementViewController, animated: true)
         }
-        else { // 앱 설정
+        else if indexPath.row == 2 { // 앱 설정
             debugPrint("앱 설정")
         }
+        else { // 로그아웃
+            KeyChainManager.delete(key: KeyChainManager.Keywords.accessToken)
+            guard let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate else { return }
+            sceneDelegate.switchViewController(for: .logOut)
+        }
+    }
+}
+
+private extension MyProfileViewController {
+    func logOut() {
+        KeyChainManager.delete(key: KeyChainManager.Keywords.accessToken)
+        
     }
 }
