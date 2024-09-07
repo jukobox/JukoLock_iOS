@@ -13,8 +13,6 @@ final class MainViewController: UIViewController {
     // MARK: - Properties
     private var subscriptions: Set<AnyCancellable> = []
     private var machineLockState: Bool = true // TODO: - 이미지 서버에서 불러오기
-    private let datas = ["aa", "a", "a", "a", "a", "te", "sd", "d"]
-    let testData: [String] = ["김경호", "a 그룹", "b 그룹"] // TODO: - ViewModel에서 가져오기
     private var viewModel: MainViewModel
     private let inputSubject: PassthroughSubject<MainViewModel.Input, Never> = .init()
     
@@ -132,7 +130,7 @@ final class MainViewController: UIViewController {
         
         setUpLayout()
         
-        dropDownButton.setTitle("▼ \(testData.first!)", for: .normal)
+        dropDownButton.setTitle("▼ \(viewModel.groupNames.first!)", for: .normal)
         dropTableView.dataSource = self
         dropTableView.delegate = self
         carouselView.dataSource = self
@@ -260,11 +258,7 @@ extension MainViewController {
 
 extension MainViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == machineListCollectionView {
-            return datas.count
-        } else {
-            return datas.count
-        }
+        return viewModel.machines.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -273,19 +267,18 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
                 fatalError("Failed to load cell!")
             }
             
-            if indexPath.item == datas.count - 1 {
+            if indexPath.item == viewModel.machines.count - 1 {
                 updateScrollViewHeight()
             }
             
-            cell.setData()
+            cell.setData(machine: viewModel.machines[indexPath.row])
             return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CarouselViewCell", for: indexPath) as? CarouselViewCell else {
                 fatalError("Failed to load cell!")
             }
             
-            // TODO: - 도어락 이름, log 연결
-            cell.setData(name: "김경호 집 도어락 - \(indexPath.row + 1)", log: "2024.07.02 15:37")
+            cell.setData(name: viewModel.machines[indexPath.row].machineName, log: viewModel.machines[indexPath.row].machineLastDay)
             return cell
         }
     }
@@ -304,9 +297,10 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == machineListCollectionView {
-            // TODO: - 데이터 보내기
-            let viewController = MachineSettingViewController()
+            let machineSettingviewModel = MachineSettingViewModel(machine: viewModel.machines[indexPath.row])
+            let viewController = MachineSettingViewController(viewModel: machineSettingviewModel)
             self.navigationController?.pushViewController(viewController, animated: true)
+//            self.present(viewController, animated: true)
         }
     }
     
@@ -324,17 +318,17 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return testData.count
+        return viewModel.groupNames.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") ?? UITableViewCell(style: .default, reuseIdentifier: "cell")
-        cell.textLabel?.text = testData[indexPath.row]
+        cell.textLabel?.text = viewModel.groupNames[indexPath.row]
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedItem = testData[indexPath.row]
+        let selectedItem = viewModel.groupNames[indexPath.row]
         dropDownButton.setTitle("▼ \(selectedItem)", for: .normal)
         dropTableView.isHidden = !dropTableView.isHidden
     }
