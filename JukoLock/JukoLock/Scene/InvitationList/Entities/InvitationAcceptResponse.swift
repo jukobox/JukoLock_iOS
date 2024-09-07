@@ -12,3 +12,4 @@ struct InvitationAcceptResponse: Codable {
     let data: String
     let message: String
 }
+

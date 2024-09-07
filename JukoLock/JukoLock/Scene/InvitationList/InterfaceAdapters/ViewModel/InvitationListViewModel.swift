@@ -57,8 +57,7 @@ extension InvitationListViewModel {
     }
     
     func invitationAccept(index: Int) {
-        // TODO: - API 변경되면 수정할 것
-        invitationListUseCase.execute(groupId: noties[index].group.id)
+        invitationListUseCase.execute(invitationId: noties[index].id)
             .receive(on: DispatchQueue.main)
             .sink { completion in
                 if case let .failure(error) = completion {

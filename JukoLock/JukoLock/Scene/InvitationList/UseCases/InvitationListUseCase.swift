@@ -9,7 +9,7 @@ import Combine
 import Foundation
 
 protocol InvitationListUseCaseProtocol {
-    func execute(groupId: Int) -> AnyPublisher<InvitationAcceptResponse, HTTPError> // 그룹 생성
+    func execute(invitationId: Int) -> AnyPublisher<InvitationAcceptResponse, HTTPError> // 그룹 생성
 }
 
 struct InvitationListUseCase: InvitationListUseCaseProtocol {
@@ -20,7 +20,7 @@ struct InvitationListUseCase: InvitationListUseCaseProtocol {
         self.provider = provider
     }
 
-    func execute(groupId: Int) -> AnyPublisher<InvitationAcceptResponse, HTTPError> {
-        return provider.request(InvitationAcceptEndPoint.invitationAccept(groupId: groupId))
+    func execute(invitationId: Int) -> AnyPublisher<InvitationAcceptResponse, HTTPError> {
+        return provider.request(InvitationAcceptEndPoint.invitationAccept(groupId: invitationId))
     }
 }
