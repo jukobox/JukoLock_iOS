@@ -108,8 +108,8 @@ final class MachineSettingViewController: UIViewController {
     
     override func viewDidLoad() {
         self.view.backgroundColor = .white
-        self.setMachineNameButton.setTitle(viewModel.machine.machineName, for: .normal)
-        self.lastLogLabel.text = viewModel.machine.machineLastDay
+        self.setMachineNameButton.setTitle(viewModel.machine.nickname, for: .normal)
+        self.lastLogLabel.text = viewModel.machine.udate
         setUpLayout()
     }
 }

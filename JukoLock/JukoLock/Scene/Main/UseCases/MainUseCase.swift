@@ -11,6 +11,7 @@ import Foundation
 protocol MainUseCaseProtocol {
     func execute() -> AnyPublisher<InviteResponse, HTTPError> // 초대 목록 받아오기
     func getGroupList() -> AnyPublisher<GroupListResponse, HTTPError> // 그룹 목록 받아오기
+    func getMachineList(guid: String) -> AnyPublisher<MachineListResponse, HTTPError> // 기기 목록 받아오기
 }
 
 struct MainUseCase: MainUseCaseProtocol {
@@ -27,5 +28,9 @@ struct MainUseCase: MainUseCaseProtocol {
     
     func getGroupList() -> AnyPublisher<GroupListResponse, HTTPError> {
         return provider.request(MainEndPoint.getGroupList)
+    }
+    
+    func getMachineList(guid: String) -> AnyPublisher<MachineListResponse, HTTPError> {
+        return provider.request(MainEndPoint.getMachineList(guid: guid))
     }
 }

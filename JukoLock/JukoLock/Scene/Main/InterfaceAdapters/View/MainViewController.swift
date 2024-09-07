@@ -231,9 +231,16 @@ extension MainViewController {
                 case .isInvitationNotReceived:
                     self?.invitationListButton.tintColor = .systemGray
                     self?.invitationListButton.isEnabled = false
-                case .dataLoadSuccess:
+                case .getGroupListSuccess:
                     self?.dropTableView.reloadData()
                     self?.dropDownButton.setTitle("▼ \(self?.viewModel.groupList.first?.name ?? "")", for: .normal)
+                    debugPrint(self?.viewModel.groupList.first?.name ?? "")
+                    self?.inputSubject.send(.getMachineList)
+                case .getMachineListSuccess:
+                    self?.machineListCollectionView.reloadData()
+                    self?.carouselView.reloadData()
+                case let .setGroup(groupName):
+                    self?.dropDownButton.setTitle("▼ \(groupName)", for: .normal)
                 }
             }
             .store(in: &subscriptions)
@@ -270,10 +277,9 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
                 fatalError("Failed to load cell!")
             }
             
-            if indexPath.item == viewModel.machines.count - 1 {
-                updateScrollViewHeight()
-            }
-            
+//            if indexPath.item == viewModel.machines.count - 1 {
+//                updateScrollViewHeight()
+//            }
             cell.setData(machine: viewModel.machines[indexPath.row])
             return cell
         } else {
@@ -281,7 +287,7 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
                 fatalError("Failed to load cell!")
             }
             
-            cell.setData(name: viewModel.machines[indexPath.row].machineName, log: viewModel.machines[indexPath.row].machineLastDay)
+            cell.setData(name: viewModel.machines[indexPath.row].nickname, log: viewModel.machines[indexPath.row].udate)
             return cell
         }
     }
@@ -330,8 +336,8 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedItem = viewModel.groupList[indexPath.row].name
-        dropDownButton.setTitle("▼ \(selectedItem)", for: .normal)
+        inputSubject.send(.selectGroup(index: indexPath.row))
+        dropDownButton.setTitle("▼ \(viewModel.groupList.first?.name ?? "")", for: .normal)
         dropTableView.isHidden = !dropTableView.isHidden
     }
 }

@@ -8,6 +8,9 @@
 import Foundation
 
 struct Machine: Codable {
-    let machineName: String
-    let machineLastDay: String
+    let id: Int
+    let uuid: String
+    let nickname: String
+    let rdate: String
+    let udate: String
 }

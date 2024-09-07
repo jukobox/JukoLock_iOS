@@ -21,15 +21,8 @@ final class MainViewModel {
     
     // TODO: - API 연결되면 Static 데이터 삭제
     private(set) var groupList: [Group] = []
-    private(set) var machines: [Machine] = [
-        Machine(machineName: "도어락 1", machineLastDay: "2024.07.02 15:37"),
-        Machine(machineName: "도어락 2", machineLastDay: "2024.07.04 08:48"),
-        Machine(machineName: "도어락 3", machineLastDay: "2023.01.02 23:43"),
-        Machine(machineName: "도어락 4", machineLastDay: "2024.07.09 17:02"),
-        Machine(machineName: "도어락 5", machineLastDay: "2024.08.25 18:16"),
-        Machine(machineName: "도어락 6", machineLastDay: "2024.09.07 16:56"),
-        Machine(machineName: "도어락 7", machineLastDay: "2024.02.09 07:32")
-        ]
+    private(set) var machines: [Machine] = []
+    private(set) var selectedGroupIndex: Int = 0
     
     // MARK: - Init
     
@@ -42,6 +35,8 @@ final class MainViewModel {
     enum Input {
         case checkInvite
         case mainPageInit
+        case selectGroup(index: Int)
+        case getMachineList
     }
     
     // MARK: - Output
@@ -49,7 +44,9 @@ final class MainViewModel {
     enum Output {
         case isInvitationReceived
         case isInvitationNotReceived
-        case dataLoadSuccess
+        case getGroupListSuccess
+        case getMachineListSuccess
+        case setGroup(groupName: String)
     }
     
 }
@@ -65,6 +62,13 @@ extension MainViewModel {
                     self?.getInvitation()
                 case .mainPageInit:
                     self?.getGroupList()
+                case let .selectGroup(index):
+                    self?.selectedGroupIndex = index
+                    let group = self?.groupList[index]
+                    self?.outputSubject.send(.setGroup(groupName: group?.name ?? ""))
+                    self?.getMachineList()
+                case .getMachineList:
+                    self?.getMachineList()
                 }
             }
             .store(in: &subscriptions)
@@ -102,9 +106,26 @@ extension MainViewModel {
             } receiveValue: { [weak self] response in
                 if response.status == "success" && !response.data.isEmpty {
                     self?.groupList = response.data
-                    self?.outputSubject.send(.dataLoadSuccess)
+                    self?.outputSubject.send(.getGroupListSuccess)
+                }
+            }
+            .store(in: &subscriptions)
+    }
+    
+    private func getMachineList() {
+        mainUseCase.getMachineList(guid: groupList[selectedGroupIndex].guid)
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                if case let .failure(error) = completion {
+                    debugPrint("Group List Get Fail")
+                }
+            } receiveValue: { [weak self] response in
+                if response.status == "success" {
+                    self?.machines = response.data
+                    self?.outputSubject.send(.getMachineListSuccess)
                 }
             }
             .store(in: &subscriptions)
     }
 }
+

@@ -87,8 +87,8 @@ final class MachineListCell: UICollectionViewCell {
     }
     
     func setData(machine: Machine) {
-        machineNameLabel.text = machine.machineName
-        lastLogLabel.text = machine.machineLastDay
+        machineNameLabel.text = machine.nickname
+        lastLogLabel.text = machine.udate
         
         self.layer.masksToBounds = true
         self.layer.cornerRadius = 20

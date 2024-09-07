@@ -10,6 +10,7 @@ import Foundation
 enum MainEndPoint {
     case getInvites
     case getGroupList
+    case getMachineList(guid: String)
 }
 
 extension MainEndPoint: EndPoint {
@@ -34,23 +35,28 @@ extension MainEndPoint: EndPoint {
                 "Host": "JukoLock.App",
                 "Authorization": "Bearer \(KeyChainManager.load(key: KeyChainManager.Keywords.accessToken)!)"
             ]
+        case let .getMachineList(guid):
+            return [
+                "Content-Type": "application/json",
+                "Contents-Length": "1000",
+                "Host": "JukoLock.App",
+                "Authorization": "Bearer \(KeyChainManager.load(key: KeyChainManager.Keywords.accessToken)!)"
+            ]
         }
     }
     
     var parameter: HTTPParameter {
         switch self {
-        case .getInvites:
+        case .getInvites, .getGroupList:
             return .plain
-        case .getGroupList:
-            return .plain
+        case let .getMachineList(guid):
+            return .query(["guid":guid])
         }
     }
     
     var method: HTTPMethod {
         switch self {
-        case .getInvites:
-            return .get
-        case .getGroupList:
+        case .getInvites, .getGroupList, .getMachineList:
             return .get
         }
     }
@@ -61,6 +67,8 @@ extension MainEndPoint: EndPoint {
             return "/group/invite"
         case .getGroupList:
             return "/group/list"
+        case .getMachineList:
+            return "/device/list"
         }
     }
 }

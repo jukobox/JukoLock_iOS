@@ -28,6 +28,7 @@
 		AA1A205E2C8C5B98005A3307 /* MachineLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A205D2C8C5B98005A3307 /* MachineLogViewModel.swift */; };
 		AA1A20602C8C5FD3005A3307 /* MachineLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A205F2C8C5FD3005A3307 /* MachineLog.swift */; };
 		AA1A20622C8C6143005A3307 /* MachineLogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A20612C8C6143005A3307 /* MachineLogTableViewCell.swift */; };
+		AA1A20662C8CA5E8005A3307 /* MachineListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A20652C8CA5E8005A3307 /* MachineListResponse.swift */; };
 		AA30F21D2BC4CBDB00B97FA6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA30F21C2BC4CBDB00B97FA6 /* AppDelegate.swift */; };
 		AA30F21F2BC4CBDB00B97FA6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA30F21E2BC4CBDB00B97FA6 /* SceneDelegate.swift */; };
 		AA30F2262BC4CBDC00B97FA6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA30F2252BC4CBDC00B97FA6 /* Assets.xcassets */; };
@@ -105,6 +106,7 @@
 		AA1A205D2C8C5B98005A3307 /* MachineLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineLogViewModel.swift; sourceTree = "<group>"; };
 		AA1A205F2C8C5FD3005A3307 /* MachineLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineLog.swift; sourceTree = "<group>"; };
 		AA1A20612C8C6143005A3307 /* MachineLogTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineLogTableViewCell.swift; sourceTree = "<group>"; };
+		AA1A20652C8CA5E8005A3307 /* MachineListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineListResponse.swift; sourceTree = "<group>"; };
 		AA30F2192BC4CBDB00B97FA6 /* JukoLock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JukoLock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA30F21C2BC4CBDB00B97FA6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AA30F21E2BC4CBDB00B97FA6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -450,6 +452,7 @@
 			isa = PBXGroup;
 			children = (
 				AA1A20382C6B3850005A3307 /* InviteResponse.swift */,
+				AA1A20652C8CA5E8005A3307 /* MachineListResponse.swift */,
 				AA1A203C2C6B39BC005A3307 /* MainEndPoint.swift */,
 			);
 			path = Entities;
@@ -876,6 +879,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA1A20662C8CA5E8005A3307 /* MachineListResponse.swift in Sources */,
 				AAAC84012C049DF2002E6AF1 /* Session.swift in Sources */,
 				AAAC840A2C05B5CF002E6AF1 /* LoginState.swift in Sources */,
 				AAAC83FD2C049D91002E6AF1 /* HTTPHeaders.swift in Sources */,
