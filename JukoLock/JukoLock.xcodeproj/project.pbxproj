@@ -29,6 +29,9 @@
 		AA1A20602C8C5FD3005A3307 /* MachineLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A205F2C8C5FD3005A3307 /* MachineLog.swift */; };
 		AA1A20622C8C6143005A3307 /* MachineLogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A20612C8C6143005A3307 /* MachineLogTableViewCell.swift */; };
 		AA1A20662C8CA5E8005A3307 /* MachineListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A20652C8CA5E8005A3307 /* MachineListResponse.swift */; };
+		AA1A20692C8D4873005A3307 /* SelectedGroupPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A20682C8D4873005A3307 /* SelectedGroupPageViewController.swift */; };
+		AA1A206B2C8D4928005A3307 /* SelectedGroupPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A206A2C8D4928005A3307 /* SelectedGroupPageViewModel.swift */; };
+		AA1A206D2C8D4A4D005A3307 /* GroupUserListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1A206C2C8D4A4D005A3307 /* GroupUserListResponse.swift */; };
 		AA30F21D2BC4CBDB00B97FA6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA30F21C2BC4CBDB00B97FA6 /* AppDelegate.swift */; };
 		AA30F21F2BC4CBDB00B97FA6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA30F21E2BC4CBDB00B97FA6 /* SceneDelegate.swift */; };
 		AA30F2262BC4CBDC00B97FA6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA30F2252BC4CBDC00B97FA6 /* Assets.xcassets */; };
@@ -107,6 +110,9 @@
 		AA1A205F2C8C5FD3005A3307 /* MachineLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineLog.swift; sourceTree = "<group>"; };
 		AA1A20612C8C6143005A3307 /* MachineLogTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineLogTableViewCell.swift; sourceTree = "<group>"; };
 		AA1A20652C8CA5E8005A3307 /* MachineListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineListResponse.swift; sourceTree = "<group>"; };
+		AA1A20682C8D4873005A3307 /* SelectedGroupPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedGroupPageViewController.swift; sourceTree = "<group>"; };
+		AA1A206A2C8D4928005A3307 /* SelectedGroupPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedGroupPageViewModel.swift; sourceTree = "<group>"; };
+		AA1A206C2C8D4A4D005A3307 /* GroupUserListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupUserListResponse.swift; sourceTree = "<group>"; };
 		AA30F2192BC4CBDB00B97FA6 /* JukoLock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JukoLock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA30F21C2BC4CBDB00B97FA6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AA30F21E2BC4CBDB00B97FA6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -726,6 +732,7 @@
 			isa = PBXGroup;
 			children = (
 				AA1A202E2C69DE75005A3307 /* GroupListResponse.swift */,
+				AA1A206C2C8D4A4D005A3307 /* GroupUserListResponse.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -734,6 +741,7 @@
 			isa = PBXGroup;
 			children = (
 				AAE8A54D2C5FAE0600D4A5D6 /* GroupManagementViewModel.swift */,
+				AA1A206A2C8D4928005A3307 /* SelectedGroupPageViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -743,6 +751,7 @@
 			children = (
 				AAE8A54F2C5FAE1600D4A5D6 /* GroupManagementViewController.swift */,
 				AAE8A5532C60598800D4A5D6 /* GroupListCell.swift */,
+				AA1A20682C8D4873005A3307 /* SelectedGroupPageViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -886,6 +895,7 @@
 				AAAC83DD2C04485F002E6AF1 /* LoginEndPoint.swift in Sources */,
 				AAE8A5272C37982200D4A5D6 /* MachineSettingViewModel.swift in Sources */,
 				AAE8A53B2C37DB7A00D4A5D6 /* MyProfileMenuCell.swift in Sources */,
+				AA1A206D2C8D4A4D005A3307 /* GroupUserListResponse.swift in Sources */,
 				AAE8A5382C37995C00D4A5D6 /* SignUpViewModel.swift in Sources */,
 				AAE8A53E2C5F900600D4A5D6 /* KeyChainManager.swift in Sources */,
 				AAE8A5522C60530700D4A5D6 /* GroupManagementUseCase.swift in Sources */,
@@ -915,6 +925,7 @@
 				AAAC83F32C049AC1002E6AF1 /* HTTPMethods.swift in Sources */,
 				AAE8A5622C60B30C00D4A5D6 /* CreateGroupUseCase.swift in Sources */,
 				AAAC83F12C049A2C002E6AF1 /* EndPoint.swift in Sources */,
+				AA1A206B2C8D4928005A3307 /* SelectedGroupPageViewModel.swift in Sources */,
 				AA1A20602C8C5FD3005A3307 /* MachineLog.swift in Sources */,
 				AAAC83F92C049B79002E6AF1 /* Requestable.swift in Sources */,
 				AA1A20332C69F010005A3307 /* CreateGroupResponse.swift in Sources */,
@@ -934,6 +945,7 @@
 				AA1A20352C6B374E005A3307 /* Invite.swift in Sources */,
 				AA1A203B2C6B3951005A3307 /* MainUseCase.swift in Sources */,
 				AAAC83EA2C046903002E6AF1 /* LoginUseCase.swift in Sources */,
+				AA1A20692C8D4873005A3307 /* SelectedGroupPageViewController.swift in Sources */,
 				AAE8A5502C5FAE1600D4A5D6 /* GroupManagementViewController.swift in Sources */,
 				AAAC83F52C049B13002E6AF1 /* HTTPParameter.swift in Sources */,
 				AAAC84212C0B5317002E6AF1 /* MainViewModel.swift in Sources */,

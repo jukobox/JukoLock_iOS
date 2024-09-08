@@ -35,7 +35,7 @@ extension MainEndPoint: EndPoint {
                 "Host": "JukoLock.App",
                 "Authorization": "Bearer \(KeyChainManager.load(key: KeyChainManager.Keywords.accessToken)!)"
             ]
-        case let .getMachineList(guid):
+        case let .getMachineList:
             return [
                 "Content-Type": "application/json",
                 "Contents-Length": "1000",

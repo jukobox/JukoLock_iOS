@@ -63,7 +63,6 @@ final class GroupManagementViewController: UIViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        bind()
         self.view.backgroundColor = .white
         setUpLayout()
         updateTableViewHeight()
@@ -121,6 +120,7 @@ extension GroupManagementViewController {
         addViews()
         setLayoutConstraints()
         addTargets()
+        bind()
     }
     
     private func addTargets() {
@@ -169,6 +169,14 @@ extension GroupManagementViewController: UITableViewDelegate, UITableViewDataSou
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let provider = APIProvider(session: URLSession.shared)
+        let useCases = GroupManagementUseCase(provider: provider)
+        let viewModel = SelectedGroupPageViewModel(groupManagementUseCase: useCases, groupId: viewModel.groupList[indexPath.row].guid)
+        let viewController = SelectedGroupPageViewController(viewModel: viewModel)
+        self.present(viewController, animated: true)
+    }
+    
     // TableView의 높이를 콘텐츠 크기에 맞게 조정
     func updateTableViewHeight() {
         tableView.reloadData()
@@ -189,4 +197,3 @@ extension GroupManagementViewController {
         self.tableView.reloadData()
     }
 }
-

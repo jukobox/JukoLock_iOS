@@ -9,6 +9,7 @@ import Foundation
 
 enum GroupManagementEndPoint {
     case getGroupList
+    case getGroupUserList(guid: String)
 }
 
 extension GroupManagementEndPoint: EndPoint {
@@ -19,7 +20,7 @@ extension GroupManagementEndPoint: EndPoint {
     
     var headers: HTTPHeaders {
         switch self {
-        case .getGroupList:
+        case .getGroupList, .getGroupUserList:
             return [
                 "Content-Type": "application/json",
                 "Contents-Length": "1000",
@@ -33,12 +34,14 @@ extension GroupManagementEndPoint: EndPoint {
         switch self {
         case .getGroupList:
             return .plain
+        case let .getGroupUserList(guid):
+            return .query(["guid":guid])
         }
     }
     
     var method: HTTPMethod {
         switch self {
-        case .getGroupList:
+        case .getGroupList, .getGroupUserList:
             return .get
         }
     }
@@ -47,6 +50,8 @@ extension GroupManagementEndPoint: EndPoint {
         switch self {
         case .getGroupList:
             return "/group/list"
+        case .getGroupUserList:
+            return "/group/userList"
         }
     }
 }
