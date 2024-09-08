@@ -44,7 +44,7 @@ extension CreateEndPoint: EndPoint {
         case let .inviteUser(userEmail, groupId):
             return .body([
                 "receiveUserEmail": userEmail,
-                "groupId": groupId
+                "guid": groupId
             ])
         }
     }
