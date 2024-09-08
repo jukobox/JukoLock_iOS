@@ -104,7 +104,6 @@ extension CreateViewModel {
     }
     
     private func userInvite(groupId: String) {
-        debugPrint(groupId)
         for i in addEmails {
             createGroupUseCase.execute(userEmail: i, groupId: groupId)
                 .receive(on: DispatchQueue.global())

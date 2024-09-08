@@ -89,16 +89,14 @@ extension SelectedGroupPageViewModel {
             .receive(on: DispatchQueue.main)
             .sink { completion in
                 if case let .failure(error) = completion {
-                    debugPrint("Group User Add Fail")
+                    debugPrint("Group User Add Fail: \(error)")
                 }
             } receiveValue: { [weak self] response in
-                debugPrint(response)
                 switch response.status {
                 case "success":
                     self?.getGroupUsers()
                     self?.outputSubject.send(.addEmailInputSuccess)
                 default:
-                    debugPrint("test")
                     self?.outputSubject.send(.addEmailInputFail)
                 }
             }
