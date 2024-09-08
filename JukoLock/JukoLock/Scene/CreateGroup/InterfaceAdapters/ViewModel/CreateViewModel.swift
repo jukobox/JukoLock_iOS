@@ -94,7 +94,7 @@ extension CreateViewModel {
             } receiveValue: { [weak self] response in
                 switch response.status {
                 case "success":
-                    self?.userInvite(groupId: "\(response.data?.id)")
+                    self?.userInvite(groupId: "\(response.data?.guid)")
                     self?.outputSubject.send(.groupCreateComplete)
                 default:
                     self?.outputSubject.send(.groupCreateFail)
