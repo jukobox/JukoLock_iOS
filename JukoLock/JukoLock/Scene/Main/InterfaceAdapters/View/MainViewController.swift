@@ -16,11 +16,11 @@ final class MainViewController: UIViewController {
     private var viewModel: MainViewModel
     private let inputSubject: PassthroughSubject<MainViewModel.Input, Never> = .init()
     
-    // TODO: - Test Code 삭제 예정
+    // MARK: - UI Components
+    
     private let loadingView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
-//        view.isHidden = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -32,8 +32,6 @@ final class MainViewController: UIViewController {
         animation.translatesAutoresizingMaskIntoConstraints = false
         return animation
     }()
-    
-    // MARK: - UI Components
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
