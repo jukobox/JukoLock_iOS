@@ -328,6 +328,10 @@ extension LoginViewController: UITextFieldDelegate {
         return true
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
     private func loginFailAlert() {
         let sheet = UIAlertController(title: "로그인 실패", message: "아이디나 비밀번호를 확인해주세요.", preferredStyle: .alert)
         sheet.addAction(UIAlertAction(title: "확인", style: .default))
@@ -335,6 +339,7 @@ extension LoginViewController: UITextFieldDelegate {
     }
     
     private func loginErrorAlert() {
+        // TODO: - 비밀번호가 틀리는 경우도 처리
         let sheet = UIAlertController(title: "로그인 실패", message: "네트워크 상태를 확인해주세요.", preferredStyle: .alert)
         sheet.addAction(UIAlertAction(title: "확인", style: .default))
         present(sheet, animated: true)
