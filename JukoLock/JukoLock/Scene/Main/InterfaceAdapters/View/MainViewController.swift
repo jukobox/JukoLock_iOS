@@ -5,6 +5,7 @@
 //  Created by 김경호 on 5/3/24.
 //
 
+import Lottie
 import Combine
 import UIKit
 
@@ -12,9 +13,25 @@ final class MainViewController: UIViewController {
     
     // MARK: - Properties
     private var subscriptions: Set<AnyCancellable> = []
-    private var machineLockState: Bool = true // TODO: - 이미지 서버에서 불러오기
     private var viewModel: MainViewModel
     private let inputSubject: PassthroughSubject<MainViewModel.Input, Never> = .init()
+    
+    // TODO: - Test Code 삭제 예정
+    private let loadingView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+//        view.isHidden = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private let loadingAnimation: LottieAnimationView = {
+        let animation = LottieAnimationView(name: "loading")
+        animation.loopMode = .loop
+        animation.play()
+        animation.translatesAutoresizingMaskIntoConstraints = false
+        return animation
+    }()
     
     // MARK: - UI Components
     
@@ -136,8 +153,6 @@ final class MainViewController: UIViewController {
         carouselView.delegate = self
         machineListCollectionView.dataSource = self
         machineListCollectionView.delegate = self
-        
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -164,11 +179,15 @@ extension MainViewController {
         [ dropDownButton, invitationListButton, addMachineButton, welcomeLabel, carouselView, dropTableView, machineListCollectionView ].forEach {
             self.scrollContentsView.addSubview($0)
         }
+        
+        self.view.addSubview(loadingView)
+        loadingView.addSubview(loadingAnimation)
     }
     
     private func addTargets() {
         dropDownButton.addTarget(self, action: #selector(groupDropDownButtonTouched), for: .touchUpInside)
         invitationListButton.addTarget(self, action: #selector(invitationListButtonTouched), for: .touchUpInside)
+        addMachineButton.addTarget(self, action: #selector(addMachineButtonTouched), for: .touchUpInside)
     }
     
     private func setLayoutConstraints() {
@@ -211,7 +230,17 @@ extension MainViewController {
             machineListCollectionView.leadingAnchor.constraint(equalTo: scrollContentsView.leadingAnchor, constant: 20),
             machineListCollectionView.trailingAnchor.constraint(equalTo: scrollContentsView.trailingAnchor, constant: -20),
             machineListCollectionView.bottomAnchor.constraint(equalTo: scrollContentsView.bottomAnchor),
-            machineListCollectionView.heightAnchor.constraint(equalToConstant: 1200)
+            machineListCollectionView.heightAnchor.constraint(equalToConstant: 1200),
+            
+            loadingView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            loadingView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            loadingView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            loadingView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            
+            loadingAnimation.topAnchor.constraint(equalTo: self.loadingView.topAnchor),
+            loadingAnimation.leadingAnchor.constraint(equalTo: self.loadingView.leadingAnchor),
+            loadingAnimation.trailingAnchor.constraint(equalTo: self.loadingView.trailingAnchor),
+            loadingAnimation.bottomAnchor.constraint(equalTo: self.loadingView.bottomAnchor)
         ])
     }
 }
@@ -238,6 +267,7 @@ extension MainViewController {
                 case .getMachineListSuccess:
                     self?.machineListCollectionView.reloadData()
                     self?.carouselView.reloadData()
+                    self?.loadingView.isHidden = true
                 case let .setGroup(groupName):
                     self?.dropDownButton.setTitle("▼ \(groupName)", for: .normal)
                 }
@@ -249,7 +279,7 @@ extension MainViewController {
 // MARK: - Methos
 
 extension MainViewController {
-    @objc func groupDropDownButtonTouched() { // TODO: - 이름 바꾸기
+    @objc func groupDropDownButtonTouched() {
         self.dropTableView.isHidden = !self.dropTableView.isHidden
     }
     
@@ -262,6 +292,14 @@ extension MainViewController {
     @objc func invitationListButtonTouched(_ sender: Any?) {
         let invitationListViewController = InvitationListViewController(viewModel: InvitationListViewModel(invitationListUseCase: InvitationListUseCase(provider: APIProvider(session: URLSession.shared)), noties: viewModel.noties))
         self.navigationController?.present(invitationListViewController, animated: true)
+    }
+    
+    @objc func addMachineButtonTouched(_ sender: Any?) {
+        let provider = APIProvider(session: URLSession.shared)
+        let useCase = AddMachineUseCase(provider: provider)
+        let viewModel = AddMachineViewModel(addMachineUseCase: useCase)
+        let addMachineViewController = AddMachineViewController(viewModel: viewModel)
+        self.navigationController?.pushViewController(addMachineViewController, animated: true)
     }
 }
 
@@ -276,9 +314,6 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
                 fatalError("Failed to load cell!")
             }
             
-//            if indexPath.item == viewModel.machines.count - 1 {
-//                updateScrollViewHeight()
-//            }
             cell.setData(machine: viewModel.machines[indexPath.row])
             return cell
         } else {
