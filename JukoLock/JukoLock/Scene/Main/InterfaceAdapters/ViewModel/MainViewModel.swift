@@ -19,7 +19,6 @@ final class MainViewModel {
     private var pw: String = ""
     var noties: [Invite] = []
     
-    // TODO: - API 연결되면 Static 데이터 삭제
     private(set) var groupList: [Group] = []
     private(set) var machines: [Machine] = []
     private(set) var selectedGroupIndex: Int = 0

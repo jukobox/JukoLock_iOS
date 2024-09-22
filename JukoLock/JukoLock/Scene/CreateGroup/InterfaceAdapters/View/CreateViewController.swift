@@ -196,13 +196,9 @@ private extension CreateViewController {
             .sink { [weak self] output in
                 switch output {
                 case .groupCreateComplete:
-                    // TODO: - Alert 만들기
-                    debugPrint("Group Create Complete")
-                    self?.dismiss(animated: true)
+                    self?.alertGroupCreateResult(title: "그룹 생성 성공", message: "그룹 생성에 성공하였습니다.")
                 case .groupCreateFail:
-                    // TODO: - Alert 만들기
-                    debugPrint("Group Create Fail")
-                    self?.dismiss(animated: true)
+                    self?.alertGroupCreateResult(title: "그룹 생성 실패", message: "그룹 생성에 실패하였습니다.\n잠시 후 다시 시도해주세요.")
                 case .createGroupPossible:
                     self?.completeButton.isEnabled = true
                     self?.completeButton.backgroundColor = .blue
@@ -291,5 +287,13 @@ extension CreateViewController {
     private func addEmailInputSuccess() {
         followListTableView.reloadData()
         addEmailInputTextField.text = ""
+    }
+    
+    private func alertGroupCreateResult(title: String, message: String) {
+        let sheet = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        sheet.addAction(UIAlertAction(title: "확인", style: .default) { _ in
+            self.dismiss(animated: true)
+        })
+        self.present(sheet, animated: true)
     }
 }
