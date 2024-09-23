@@ -36,7 +36,6 @@ final class AddMachineViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-        
         setUpLayout()
         checkCameraPermission()
     }
@@ -58,13 +57,14 @@ final class AddMachineViewController: UIViewController {
     }
 }
 
+
 // MARK: - UI Settings
 
 extension AddMachineViewController {
     private func setUpLayout() {
         bind()
     }
-    
+
     // MARK: - Bind
     
     func bind() {
@@ -74,14 +74,10 @@ extension AddMachineViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] output in
                 switch output {
-                case .addMachineSetting:
-                    self?.addMachineSetting()
                 case .addMachineSuccess:
                     self?.addMachineSuccess()
-                    debugPrint("기기 추가 성공")
                 case .addMachineFail:
                     self?.addMachineFail()
-                    debugPrint("기기 추가 실패")
                 }
             }
             .store(in: &subscriptions)
@@ -217,7 +213,8 @@ extension AddMachineViewController: AVCaptureMetadataOutputObjectsDelegate {
         DispatchQueue.main.async {
             // 카메라 미리보기를 위한 레이어를 설정
             self.previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-            //        previewLayer.frame = view.layer.bounds
+        
+            self.previewLayer.frame = self.view.layer.bounds
             self.previewLayer.videoGravity = .resizeAspectFill
             self.view.layer.addSublayer(self.previewLayer)
         }
@@ -225,11 +222,6 @@ extension AddMachineViewController: AVCaptureMetadataOutputObjectsDelegate {
         DispatchQueue.global(qos: .userInitiated).async {
             captureSession.startRunning()
         }
-    }
-    
-    func addMachineSetting() {
-        let viewController = AddMachineSettingViewController(viewModel: viewModel)
-        self.present(viewController, animated: true)
     }
     
     func addMachineSuccess() {
