@@ -32,6 +32,7 @@ final class AddMachineViewModel {
     // MARK: - Input
     
     enum Input {
+        case machineSettingViewDisAppear
         case qrReadSuccess(machineId: String)
         case machineNameInput(name: String)
         case groupSelected(selectedRow: Int)
@@ -41,6 +42,7 @@ final class AddMachineViewModel {
     // MARK: - Output
     
     enum Output {
+        case settingViewDisAppear
         case addMachineSuccess
         case addMachineFail
     }
@@ -61,6 +63,8 @@ extension AddMachineViewModel {
                     self?.selectedGroupIndex = selectedRow
                 case .addMachineSettingCompleted:
                     self?.addMachine()
+                case .machineSettingViewDisAppear:
+                    self?.outputSubject.send(.settingViewDisAppear)
                 }
             }
             .store(in: &subscriptions)

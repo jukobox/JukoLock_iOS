@@ -74,6 +74,8 @@ extension AddMachineViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] output in
                 switch output {
+                case .settingViewDisAppear:
+                    self?.navigationController?.popViewController(animated: true)
                 case .addMachineSuccess:
                     self?.addMachineSuccess()
                 case .addMachineFail:

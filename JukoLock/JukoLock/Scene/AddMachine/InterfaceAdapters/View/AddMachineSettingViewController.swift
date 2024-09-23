@@ -64,6 +64,10 @@ final class AddMachineSettingViewController: UIViewController {
         setUpLayout()
         super.viewDidLoad()
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        self.inputSubject.send(.machineSettingViewDisAppear)
+    }
 }
 
 // MARK: - UI Settings
