@@ -73,6 +73,7 @@ extension AddMachineSettingViewController {
         addViews()
         setLayoutConstraints()
         addTargets()
+        bind()
         
         groupSelectPicker.delegate = self
         groupSelectPicker.dataSource = self
@@ -107,6 +108,20 @@ extension AddMachineSettingViewController {
     }
 }
 
+extension AddMachineSettingViewController {
+    // MARK: - Bind
+    func bind() {
+        let outputSubject = viewModel.transform(with: inputSubject.eraseToAnyPublisher())
+        
+        outputSubject
+            .receive(on: DispatchQueue.main)
+            .sink { output in
+                debugPrint(output)
+            }
+            .store(in: &subscriptions)
+    }
+}
+
 // MARK: - Methos
 
 extension AddMachineSettingViewController {
@@ -114,6 +129,10 @@ extension AddMachineSettingViewController {
         self.dismiss(animated: true) {
             self.inputSubject.send(.addMachineSettingCompleted)
         }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
     }
 }
 
@@ -131,7 +150,6 @@ extension AddMachineSettingViewController: UIPickerViewDelegate, UIPickerViewDat
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        debugPrint(row)
         inputSubject.send(.groupSelected(selectedRow: row))
     }
 }

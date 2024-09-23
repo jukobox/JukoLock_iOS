@@ -41,7 +41,6 @@ final class AddMachineViewModel {
     // MARK: - Output
     
     enum Output {
-        case addMachineSetting
         case addMachineSuccess
         case addMachineFail
     }
@@ -56,7 +55,6 @@ extension AddMachineViewModel {
                 switch input {
                 case let .qrReadSuccess(machineId):
                     self?.machineId = machineId
-                    self?.outputSubject.send(.addMachineSuccess)
                 case let .machineNameInput(name):
                     self?.machineName = name
                 case let .groupSelected(selectedRow):
