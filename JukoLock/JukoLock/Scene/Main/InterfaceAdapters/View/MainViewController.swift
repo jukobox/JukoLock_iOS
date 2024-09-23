@@ -295,7 +295,7 @@ extension MainViewController {
     @objc func addMachineButtonTouched(_ sender: Any?) {
         let provider = APIProvider(session: URLSession.shared)
         let useCase = AddMachineUseCase(provider: provider)
-        let viewModel = AddMachineViewModel(addMachineUseCase: useCase)
+        let viewModel = AddMachineViewModel(addMachineUseCase: useCase, groupList: self.viewModel.groupList, userName: "test")
         let addMachineViewController = AddMachineViewController(viewModel: viewModel)
         self.navigationController?.pushViewController(addMachineViewController, animated: true)
     }

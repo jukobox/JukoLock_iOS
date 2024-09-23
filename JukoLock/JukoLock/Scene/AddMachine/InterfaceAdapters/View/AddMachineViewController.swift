@@ -35,7 +35,7 @@ final class AddMachineViewController: UIViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .black
+        self.view.backgroundColor = .white
         
         setUpLayout()
         checkCameraPermission()
@@ -74,6 +74,8 @@ extension AddMachineViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] output in
                 switch output {
+                case .addMachineSetting:
+                    self?.addMachineSetting()
                 case .addMachineSuccess:
                     self?.addMachineSuccess()
                     debugPrint("기기 추가 성공")
@@ -102,11 +104,12 @@ extension AddMachineViewController: AVCaptureMetadataOutputObjectsDelegate {
         
         if let metadataObject = metadataObjects.first {
             guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
-            guard let stringValue = readableObject.stringValue else { return }
+            guard let codeValue = readableObject.stringValue else { return }
             
             // QR 코드 값 처리
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-            addMachine(machineID: stringValue)
+            
+            addMachine(machineID: codeValue)
         }
         
         dismiss(animated: true)
@@ -117,7 +120,8 @@ extension AddMachineViewController: AVCaptureMetadataOutputObjectsDelegate {
         DispatchQueue.main.async {
             let sheet = UIAlertController(title: "기기 추가", message: "기기를 추가하겠습니까?", preferredStyle: .alert)
             let addAction = UIAlertAction(title: "추가", style: .default) { _ in
-                self.inputSubject.send(.qrReadSuccess(machineId: machineID))
+                let viewController = AddMachineSettingViewController(viewModel: self.viewModel)
+                self.present(viewController, animated: true)
             }
             let cancelAction = UIAlertAction(title: "취소", style: .cancel)
             sheet.addAction(addAction)
@@ -210,17 +214,22 @@ extension AddMachineViewController: AVCaptureMetadataOutputObjectsDelegate {
             return
         }
         
-        // TODO: - Main Thread로 수정
-        // 카메라 미리보기를 위한 레이어를 설정
-        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-//        previewLayer.frame = view.layer.bounds
-        previewLayer.videoGravity = .resizeAspectFill
-        view.layer.addSublayer(previewLayer)
-        
+        DispatchQueue.main.async {
+            // 카메라 미리보기를 위한 레이어를 설정
+            self.previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+            //        previewLayer.frame = view.layer.bounds
+            self.previewLayer.videoGravity = .resizeAspectFill
+            self.view.layer.addSublayer(self.previewLayer)
+        }
         // 세션 시작
         DispatchQueue.global(qos: .userInitiated).async {
             captureSession.startRunning()
         }
+    }
+    
+    func addMachineSetting() {
+        let viewController = AddMachineSettingViewController(viewModel: viewModel)
+        self.present(viewController, animated: true)
     }
     
     func addMachineSuccess() {

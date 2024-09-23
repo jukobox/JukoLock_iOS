@@ -16,21 +16,32 @@ final class AddMachineViewModel {
     private let outputSubject = PassthroughSubject<Output, Never>()
     private var addMachineUseCase: AddMachineUseCase
     
+    private(set) var selectedGroupIndex: Int = 0
+    private(set) var machineName: String = ""
+    private(set) var groupList: [Group] = []
+    private(set) var machineId: String = ""
+    
     // MARK: - Init
     
-    init(addMachineUseCase: AddMachineUseCase) {
+    init(addMachineUseCase: AddMachineUseCase, groupList: [Group], userName: String) {
         self.addMachineUseCase = addMachineUseCase
+        self.groupList = groupList
+        self.machineName = "\(userName)의 도어락"
     }
     
     // MARK: - Input
     
     enum Input {
         case qrReadSuccess(machineId: String)
+        case machineNameInput(name: String)
+        case groupSelected(selectedRow: Int)
+        case addMachineSettingCompleted
     }
     
     // MARK: - Output
     
     enum Output {
+        case addMachineSetting
         case addMachineSuccess
         case addMachineFail
     }
@@ -44,15 +55,22 @@ extension AddMachineViewModel {
             .sink { [weak self] input in
                 switch input {
                 case let .qrReadSuccess(machineId):
-                    self?.addMachine(machineId: machineId)
+                    self?.machineId = machineId
+                    self?.outputSubject.send(.addMachineSuccess)
+                case let .machineNameInput(name):
+                    self?.machineName = name
+                case let .groupSelected(selectedRow):
+                    self?.selectedGroupIndex = selectedRow
+                case .addMachineSettingCompleted:
+                    self?.addMachine()
                 }
             }
             .store(in: &subscriptions)
         return outputSubject.eraseToAnyPublisher()
     }
     
-    private func addMachine(machineId: String) {
-        addMachineUseCase.execute(machineID: machineId)
+    private func addMachine() {
+        addMachineUseCase.execute(machineId: self.machineId, machineName: self.machineName, guid: self.groupList[selectedGroupIndex].guid)
             .receive(on: DispatchQueue.main)
             .sink { completion in
                 if case let .failure(error) = completion {

@@ -9,7 +9,7 @@ import Combine
 import Foundation
 
 protocol AddMachineUseCaseProtocol {
-    func execute(machineID: String) -> AnyPublisher<AddMachineResponse, HTTPError> // 기기 추가
+    func execute(machineId: String, machineName: String, guid: String) -> AnyPublisher<AddMachineResponse, HTTPError> // 기기 추가
 }
 
 struct AddMachineUseCase: AddMachineUseCaseProtocol {
@@ -19,7 +19,7 @@ struct AddMachineUseCase: AddMachineUseCaseProtocol {
         self.provider = provider
     }
     
-    func execute(machineID: String) -> AnyPublisher<AddMachineResponse, HTTPError> {
-        return provider.request(AddMachineEndPoint.addMachine(machineId: machineID))
+    func execute(machineId: String, machineName: String, guid: String) -> AnyPublisher<AddMachineResponse, HTTPError> {
+        return provider.request(AddMachineEndPoint.addMachine(machineId: machineId, machineName: machineName, guid: guid))
     }
 }

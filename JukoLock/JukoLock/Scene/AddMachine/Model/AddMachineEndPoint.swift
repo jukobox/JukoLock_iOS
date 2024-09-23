@@ -8,7 +8,7 @@
 import Foundation
 
 enum AddMachineEndPoint {
-    case addMachine(machineId: String)
+    case addMachine(machineId: String, machineName: String, guid: String)
 
 }
 
@@ -32,8 +32,12 @@ extension AddMachineEndPoint: EndPoint {
     
     var parameter: HTTPParameter {
         switch self {
-        case let .addMachine(machineId):
-            return .body(["uuid":machineId])
+        case let .addMachine(machineId, machineName, guid):
+            return .body([
+            "uuid": machineId,
+            "nickName": machineName,
+            "guid": guid
+            ])
         }
     }
     
