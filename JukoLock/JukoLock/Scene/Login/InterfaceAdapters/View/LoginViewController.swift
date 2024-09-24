@@ -160,6 +160,7 @@ final class LoginViewController: UIViewController {
         bind()
         self.view.backgroundColor = .white
         setUpLayout()
+        setUpKeyboardObserver()
         emailInputTextField.delegate = self
         pwInputTextField.delegate = self
     }
@@ -178,7 +179,7 @@ extension LoginViewController {
     
     private func setLayoutConstraints() {
         NSLayoutConstraint.activate ([
-            firstTextTitle.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 80),
+            firstTextTitle.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 50),
             firstTextTitle.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 30),
             firstTextTitle.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -30),
             
@@ -190,7 +191,7 @@ extension LoginViewController {
             thirdTextTitle.leadingAnchor.constraint(equalTo: secondTextTitle.leadingAnchor),
             thirdTextTitle.trailingAnchor.constraint(equalTo: secondTextTitle.trailingAnchor),
             
-            emailTextLabel.topAnchor.constraint(equalTo: thirdTextTitle.bottomAnchor, constant: 100),
+            emailTextLabel.topAnchor.constraint(equalTo: thirdTextTitle.bottomAnchor, constant: 90),
             emailTextLabel.leadingAnchor.constraint(equalTo: thirdTextTitle.leadingAnchor),
             emailTextLabel.trailingAnchor.constraint(equalTo: thirdTextTitle.trailingAnchor),
             
@@ -216,7 +217,7 @@ extension LoginViewController {
             pwValidationLabel.leadingAnchor.constraint(equalTo: pwInputTextField.leadingAnchor, constant: 10),
             pwValidationLabel.trailingAnchor.constraint(equalTo: pwInputTextField.trailingAnchor),
             
-            loginButton.topAnchor.constraint(equalTo: pwInputTextField.bottomAnchor, constant: 50),
+            loginButton.topAnchor.constraint(equalTo: pwInputTextField.bottomAnchor, constant: 30),
             loginButton.leadingAnchor.constraint(equalTo: pwInputTextField.leadingAnchor),
             loginButton.trailingAnchor.constraint(equalTo: pwInputTextField.trailingAnchor),
             loginButton.heightAnchor.constraint(equalToConstant: 50),
@@ -277,6 +278,25 @@ private extension LoginViewController {
 // MARK: - Methos
 
 extension LoginViewController {
+    // TODO: - 키보드에 따라 화면 올리기 및 내리기
+    func setUpKeyboardObserver() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillShow),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
+    }
+    
+    @objc func keyboardWillShow() {
+        view.frame.origin.y = -200
+    }
+
+    @objc func keyboardWillHide() {
+        view.frame.origin.y = 0
+    }
     
     @objc func loginSubmitButtonTouched() {
         self.inputSubject.send(.loginButtonTouched)
