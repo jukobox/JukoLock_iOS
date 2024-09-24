@@ -278,7 +278,6 @@ private extension LoginViewController {
 // MARK: - Methos
 
 extension LoginViewController {
-    // TODO: - 키보드에 따라 화면 올리기 및 내리기
     func setUpKeyboardObserver() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillShow),
