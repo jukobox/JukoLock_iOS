@@ -163,11 +163,11 @@ final class SignUpViewController: UIViewController {
     override func viewDidLoad() {
         self.view.backgroundColor = .white
         setUpLayout()
+        setUpKeyboardObserver()
     }
 }
 
 // MARK: - UI Settings
-
 
 extension SignUpViewController {
     
@@ -299,6 +299,25 @@ private extension SignUpViewController {
 // MARK: - Methos
 
 extension SignUpViewController {
+    func setUpKeyboardObserver() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillShow),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
+    }
+    
+    @objc func keyboardWillShow() {
+        view.frame.origin.y = -200
+    }
+
+    @objc func keyboardWillHide() {
+        view.frame.origin.y = 0
+    }
+    
     private func isValidEmail(_ email: String) -> Bool {
         let emailRegex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}$"
         let emailPredicate = NSPredicate(format: "SELF MATCHES[c] %@", emailRegex)
