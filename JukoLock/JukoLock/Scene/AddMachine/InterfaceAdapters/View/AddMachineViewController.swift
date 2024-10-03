@@ -118,6 +118,7 @@ extension AddMachineViewController: AVCaptureMetadataOutputObjectsDelegate {
         DispatchQueue.main.async {
             let sheet = UIAlertController(title: "기기 추가", message: "기기를 추가하겠습니까?", preferredStyle: .alert)
             let addAction = UIAlertAction(title: "추가", style: .default) { _ in
+                self.inputSubject.send(.qrReadSuccess(machineId: machineID))
                 let viewController = AddMachineSettingViewController(viewModel: self.viewModel)
                 self.present(viewController, animated: true)
             }
