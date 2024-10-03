@@ -86,7 +86,7 @@ extension LoginViewModel {
                                     } else {
                                         debugPrint("Token Save Fail")
                                     }
-                case "Fail":
+                case "fail":
                     self?.outputSubject.send(.loginFailed)
                 default:
                     self?.outputSubject.send(.loginError)

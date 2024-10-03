@@ -68,7 +68,7 @@ extension InvitationListViewModel {
                 case "success":
                     self?.noties.remove(at: index)
                     self?.outputSubject.send(.invitationAcceptSuccess)
-                case "Fail":
+                case "fail":
                     self?.outputSubject.send(.invitationAcceptFail)
                 default:
                     self?.outputSubject.send(.invitationAcceptError)
