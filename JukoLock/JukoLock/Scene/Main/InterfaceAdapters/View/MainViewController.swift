@@ -339,8 +339,8 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == machineListCollectionView {
             let provider = APIProvider(session: URLSession.shared)
-            let machineSettingviewModel = MachineSettingViewModel(machine: viewModel.machines[indexPath.row], machineSettingUseCase: MachineSettingUseCases(provider: provider))
-            let viewController = MachineSettingViewController(viewModel: machineSettingviewModel)
+            let adminMachineSettingViewModel = AdminMachineSettingViewModel(machine: viewModel.machines[indexPath.row], machineSettingUseCase: AdminMachineSettingUseCases(provider: provider))
+            let viewController = AdminMachineSettingViewController(viewModel: adminMachineSettingViewModel)
             self.present(viewController, animated: true)
         }
     }

@@ -1,5 +1,5 @@
 //
-//  MachineSettingViewModel.swift
+//  AdminMachineSettingViewModel.swift
 //  JukoLock
 //
 //  Created by 김경호 on 6/7/24.
@@ -8,18 +8,18 @@
 import Combine
 import Foundation
 
-final class MachineSettingViewModel {
+final class AdminMachineSettingViewModel {
     
     // MARK: - Properties
     
     private var subscriptions: Set<AnyCancellable> = []
     private let outputSubject = PassthroughSubject<Output, Never>()
-    private let machineSettingUseCase: MachineSettingUseCases
+    private let machineSettingUseCase: AdminMachineSettingUseCases
     let machine: Machine
     
     // MARK: - Init
     
-    init(machine: Machine, machineSettingUseCase: MachineSettingUseCases) {
+    init(machine: Machine, machineSettingUseCase: AdminMachineSettingUseCases) {
         self.machine = machine
         self.machineSettingUseCase = machineSettingUseCase
     }
@@ -41,7 +41,7 @@ final class MachineSettingViewModel {
 
 // MARK: - Methods
 
-extension MachineSettingViewModel {
+extension AdminMachineSettingViewModel {
     func transform(with input: AnyPublisher<Input, Never>) -> AnyPublisher<Output, Never> {
         input
             .sink { [weak self] input in

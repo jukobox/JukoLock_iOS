@@ -44,7 +44,7 @@
 		AA477F042C8DAD4200809BDC /* AddMachineEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA477F032C8DAD4200809BDC /* AddMachineEndPoint.swift */; };
 		AA477F072C9706FE00809BDC /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = AA477F062C9706FE00809BDC /* Lottie */; };
 		AA553E622CAE945000283BF0 /* MachineSettingUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA553E612CAE945000283BF0 /* MachineSettingUseCases.swift */; };
-		AA553E642CAE94A400283BF0 /* MachineSettingEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA553E632CAE949400283BF0 /* MachineSettingEndPoint.swift */; };
+		AA553E642CAE94A400283BF0 /* AdminMachineSettingEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA553E632CAE949400283BF0 /* AdminMachineSettingEndPoint.swift */; };
 		AA553E662CAEAA5900283BF0 /* RenameResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA553E652CAEAA4800283BF0 /* RenameResponse.swift */; };
 		AA553E682CB7B19E00283BF0 /* MachineLogUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA553E672CB7B19600283BF0 /* MachineLogUseCases.swift */; };
 		AA553E6A2CB7B1E800283BF0 /* MachineLogGetResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA553E692CB7B1DE00283BF0 /* MachineLogGetResponse.swift */; };
@@ -69,8 +69,8 @@
 		AAAC84212C0B5317002E6AF1 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC84202C0B5317002E6AF1 /* MainViewModel.swift */; };
 		AADE8C182C9EB37A00C73C94 /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = AADE8C172C9EB37A00C73C94 /* loading.json */; };
 		AADE8C1A2CA0298D00C73C94 /* AddMachineSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADE8C192CA0298D00C73C94 /* AddMachineSettingViewController.swift */; };
-		AAE8A5262C37982200D4A5D6 /* MachineSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE8A5162C37982200D4A5D6 /* MachineSettingViewController.swift */; };
-		AAE8A5272C37982200D4A5D6 /* MachineSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE8A5182C37982200D4A5D6 /* MachineSettingViewModel.swift */; };
+		AAE8A5262C37982200D4A5D6 /* AdminMachineSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE8A5162C37982200D4A5D6 /* AdminMachineSettingViewController.swift */; };
+		AAE8A5272C37982200D4A5D6 /* AdminMachineSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE8A5182C37982200D4A5D6 /* AdminMachineSettingViewModel.swift */; };
 		AAE8A5282C37982200D4A5D6 /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE8A51F2C37982200D4A5D6 /* MyProfileViewController.swift */; };
 		AAE8A52B2C3798B300D4A5D6 /* CarouselViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE8A5292C3798B300D4A5D6 /* CarouselViewCell.swift */; };
 		AAE8A5372C37995C00D4A5D6 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAE8A52E2C37995C00D4A5D6 /* SignUpViewController.swift */; };
@@ -140,7 +140,7 @@
 		AA477F012C8DAB8200809BDC /* AddMachineResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMachineResponse.swift; sourceTree = "<group>"; };
 		AA477F032C8DAD4200809BDC /* AddMachineEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMachineEndPoint.swift; sourceTree = "<group>"; };
 		AA553E612CAE945000283BF0 /* MachineSettingUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineSettingUseCases.swift; sourceTree = "<group>"; };
-		AA553E632CAE949400283BF0 /* MachineSettingEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineSettingEndPoint.swift; sourceTree = "<group>"; };
+		AA553E632CAE949400283BF0 /* AdminMachineSettingEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminMachineSettingEndPoint.swift; sourceTree = "<group>"; };
 		AA553E652CAEAA4800283BF0 /* RenameResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameResponse.swift; sourceTree = "<group>"; };
 		AA553E672CB7B19600283BF0 /* MachineLogUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineLogUseCases.swift; sourceTree = "<group>"; };
 		AA553E692CB7B1DE00283BF0 /* MachineLogGetResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineLogGetResponse.swift; sourceTree = "<group>"; };
@@ -165,8 +165,8 @@
 		AAAC84202C0B5317002E6AF1 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		AADE8C172C9EB37A00C73C94 /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
 		AADE8C192CA0298D00C73C94 /* AddMachineSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMachineSettingViewController.swift; sourceTree = "<group>"; };
-		AAE8A5162C37982200D4A5D6 /* MachineSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MachineSettingViewController.swift; sourceTree = "<group>"; };
-		AAE8A5182C37982200D4A5D6 /* MachineSettingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MachineSettingViewModel.swift; sourceTree = "<group>"; };
+		AAE8A5162C37982200D4A5D6 /* AdminMachineSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminMachineSettingViewController.swift; sourceTree = "<group>"; };
+		AAE8A5182C37982200D4A5D6 /* AdminMachineSettingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminMachineSettingViewModel.swift; sourceTree = "<group>"; };
 		AAE8A51F2C37982200D4A5D6 /* MyProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
 		AAE8A5292C3798B300D4A5D6 /* CarouselViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarouselViewCell.swift; sourceTree = "<group>"; };
 		AAE8A52E2C37995C00D4A5D6 /* SignUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -449,7 +449,7 @@
 				AAE8A5362C37995C00D4A5D6 /* SignUp */,
 				AAAC83E12C04669B002E6AF1 /* Login */,
 				AAAC84192C0B5255002E6AF1 /* Main */,
-				AAE8A51D2C37982200D4A5D6 /* MachineSetting */,
+				AAE8A51D2C37982200D4A5D6 /* AdminMachineSetting */,
 				AA1A20542C8C5A95005A3307 /* MachineLog */,
 				AAE8A5252C37982200D4A5D6 /* MyProfile */,
 				AAE8A5452C5FAD8700D4A5D6 /* GroupManagement */,
@@ -623,7 +623,7 @@
 		AAE8A5152C37982200D4A5D6 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				AA553E632CAE949400283BF0 /* MachineSettingEndPoint.swift */,
+				AA553E632CAE949400283BF0 /* AdminMachineSettingEndPoint.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -631,7 +631,7 @@
 		AAE8A5172C37982200D4A5D6 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				AAE8A5162C37982200D4A5D6 /* MachineSettingViewController.swift */,
+				AAE8A5162C37982200D4A5D6 /* AdminMachineSettingViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -639,7 +639,7 @@
 		AAE8A5192C37982200D4A5D6 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				AAE8A5182C37982200D4A5D6 /* MachineSettingViewModel.swift */,
+				AAE8A5182C37982200D4A5D6 /* AdminMachineSettingViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -669,7 +669,7 @@
 			path = UseCases;
 			sourceTree = "<group>";
 		};
-		AAE8A51D2C37982200D4A5D6 /* MachineSetting */ = {
+		AAE8A51D2C37982200D4A5D6 /* AdminMachineSetting */ = {
 			isa = PBXGroup;
 			children = (
 				AAE8A5152C37982200D4A5D6 /* Entities */,
@@ -677,7 +677,7 @@
 				AAE8A51B2C37982200D4A5D6 /* Model */,
 				AAE8A51C2C37982200D4A5D6 /* UseCases */,
 			);
-			path = MachineSetting;
+			path = AdminMachineSetting;
 			sourceTree = "<group>";
 		};
 		AAE8A51E2C37982200D4A5D6 /* Entities */ = {
@@ -1013,7 +1013,7 @@
 				AAAC840A2C05B5CF002E6AF1 /* LoginState.swift in Sources */,
 				AAAC83FD2C049D91002E6AF1 /* HTTPHeaders.swift in Sources */,
 				AAAC83DD2C04485F002E6AF1 /* LoginEndPoint.swift in Sources */,
-				AAE8A5272C37982200D4A5D6 /* MachineSettingViewModel.swift in Sources */,
+				AAE8A5272C37982200D4A5D6 /* AdminMachineSettingViewModel.swift in Sources */,
 				AAE8A53B2C37DB7A00D4A5D6 /* MyProfileMenuCell.swift in Sources */,
 				AA1A206D2C8D4A4D005A3307 /* GroupUserListResponse.swift in Sources */,
 				AAE8A5382C37995C00D4A5D6 /* SignUpViewModel.swift in Sources */,
@@ -1030,8 +1030,8 @@
 				AA1A20622C8C6143005A3307 /* MachineLogTableViewCell.swift in Sources */,
 				AA30F21D2BC4CBDB00B97FA6 /* AppDelegate.swift in Sources */,
 				AAE8A5402C5F936800D4A5D6 /* TokenManager.swift in Sources */,
-				AAE8A5262C37982200D4A5D6 /* MachineSettingViewController.swift in Sources */,
-				AA553E642CAE94A400283BF0 /* MachineSettingEndPoint.swift in Sources */,
+				AAE8A5262C37982200D4A5D6 /* AdminMachineSettingViewController.swift in Sources */,
+				AA553E642CAE94A400283BF0 /* AdminMachineSettingEndPoint.swift in Sources */,
 				AAAC84072C05A5C2002E6AF1 /* LoginResponse.swift in Sources */,
 				AA1A204F2C6B4401005A3307 /* InvitationAcceptEndPoint.swift in Sources */,
 				AA1A204D2C6B4369005A3307 /* InvitationAcceptResponse.swift in Sources */,

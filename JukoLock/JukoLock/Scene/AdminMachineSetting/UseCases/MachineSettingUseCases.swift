@@ -1,5 +1,5 @@
 //
-//  MachineSettingUseCases.swift
+//  AdminMachineSettingUseCases.swift
 //  JukoLock
 //
 //  Created by 김경호 on 10/3/24.
@@ -8,11 +8,11 @@
 import Combine
 import Foundation
 
-protocol MachineSettingUseCasesProtocol {
+protocol AdminMachineSettingUseCasesProtocol {
     func execute(uuid: String, newName: String) -> AnyPublisher<RenameResponse, HTTPError> // 이름 변경
 }
 
-struct MachineSettingUseCases: MachineSettingUseCasesProtocol {
+struct AdminMachineSettingUseCases: AdminMachineSettingUseCasesProtocol {
 
     private let provider: Requestable
     
@@ -21,6 +21,6 @@ struct MachineSettingUseCases: MachineSettingUseCasesProtocol {
     }
 
     func execute(uuid: String, newName: String) -> AnyPublisher<RenameResponse, HTTPError> {
-        return provider.request(MachineSettingEndPoint.machineRename(uuid, newName, newName))
+        return provider.request(AdminMachineSettingEndPoint.machineRename(uuid, newName, newName))
     }
 }

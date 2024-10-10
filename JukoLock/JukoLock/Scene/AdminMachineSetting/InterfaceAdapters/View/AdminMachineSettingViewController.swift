@@ -1,5 +1,5 @@
 //
-//  MachineSettingViewController.swift
+//  AdminMachineSettingViewController.swift
 //  JukoLock
 //
 //  Created by 김경호 on 6/5/24.
@@ -8,17 +8,17 @@
 import Combine
 import UIKit
 
-final class MachineSettingViewController: UIViewController {
+final class AdminMachineSettingViewController: UIViewController {
     
     // MARK: - Properties
     
     private var subscriptions: Set<AnyCancellable> = []
-    private var viewModel: MachineSettingViewModel
-    private let inputSubject: PassthroughSubject<MachineSettingViewModel.Input, Never> = .init()
+    private var viewModel: AdminMachineSettingViewModel
+    private let inputSubject: PassthroughSubject<AdminMachineSettingViewModel.Input, Never> = .init()
     
     // MARK: - Init
     
-    init(viewModel: MachineSettingViewModel) {
+    init(viewModel: AdminMachineSettingViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -118,7 +118,7 @@ final class MachineSettingViewController: UIViewController {
 // MARK: - UI Settings
 
 
-extension MachineSettingViewController {
+extension AdminMachineSettingViewController {
     
     private func setUpLayout() {
         addViews()
@@ -200,7 +200,7 @@ extension MachineSettingViewController {
 }
 
 // MARK: - Bind
-private extension MachineSettingViewController {
+private extension AdminMachineSettingViewController {
     func bind() {
         let outputSubject = viewModel.transform(with: inputSubject.eraseToAnyPublisher())
         
@@ -223,7 +223,7 @@ private extension MachineSettingViewController {
 
 // MARK: - Methos
 
-extension MachineSettingViewController {
+extension AdminMachineSettingViewController {
     func machineRenameResult(result: String, message: String) {
         let sheet = UIAlertController(title: result, message: message, preferredStyle: .alert)
         sheet.addAction(UIAlertAction(title: "확인", style: .default))
@@ -233,7 +233,7 @@ extension MachineSettingViewController {
 
 // MARK: - objc
 
-private extension MachineSettingViewController {
+private extension AdminMachineSettingViewController {
     @objc func machineRenameButtonTouched(_ sender: Any) {
         let sheet = UIAlertController(title: "이름", message: "수정할 이름을 입력해주세요.", preferredStyle: .alert)
         sheet.addTextField()

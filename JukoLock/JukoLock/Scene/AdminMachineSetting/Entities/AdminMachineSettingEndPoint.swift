@@ -1,5 +1,5 @@
 //
-//  MachineSettingEndPoint.swift
+//  AdminMachineSettingEndPoint.swift
 //  JukoLock
 //
 //  Created by 김경호 on 10/3/24.
@@ -7,11 +7,11 @@
 
 import Foundation
 
-enum MachineSettingEndPoint {
+enum AdminMachineSettingEndPoint {
     case machineRename(String, String, String)
 }
 
-extension MachineSettingEndPoint: EndPoint {
+extension AdminMachineSettingEndPoint: EndPoint {
     
     var baseURL: String {
         return "http://jaeryum1.duckdns.org:20035/jukolock/api"
