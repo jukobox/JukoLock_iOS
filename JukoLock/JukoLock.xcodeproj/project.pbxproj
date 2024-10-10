@@ -43,6 +43,9 @@
 		AA477F022C8DAB8200809BDC /* AddMachineResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA477F012C8DAB8200809BDC /* AddMachineResponse.swift */; };
 		AA477F042C8DAD4200809BDC /* AddMachineEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA477F032C8DAD4200809BDC /* AddMachineEndPoint.swift */; };
 		AA477F072C9706FE00809BDC /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = AA477F062C9706FE00809BDC /* Lottie */; };
+		AA553E622CAE945000283BF0 /* MachineSettingUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA553E612CAE945000283BF0 /* MachineSettingUseCases.swift */; };
+		AA553E642CAE94A400283BF0 /* MachineSettingEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA553E632CAE949400283BF0 /* MachineSettingEndPoint.swift */; };
+		AA553E662CAEAA5900283BF0 /* RenameResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA553E652CAEAA4800283BF0 /* RenameResponse.swift */; };
 		AA59DFE52BE4BC4E003A2A2A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA59DFE42BE4BC4E003A2A2A /* MainViewController.swift */; };
 		AAAC83D72BF739B9002E6AF1 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC83D62BF739B9002E6AF1 /* LoginViewModel.swift */; };
 		AAAC83D92BF7426A002E6AF1 /* MachineListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC83D82BF7426A002E6AF1 /* MachineListCell.swift */; };
@@ -133,6 +136,9 @@
 		AA477EFF2C8DAB0700809BDC /* AddMachineUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMachineUseCase.swift; sourceTree = "<group>"; };
 		AA477F012C8DAB8200809BDC /* AddMachineResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMachineResponse.swift; sourceTree = "<group>"; };
 		AA477F032C8DAD4200809BDC /* AddMachineEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMachineEndPoint.swift; sourceTree = "<group>"; };
+		AA553E612CAE945000283BF0 /* MachineSettingUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineSettingUseCases.swift; sourceTree = "<group>"; };
+		AA553E632CAE949400283BF0 /* MachineSettingEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineSettingEndPoint.swift; sourceTree = "<group>"; };
+		AA553E652CAEAA4800283BF0 /* RenameResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameResponse.swift; sourceTree = "<group>"; };
 		AA59DFE42BE4BC4E003A2A2A /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		AAAC83D62BF739B9002E6AF1 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		AAAC83D82BF7426A002E6AF1 /* MachineListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineListCell.swift; sourceTree = "<group>"; };
@@ -608,6 +614,7 @@
 		AAE8A5152C37982200D4A5D6 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				AA553E632CAE949400283BF0 /* MachineSettingEndPoint.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -640,6 +647,7 @@
 		AAE8A51B2C37982200D4A5D6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				AA553E652CAEAA4800283BF0 /* RenameResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -647,6 +655,7 @@
 		AAE8A51C2C37982200D4A5D6 /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
+				AA553E612CAE945000283BF0 /* MachineSettingUseCases.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -1004,6 +1013,7 @@
 				AA1A20512C745A1F005A3307 /* UserInviteResponse.swift in Sources */,
 				AAE8A5372C37995C00D4A5D6 /* SignUpViewController.swift in Sources */,
 				AA30F2382BE364BB00B97FA6 /* LoginViewController.swift in Sources */,
+				AA553E662CAEAA5900283BF0 /* RenameResponse.swift in Sources */,
 				AA1A202D2C69D284005A3307 /* GroupManagementEndPoint.swift in Sources */,
 				AADE8C1A2CA0298D00C73C94 /* AddMachineSettingViewController.swift in Sources */,
 				AAAC83FF2C049DCD002E6AF1 /* APIProvider.swift in Sources */,
@@ -1012,12 +1022,14 @@
 				AA30F21D2BC4CBDB00B97FA6 /* AppDelegate.swift in Sources */,
 				AAE8A5402C5F936800D4A5D6 /* TokenManager.swift in Sources */,
 				AAE8A5262C37982200D4A5D6 /* MachineSettingViewController.swift in Sources */,
+				AA553E642CAE94A400283BF0 /* MachineSettingEndPoint.swift in Sources */,
 				AAAC84072C05A5C2002E6AF1 /* LoginResponse.swift in Sources */,
 				AA1A204F2C6B4401005A3307 /* InvitationAcceptEndPoint.swift in Sources */,
 				AA1A204D2C6B4369005A3307 /* InvitationAcceptResponse.swift in Sources */,
 				AAE8A54E2C5FAE0600D4A5D6 /* GroupManagementViewModel.swift in Sources */,
 				AA477F022C8DAB8200809BDC /* AddMachineResponse.swift in Sources */,
 				AA477F042C8DAD4200809BDC /* AddMachineEndPoint.swift in Sources */,
+				AA553E622CAE945000283BF0 /* MachineSettingUseCases.swift in Sources */,
 				AA30F21F2BC4CBDB00B97FA6 /* SceneDelegate.swift in Sources */,
 				AAE8A5282C37982200D4A5D6 /* MyProfileViewController.swift in Sources */,
 				AAAC83F72C049B4F002E6AF1 /* HTTPErrors.swift in Sources */,
