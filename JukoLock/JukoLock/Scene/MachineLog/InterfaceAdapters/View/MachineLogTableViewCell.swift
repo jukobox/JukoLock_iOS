@@ -52,7 +52,8 @@ final class MachineLogTableViewCell: UITableViewCell {
     }
     
     func setData(log: MachineLog) {
-        logLabel.text = "\(log.user) - \(log.date)"
+        // TODO: - Log 글자길이에 맞게 늘리기
+        logLabel.text = "\(log.device.nickname) - \(log.contents) - \(log.rdate)"
     }
 }
 

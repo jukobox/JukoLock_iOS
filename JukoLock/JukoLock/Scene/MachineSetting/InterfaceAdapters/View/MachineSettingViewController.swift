@@ -212,7 +212,7 @@ private extension MachineSettingViewController {
                     self?.machineRenameResult(result: "기기 이름 성공", message: "기기 이름을 변경하였습니다.")
                     self?.machineRenameButton.setTitle(newName, for: .normal)
                     self?.machineRenameButton.reloadInputViews()
-                    // TODO: - Main도 변경되도록 수정
+                    // TODO: - Main 화면도 변경되도록 수정
                 case .machineReanmeFailure:
                     self?.machineRenameResult(result: "기기 이름 실패", message: "기기 이름 변경에 실패하였습니다.")
                 }
@@ -250,7 +250,9 @@ private extension MachineSettingViewController {
     }
     
     @objc func logCheckButtonTouched(_ sender: Any) {
-        let viewModel = MachineLogViewModel()
+        let provider = APIProvider(session: URLSession.shared)
+        let useCases = MachineLogUseCases(provider: provider)
+        let viewModel = MachineLogViewModel(machineLogUsecases: useCases, uuid: viewModel.machine.uuid)
         let viewController = MachineLogViewController(viewModel: viewModel)
         self.present(viewController, animated: true)
     }

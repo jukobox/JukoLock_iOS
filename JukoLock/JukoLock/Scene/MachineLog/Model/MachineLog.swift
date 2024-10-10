@@ -8,7 +8,8 @@
 import Foundation
 
 struct MachineLog: Codable {
-    let machine: Machine
-    let user: String
-    let date: String
+    let device: Machine
+    let logType: String
+    let contents: String
+    let rdate: String
 }

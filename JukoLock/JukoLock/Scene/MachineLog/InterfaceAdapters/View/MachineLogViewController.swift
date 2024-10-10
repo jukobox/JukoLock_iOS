@@ -14,6 +14,7 @@ final class MachineLogViewController: UIViewController {
     
     private var subscriptions: Set<AnyCancellable> = []
     private var viewModel: MachineLogViewModel
+    private let inputSubject: PassthroughSubject<MachineLogViewModel.Input, Never> = .init()
     
     // MARK: - Init
     
@@ -54,6 +55,7 @@ extension MachineLogViewController {
         addViews()
         setLayoutConstraints()
         bind()
+        inputSubject.send(.MachineLogGet)
     }
     
     private func addViews() {
@@ -73,6 +75,19 @@ extension MachineLogViewController {
 // MARK: - Bind
 private extension MachineLogViewController {
     func bind() {
+        let outputSubject = viewModel.transform(with: inputSubject.eraseToAnyPublisher())
+        
+        outputSubject
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] output in
+                switch output {
+                case .MachineLogGetSuccess:
+                    self?.tableView.reloadData()
+                case .MachineLogGetFail:
+                    self?.getLogFaile()
+                }
+            }
+            .store(in: &subscriptions)
     }
 }
 
@@ -89,5 +104,16 @@ extension MachineLogViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.setData(log: viewModel.logs[indexPath.row])
         return cell
+    }
+}
+
+private extension MachineLogViewController {
+    func getLogFaile() {
+        let sheet = UIAlertController(title: "로그 연결 실패", message: "로그 받아오는대 실패하였습니다.\n잠시 후 다시 시도해주세요.", preferredStyle: .alert)
+        let action = UIAlertAction(title: "확인", style: .default) {_ in 
+            self.dismiss(animated: true)
+        }
+        sheet.addAction(action)
+        present(sheet, animated: true, completion: nil)
     }
 }
