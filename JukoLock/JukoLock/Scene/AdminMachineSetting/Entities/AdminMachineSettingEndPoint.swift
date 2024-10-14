@@ -8,6 +8,7 @@
 import Foundation
 
 enum AdminMachineSettingEndPoint {
+    case openMachin(String)
     case machineRename(String, String, String)
 }
 
@@ -19,7 +20,7 @@ extension AdminMachineSettingEndPoint: EndPoint {
     
     var headers: HTTPHeaders {
         switch self {
-        case .machineRename(_,_,_):
+        case .machineRename, .openMachin:
             return [
                 "Content-Type": "application/json",
                 "Contents-Length": "1000",
@@ -31,6 +32,10 @@ extension AdminMachineSettingEndPoint: EndPoint {
     
     var parameter: HTTPParameter {
         switch self {
+        case let .openMachin(uuid):
+            return .body([
+                "uuid": uuid
+            ])
         case let .machineRename(uuid, name, guid):
             return .body([
                 "uuid": uuid,
@@ -42,14 +47,16 @@ extension AdminMachineSettingEndPoint: EndPoint {
     
     var method: HTTPMethod {
         switch self {
-        case .machineRename(_, _, _):
+        case .machineRename, .openMachin:
             return .post
         }
     }
     
     var path: String {
         switch self {
-        case .machineRename(_, _, _):
+        case .openMachin:
+            return "/device/open"
+        case .machineRename:
             return "device/rename"
         }
     }

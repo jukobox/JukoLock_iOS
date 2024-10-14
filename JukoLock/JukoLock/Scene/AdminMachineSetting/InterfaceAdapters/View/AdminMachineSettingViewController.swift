@@ -28,6 +28,7 @@ final class AdminMachineSettingViewController: UIViewController {
     }
     
     // MARK: - UI Components
+    
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -76,6 +77,15 @@ final class AdminMachineSettingViewController: UIViewController {
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+    
+    private let openMachineButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("기기 열기", for: .normal)
+        button.backgroundColor = .blue
+        button.layer.cornerRadius = 15
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     
     private let permissionSettingButton: UIButton = {
@@ -131,7 +141,7 @@ extension AdminMachineSettingViewController {
         self.view.addSubview(scrollView)
         scrollView.addSubview(scrollContentsView)
         
-        [ machineImageView, nameLabel, machineRenameButton, lastLogNameLabel, lastLogLabel, permissionSettingButton, logCheckButton, machineDeleteButton ].forEach {
+        [ machineImageView, nameLabel, machineRenameButton, lastLogNameLabel, lastLogLabel, openMachineButton, permissionSettingButton, logCheckButton, machineDeleteButton ].forEach {
             self.scrollContentsView.addSubview($0)
         }
     }
@@ -153,7 +163,7 @@ extension AdminMachineSettingViewController {
             machineImageView.centerXAnchor.constraint(equalTo: scrollContentsView.centerXAnchor),
             machineImageView.leadingAnchor.constraint(equalTo: scrollContentsView.leadingAnchor, constant: 20),
             machineImageView.trailingAnchor.constraint(equalTo: scrollContentsView.trailingAnchor, constant: -20),
-            machineImageView.heightAnchor.constraint(equalToConstant: self.view.frame.width - 50),
+            machineImageView.heightAnchor.constraint(equalToConstant: self.view.frame.width - 100),
             
             nameLabel.topAnchor.constraint(equalTo: machineImageView.bottomAnchor, constant: 20),
             nameLabel.leadingAnchor.constraint(equalTo: self.machineImageView.leadingAnchor),
@@ -175,7 +185,12 @@ extension AdminMachineSettingViewController {
             lastLogLabel.trailingAnchor.constraint(equalTo: scrollContentsView.trailingAnchor, constant: -20),
             lastLogLabel.bottomAnchor.constraint(equalTo: lastLogNameLabel.bottomAnchor),
             
-            permissionSettingButton.topAnchor.constraint(equalTo: lastLogNameLabel.bottomAnchor, constant: 30),
+            openMachineButton.topAnchor.constraint(equalTo: lastLogLabel.bottomAnchor, constant: 30),
+            openMachineButton.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),
+            openMachineButton.trailingAnchor.constraint(equalTo: scrollContentsView.trailingAnchor, constant: -20),
+            openMachineButton.heightAnchor.constraint(equalToConstant: 50),
+            
+            permissionSettingButton.topAnchor.constraint(equalTo: openMachineButton.bottomAnchor, constant: 20),
             permissionSettingButton.leadingAnchor.constraint(equalTo: scrollContentsView.leadingAnchor, constant: 20),
             permissionSettingButton.trailingAnchor.constraint(equalTo: scrollContentsView.trailingAnchor, constant: -20),
             permissionSettingButton.heightAnchor.constraint(equalToConstant: 50),
@@ -194,6 +209,7 @@ extension AdminMachineSettingViewController {
     }
     
     private func addTargets() {
+        self.openMachineButton.addTarget(self, action: #selector(openMachineButtonTouched), for: .touchUpInside)
         self.machineRenameButton.addTarget(self, action: #selector(machineRenameButtonTouched), for: .touchUpInside)
         self.logCheckButton.addTarget(self, action: #selector(logCheckButtonTouched), for: .touchUpInside)
     }
@@ -234,6 +250,11 @@ extension AdminMachineSettingViewController {
 // MARK: - objc
 
 private extension AdminMachineSettingViewController {
+    @objc func openMachineButtonTouched(_ sender: Any) {
+        self.inputSubject.send(.openMachine)
+        machineRenameResult(result: "", message: "기기 열기 신호를 보냈습니다.")
+    }
+    
     @objc func machineRenameButtonTouched(_ sender: Any) {
         let sheet = UIAlertController(title: "이름", message: "수정할 이름을 입력해주세요.", preferredStyle: .alert)
         sheet.addTextField()

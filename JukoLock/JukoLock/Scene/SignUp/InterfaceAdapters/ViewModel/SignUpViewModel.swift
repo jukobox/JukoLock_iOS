@@ -89,7 +89,6 @@ extension SignUpViewModel {
                 }
             } receiveValue: { [weak self] response in
                 switch response.status{
-                    // TODO: - 정의할 것
                 case .success:
                     self?.initGroupCreate(name: self?.name ?? "내 그룹")
                 case .failure:

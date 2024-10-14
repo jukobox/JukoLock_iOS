@@ -27,6 +27,7 @@ final class AdminMachineSettingViewModel {
     // MARK: - Input
     
     enum Input {
+        case openMachine
         case machineRename(_ newName: String)
     }
     
@@ -36,7 +37,6 @@ final class AdminMachineSettingViewModel {
         case machineRenameSuccess(_ newName: String)
         case machineReanmeFailure
     }
-    
 }
 
 // MARK: - Methods
@@ -46,6 +46,8 @@ extension AdminMachineSettingViewModel {
         input
             .sink { [weak self] input in
                 switch input {
+                case .openMachine:
+                    self?.openMachine(uuid: self?.machine.uuid ?? "")
                 case let .machineRename(newName):
                     // TODO: - 옵셔널 값 처리 제대로
                     self?.machineRename(uuid: self?.machine.uuid ?? "", newName: newName)
@@ -69,6 +71,19 @@ extension AdminMachineSettingViewModel {
                 default:
                     self?.outputSubject.send(.machineReanmeFailure)
                 }
+            }
+            .store(in: &subscriptions)
+    }
+    
+    func openMachine(uuid: String) {
+        self.machineSettingUseCase.execute(uuid: uuid)
+            .receive(on: DispatchQueue.global())
+            .sink { completion in
+                if case let .failure(error) = completion {
+                    debugPrint("Machine Open Fail: \(error)")
+                }
+            } receiveValue: { response in
+                debugPrint(response)
             }
             .store(in: &subscriptions)
     }
