@@ -8,7 +8,7 @@
 import Foundation
 
 struct MachineLogGetResponse: Codable {
-    let status: String
+    let status: ResponseStatus
     let data: [MachineLog]
     let message: String?
 }

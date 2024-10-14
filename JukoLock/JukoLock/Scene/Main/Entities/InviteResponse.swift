@@ -8,7 +8,7 @@
 import Foundation
 
 struct InviteResponse: Codable {
-    let status: String
+    let status: ResponseStatus
     let data: [Invite]
     let message: String?
 }

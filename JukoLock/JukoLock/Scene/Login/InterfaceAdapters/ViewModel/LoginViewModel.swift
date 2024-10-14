@@ -75,7 +75,7 @@ extension LoginViewModel {
                 }
             } receiveValue: { [weak self] response in
                 switch response.status{
-                case "success":
+                case .success:
                     guard let token = response.data else {
                         debugPrint("Token Get Fail!")
                         return // TODO: - throw로 수정
@@ -86,7 +86,7 @@ extension LoginViewModel {
                                     } else {
                                         debugPrint("Token Save Fail")
                                     }
-                case "fail":
+                case .failure:
                     self?.outputSubject.send(.loginFailed)
                 default:
                     self?.outputSubject.send(.loginError)

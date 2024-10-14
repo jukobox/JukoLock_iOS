@@ -8,7 +8,7 @@
 import Foundation
 
 struct MachineListResponse: Codable {
-    let status: String
+    let status: ResponseStatus
     let data: [Machine]
     let message: String?
 }

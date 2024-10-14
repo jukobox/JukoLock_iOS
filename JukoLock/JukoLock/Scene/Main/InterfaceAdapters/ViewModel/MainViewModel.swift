@@ -83,13 +83,16 @@ extension MainViewModel {
                     debugPrint("Invitation Get Fail! : ", error)
                 }
             } receiveValue: { [weak self] response in
-                if response.status == "success" {
+                switch response.status {
+                case .success:
                     if response.data.isEmpty {
                         self?.outputSubject.send(.isInvitationNotReceived)
                     } else {
                         self?.outputSubject.send(.isInvitationReceived)
                         self?.noties = response.data
                     }
+                default :
+                    break
                 }
             }
             .store(in: &subscriptions)
@@ -103,7 +106,7 @@ extension MainViewModel {
                     debugPrint("Group List Get Fail")
                 }
             } receiveValue: { [weak self] response in
-                if response.status == "success" && !response.data.isEmpty {
+                if response.status == .success && !response.data.isEmpty {
                     self?.groupList = response.data
                     self?.outputSubject.send(.getGroupListSuccess)
                 }
@@ -119,7 +122,7 @@ extension MainViewModel {
                     debugPrint("Group List Get Fail")
                 }
             } receiveValue: { [weak self] response in
-                if response.status == "success" {
+                if response.status == .success {
                     self?.machines = response.data
                     self?.outputSubject.send(.getMachineListSuccess)
                 }

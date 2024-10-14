@@ -64,7 +64,7 @@ extension AdminMachineSettingViewModel {
                 }
             } receiveValue: { [weak self] response in
                 switch response.status {
-                case "success":
+                case .success:
                     self?.outputSubject.send(.machineRenameSuccess(newName))
                 default:
                     self?.outputSubject.send(.machineReanmeFailure)

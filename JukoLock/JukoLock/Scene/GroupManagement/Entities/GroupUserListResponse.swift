@@ -8,7 +8,7 @@
 import Foundation
 
 struct GroupUserListResponse: Codable {
-    let status: String
+    let status: ResponseStatus
     let data: [User]
     let message: String?
 }

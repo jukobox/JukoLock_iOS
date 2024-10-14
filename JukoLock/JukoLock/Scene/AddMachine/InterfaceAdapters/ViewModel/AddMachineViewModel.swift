@@ -80,7 +80,7 @@ extension AddMachineViewModel {
                 }
             } receiveValue : { [weak self] response in
                 switch response.status {
-                case "success":
+                case .success:
                     self?.outputSubject.send(.addMachineSuccess)
                 default:
                     self?.outputSubject.send(.addMachineFail)

@@ -65,10 +65,10 @@ extension InvitationListViewModel {
                 }
             } receiveValue: { [weak self] response in
                 switch response.status {
-                case "success":
+                case .success:
                     self?.noties.remove(at: index)
                     self?.outputSubject.send(.invitationAcceptSuccess)
-                case "fail":
+                case .failure:
                     self?.outputSubject.send(.invitationAcceptFail)
                 default:
                     self?.outputSubject.send(.invitationAcceptError)

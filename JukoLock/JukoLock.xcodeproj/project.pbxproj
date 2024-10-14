@@ -49,6 +49,7 @@
 		AA553E682CB7B19E00283BF0 /* MachineLogUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA553E672CB7B19600283BF0 /* MachineLogUseCases.swift */; };
 		AA553E6A2CB7B1E800283BF0 /* MachineLogGetResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA553E692CB7B1DE00283BF0 /* MachineLogGetResponse.swift */; };
 		AA553E6C2CB7B2A400283BF0 /* MachineLogGetEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA553E6B2CB7B29900283BF0 /* MachineLogGetEndPoint.swift */; };
+		AA553E6E2CB7BFAE00283BF0 /* ResponseStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA553E6D2CB7BFA300283BF0 /* ResponseStatus.swift */; };
 		AA59DFE52BE4BC4E003A2A2A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA59DFE42BE4BC4E003A2A2A /* MainViewController.swift */; };
 		AAAC83D72BF739B9002E6AF1 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC83D62BF739B9002E6AF1 /* LoginViewModel.swift */; };
 		AAAC83D92BF7426A002E6AF1 /* MachineListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAC83D82BF7426A002E6AF1 /* MachineListCell.swift */; };
@@ -145,6 +146,7 @@
 		AA553E672CB7B19600283BF0 /* MachineLogUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineLogUseCases.swift; sourceTree = "<group>"; };
 		AA553E692CB7B1DE00283BF0 /* MachineLogGetResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineLogGetResponse.swift; sourceTree = "<group>"; };
 		AA553E6B2CB7B29900283BF0 /* MachineLogGetEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineLogGetEndPoint.swift; sourceTree = "<group>"; };
+		AA553E6D2CB7BFA300283BF0 /* ResponseStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseStatus.swift; sourceTree = "<group>"; };
 		AA59DFE42BE4BC4E003A2A2A /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		AAAC83D62BF739B9002E6AF1 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		AAAC83D82BF7426A002E6AF1 /* MachineListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineListCell.swift; sourceTree = "<group>"; };
@@ -798,6 +800,7 @@
 		AAE8A53C2C5F8FF600D4A5D6 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				AA553E6D2CB7BFA300283BF0 /* ResponseStatus.swift */,
 				AAE8A53D2C5F900600D4A5D6 /* KeyChainManager.swift */,
 				AAE8A53F2C5F936800D4A5D6 /* TokenManager.swift */,
 			);
@@ -1042,6 +1045,7 @@
 				AA30F21F2BC4CBDB00B97FA6 /* SceneDelegate.swift in Sources */,
 				AAE8A5282C37982200D4A5D6 /* MyProfileViewController.swift in Sources */,
 				AAAC83F72C049B4F002E6AF1 /* HTTPErrors.swift in Sources */,
+				AA553E6E2CB7BFAE00283BF0 /* ResponseStatus.swift in Sources */,
 				AA477EFE2C8DAA9800809BDC /* AddMachineViewModel.swift in Sources */,
 				AA477F002C8DAB0700809BDC /* AddMachineUseCase.swift in Sources */,
 				AA1A20312C69E7F2005A3307 /* Group.swift in Sources */,

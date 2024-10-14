@@ -65,7 +65,7 @@ extension MachineLogViewModel {
                 }
             } receiveValue: { [weak self] response in
                 switch response.status {
-                case "success":
+                case .success:
                     self?.logs = response.data
                     self?.outputSubject.send(.MachineLogGetSuccess)
                 default:

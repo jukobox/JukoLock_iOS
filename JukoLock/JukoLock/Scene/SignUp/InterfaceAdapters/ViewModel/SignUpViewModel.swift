@@ -90,9 +90,9 @@ extension SignUpViewModel {
             } receiveValue: { [weak self] response in
                 switch response.status{
                     // TODO: - 정의할 것
-                case "success":
+                case .success:
                     self?.initGroupCreate(name: self?.name ?? "내 그룹")
-                case "fail":
+                case .failure:
                     self?.outputSubject.send(.signUpFailed)
                 default:
                     self?.outputSubject.send(.signUpError)
@@ -201,7 +201,7 @@ extension SignUpViewModel {
                 }
             } receiveValue: { [weak self] response in
                 switch response.status{
-                case "success":
+                case .success:
                     self?.emailDuplicationCheck = true
                     self?.outputSubject.send(.emailNotDuplication)
                     self?.isSignUpPossible()
@@ -221,9 +221,9 @@ extension SignUpViewModel {
                 }
             } receiveValue: { [weak self] response in
                 switch response.status {
-                case "success":
+                case .success:
                     self?.outputSubject.send(.signUpCompleted)
-                case "fail":
+                case .failure:
                     self?.outputSubject.send(.signUpFailed)
                 default:
                     self?.outputSubject.send(.signUpError)

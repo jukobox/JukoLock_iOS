@@ -74,7 +74,7 @@ extension SelectedGroupPageViewModel {
                 }
             } receiveValue: { [weak self] response in
                 switch response.status {
-                case "success":
+                case .success:
                     self?.groupUsers = response.data
                     self?.outputSubject.send(.getUserListSuccess)
                 default:
@@ -93,7 +93,7 @@ extension SelectedGroupPageViewModel {
                 }
             } receiveValue: { [weak self] response in
                 switch response.status {
-                case "success":
+                case .success:
                     self?.getGroupUsers()
                     self?.outputSubject.send(.addEmailInputSuccess)
                 default:
