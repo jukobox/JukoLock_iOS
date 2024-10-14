@@ -16,11 +16,13 @@ final class AdminMachineSettingViewModel {
     private let outputSubject = PassthroughSubject<Output, Never>()
     private let machineSettingUseCase: AdminMachineSettingUseCases
     let machine: Machine
+    let isAdmin: Bool
     
     // MARK: - Init
     
-    init(machine: Machine, machineSettingUseCase: AdminMachineSettingUseCases) {
+    init(machine: Machine, isAdmin: Bool, machineSettingUseCase: AdminMachineSettingUseCases) {
         self.machine = machine
+        self.isAdmin = isAdmin
         self.machineSettingUseCase = machineSettingUseCase
     }
     

@@ -213,6 +213,12 @@ extension AdminMachineSettingViewController {
         self.machineRenameButton.addTarget(self, action: #selector(machineRenameButtonTouched), for: .touchUpInside)
         self.logCheckButton.addTarget(self, action: #selector(logCheckButtonTouched), for: .touchUpInside)
     }
+    
+    private func checkAdmin() {
+        self.permissionSettingButton.isHidden = !viewModel.isAdmin
+        self.logCheckButton.isHidden = !viewModel.isAdmin
+        self.machineDeleteButton.isHidden = !viewModel.isAdmin
+    }
 }
 
 // MARK: - Bind

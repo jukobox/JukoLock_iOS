@@ -36,6 +36,7 @@ final class MainViewModel {
         case mainPageInit
         case selectGroup(index: Int)
         case getMachineList
+        case selectedMachine(machine: Machine)
     }
     
     // MARK: - Output
@@ -46,6 +47,7 @@ final class MainViewModel {
         case getGroupListSuccess
         case getMachineListSuccess
         case setGroup(groupName: String)
+        case checkAdmin(machine:Machine, isAdmin: Bool)
     }
     
 }
@@ -68,6 +70,8 @@ extension MainViewModel {
                     self?.getMachineList()
                 case .getMachineList:
                     self?.getMachineList()
+                case let .selectedMachine(machine):
+                    self?.isAdmin(machine: machine)
                 }
             }
             .store(in: &subscriptions)
@@ -126,6 +130,19 @@ extension MainViewModel {
                     self?.machines = response.data
                     self?.outputSubject.send(.getMachineListSuccess)
                 }
+            }
+            .store(in: &subscriptions)
+    }
+    
+    private func isAdmin(machine: Machine) {
+        mainUseCase.isAdmin(uuid: machine.uuid)
+            .receive(on: DispatchQueue.main)
+            .sink { completion in
+                if case let .failure(error) = completion {
+                    debugPrint("Admin Check Fail: \(error)")
+                }
+            } receiveValue: { [weak self] response in
+                self?.outputSubject.send(.checkAdmin(machine: machine, isAdmin: response.data))
             }
             .store(in: &subscriptions)
     }

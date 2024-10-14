@@ -11,6 +11,7 @@ enum MainEndPoint {
     case getInvites
     case getGroupList
     case getMachineList(guid: String)
+    case isAdmin(uuid: String)
 }
 
 extension MainEndPoint: EndPoint {
@@ -21,21 +22,7 @@ extension MainEndPoint: EndPoint {
     
     var headers: HTTPHeaders {
         switch self {
-        case .getInvites:
-            return [
-                "Content-Type": "application/json",
-                "Contents-Length": "1000",
-                "Host": "JukoLock.App",
-                "Authorization": "Bearer \(KeyChainManager.load(key: KeyChainManager.Keywords.accessToken)!)"
-            ]
-        case .getGroupList:
-            return [
-                "Content-Type": "application/json",
-                "Contents-Length": "1000",
-                "Host": "JukoLock.App",
-                "Authorization": "Bearer \(KeyChainManager.load(key: KeyChainManager.Keywords.accessToken)!)"
-            ]
-        case let .getMachineList:
+        case .getInvites, .getGroupList, .getMachineList, .isAdmin:
             return [
                 "Content-Type": "application/json",
                 "Contents-Length": "1000",
@@ -51,12 +38,14 @@ extension MainEndPoint: EndPoint {
             return .plain
         case let .getMachineList(guid):
             return .query(["guid":guid])
+        case let .isAdmin(uuid):
+            return .query(["uuid": uuid])
         }
     }
     
     var method: HTTPMethod {
         switch self {
-        case .getInvites, .getGroupList, .getMachineList:
+        case .getInvites, .getGroupList, .getMachineList, .isAdmin:
             return .get
         }
     }
@@ -69,6 +58,8 @@ extension MainEndPoint: EndPoint {
             return "/group/list"
         case .getMachineList:
             return "/device/list"
+        case .isAdmin:
+            return "/device/isAdmin"
         }
     }
 }

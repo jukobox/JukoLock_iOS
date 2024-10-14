@@ -268,6 +268,11 @@ extension MainViewController {
                     self?.loadingView.isHidden = true
                 case let .setGroup(groupName):
                     self?.dropDownButton.setTitle("▼ \(groupName)", for: .normal)
+                case let .checkAdmin(machine, isAdmin):
+                    let provider = APIProvider(session: URLSession.shared)
+                    let adminMachineSettingViewModel = AdminMachineSettingViewModel(machine: machine, isAdmin: isAdmin, machineSettingUseCase: AdminMachineSettingUseCases(provider: provider))
+                    let viewController = AdminMachineSettingViewController(viewModel: adminMachineSettingViewModel)
+                    self?.present(viewController, animated: true)
                 }
             }
             .store(in: &subscriptions)
@@ -338,10 +343,7 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == machineListCollectionView {
-            let provider = APIProvider(session: URLSession.shared)
-            let adminMachineSettingViewModel = AdminMachineSettingViewModel(machine: viewModel.machines[indexPath.row], machineSettingUseCase: AdminMachineSettingUseCases(provider: provider))
-            let viewController = AdminMachineSettingViewController(viewModel: adminMachineSettingViewModel)
-            self.present(viewController, animated: true)
+            self.inputSubject.send(.selectedMachine(machine: viewModel.machines[indexPath.row]))
         }
     }
     

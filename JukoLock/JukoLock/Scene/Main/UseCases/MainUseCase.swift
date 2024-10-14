@@ -12,6 +12,7 @@ protocol MainUseCaseProtocol {
     func execute() -> AnyPublisher<InviteResponse, HTTPError> // 초대 목록 받아오기
     func getGroupList() -> AnyPublisher<GroupListResponse, HTTPError> // 그룹 목록 받아오기
     func getMachineList(guid: String) -> AnyPublisher<MachineListResponse, HTTPError> // 기기 목록 받아오기
+    func isAdmin(uuid: String) -> AnyPublisher<IsAdminResponse, HTTPError>
 }
 
 struct MainUseCase: MainUseCaseProtocol {
@@ -32,5 +33,9 @@ struct MainUseCase: MainUseCaseProtocol {
     
     func getMachineList(guid: String) -> AnyPublisher<MachineListResponse, HTTPError> {
         return provider.request(MainEndPoint.getMachineList(guid: guid))
+    }
+    
+    func isAdmin(uuid: String) -> AnyPublisher<IsAdminResponse, HTTPError> {
+        return provider.request(MainEndPoint.isAdmin(uuid: uuid))
     }
 }
