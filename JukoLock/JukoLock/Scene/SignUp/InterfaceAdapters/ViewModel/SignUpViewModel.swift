@@ -91,8 +91,7 @@ extension SignUpViewModel {
             } receiveValue: { [weak self] response in
                 switch response.status{
                 case .success:
-                    KeyChainManager.save(key: KeyChainManager.Keywords.accessToken, token: response.data ?? "")
-                    self?.initGroupCreate(nickname: self?.nickname ?? "내 그룹")
+                    self?.outputSubject.send(.signUpCompleted)
                 case .failure:
                     self?.outputSubject.send(.signUpFailed)
                 default:
@@ -130,6 +129,7 @@ extension SignUpViewModel {
         isSignUpPossible()
     }
     
+    // TODO: - 비밀번호 보이게 설정
     private func inputPasswordCheck(_ pwCheck: String) {
         self.pwCheck = pwCheck
         
@@ -141,6 +141,8 @@ extension SignUpViewModel {
         isSignUpPossible()
     }
     
+    // TODO: - 이메일 중복 체크는 이메일 형식이 맞지 않아도 된다.
+    // TODO: - 회원가입 실패 메세지 알러트 설정
     private func isSignUpPossible() {
         if !nickname.isEmpty && !email.isEmpty && !pw.isEmpty && !pwCheck.isEmpty && isValidEmail(email) && isValidPW(pw) && isValidPWCheck(pwCheck) && emailDuplicationCheck {
             outputSubject.send(.isSignUpPossible)
@@ -211,24 +213,5 @@ extension SignUpViewModel {
                 }
             }
             .store(in: &subscriptions)
-    }
-    
-    private func initGroupCreate(nickname: String) {
-        signUpUseCase.execute(groupName: nickname)
-            .receive(on: DispatchQueue.global())
-            .sink { completion in
-                if case let .failure(error) = completion {
-                    debugPrint("Group Create Fail")
-                }
-            } receiveValue: { [weak self] response in
-                switch response.status {
-                case .success:
-                    self?.outputSubject.send(.signUpCompleted)
-                case .failure:
-                    self?.outputSubject.send(.signUpFailed)
-                default:
-                    self?.outputSubject.send(.signUpError)
-                }
-            }
     }
 }
