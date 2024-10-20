@@ -425,4 +425,8 @@ extension SignUpViewController: UITextFieldDelegate {
         guard textField.text!.count < 20 else { return false } // 20 글자로 제한
         return true
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
 }
