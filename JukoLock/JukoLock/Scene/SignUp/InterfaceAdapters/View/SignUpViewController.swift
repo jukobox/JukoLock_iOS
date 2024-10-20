@@ -325,8 +325,9 @@ extension SignUpViewController {
         return !email.isEmpty && emailPredicate.evaluate(with: email)
     }
     
+    // TODO: Password Rule 제대로 안알려줌
     private func isValidPW(_ pw: String) -> Bool {
-        let pwRegex = "^[A-Za-z0-9!_@$%^&+=]{8,20}$"
+        let pwRegex = "^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+=-]).{8,50}"
         let pwPredicate = NSPredicate(format: "SELF MATCHES[c] %@", pwRegex)
 
         return !pw.isEmpty && pwPredicate.evaluate(with: pw)
