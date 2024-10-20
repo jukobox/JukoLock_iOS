@@ -11,7 +11,7 @@ enum LoginEndPoint {
     case emailValidationCheck(email: String) // 이메일 중복 체크
     case sendVerificationEmail(email: String) // 인증번호 발송
     case checkVerificationEmail(email: String) // 인증번호 인증
-    case signUp(email: String, password: String) // 회원가입
+    case signUp(email: String, password: String, nickname: String) // 회원가입
     case login(email: String, password: String) // 로그인
     case groupCreate(groupName: String) // 기본 그룹 생성
 }
@@ -72,9 +72,10 @@ extension LoginEndPoint: EndPoint {
             return .body(["email" : email])
         case let .checkVerificationEmail(email):
             return .body(["email" : email])
-        case let .signUp(email, password):
+        case let .signUp(email, password, nickname):
             return .body(["email" : email,
-                          "password" : password
+                          "password" : password,
+                          "nickname" : nickname
                          ])
         case let .login(email, password):
             return .body(["email" : email,

@@ -9,7 +9,7 @@ import Combine
 import Foundation
 
 protocol SignUpUseCaseProtocol {
-    func execute(signUpEmail: String, password: String) -> AnyPublisher<LoginResponse, HTTPError> // 회원가입
+    func execute(email: String, password: String, nickname: String) -> AnyPublisher<LoginResponse, HTTPError> // 회원가입
     func execute(validationEmail: String) -> AnyPublisher<Never, HTTPError> // 인증번호 발송
     func execute(sendEmail: String) -> AnyPublisher<Never, HTTPError> // 인증번호 인증
     func execute(checkVerification: String) -> AnyPublisher<LoginResponse, HTTPError> // 이메일 중복 체크
@@ -24,8 +24,8 @@ struct SignUpUseCase: SignUpUseCaseProtocol {
         self.provider = provider
     }
     
-    func execute(signUpEmail: String, password: String) -> AnyPublisher<LoginResponse, HTTPError> {
-        return provider.request(LoginEndPoint.signUp(email: signUpEmail, password: password))
+    func execute(email: String, password: String, nickname: String) -> AnyPublisher<LoginResponse, HTTPError> {
+        return provider.request(LoginEndPoint.signUp(email: email, password: password, nickname: nickname))
     }
     
     func execute(validationEmail: String) -> AnyPublisher<Never, HTTPError> {

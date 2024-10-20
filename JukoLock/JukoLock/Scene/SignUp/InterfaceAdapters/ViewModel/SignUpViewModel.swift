@@ -15,7 +15,7 @@ final class SignUpViewModel {
     private var subscriptions: Set<AnyCancellable> = []
     private let outputSubject = PassthroughSubject<Output, Never>()
     private var signUpUseCase: SignUpUseCase
-    private var name: String = ""
+    private var nickname: String = ""
     private var email: String = ""
     private var pw: String = ""
     private var pwCheck: String = ""
@@ -63,7 +63,7 @@ extension SignUpViewModel {
             .sink { [weak self] input in
                 switch input {
                 case let .nameInput(name):
-                    self?.inputName(name)
+                    self?.inputNickname(name)
                 case let .emailInput(email):
                     self?.inputEmail(email)
                 case let .passwordInput(pw):
@@ -81,16 +81,18 @@ extension SignUpViewModel {
     }
     
     private func signUp() {
-        signUpUseCase.execute(signUpEmail: email, password: pw)
+        signUpUseCase.execute(email: email, password: pw, nickname: nickname)
             .receive(on: DispatchQueue.main)
             .sink { completion in
+                // TODO: - Error 발생 시 User에게 Alert 구현하기
                 if case let .failure(error) = completion {
                     debugPrint("SignUp Error : ", error)
                 }
             } receiveValue: { [weak self] response in
                 switch response.status{
                 case .success:
-                    self?.initGroupCreate(name: self?.name ?? "내 그룹")
+                    KeyChainManager.save(key: KeyChainManager.Keywords.accessToken, token: response.data ?? "")
+                    self?.initGroupCreate(nickname: self?.nickname ?? "내 그룹")
                 case .failure:
                     self?.outputSubject.send(.signUpFailed)
                 default:
@@ -100,9 +102,9 @@ extension SignUpViewModel {
             .store(in: &subscriptions)
     }
     
-    private func inputName(_ name: String) {
+    private func inputNickname(_ nickname: String) {
         self.emailDuplicationCheck = false
-        self.name = name
+        self.nickname = nickname
     }
     
     private func inputEmail(_ email: String) {
@@ -140,7 +142,7 @@ extension SignUpViewModel {
     }
     
     private func isSignUpPossible() {
-        if !name.isEmpty && !email.isEmpty && !pw.isEmpty && !pwCheck.isEmpty && isValidEmail(email) && isValidPW(pw) && isValidPWCheck(pwCheck) && emailDuplicationCheck {
+        if !nickname.isEmpty && !email.isEmpty && !pw.isEmpty && !pwCheck.isEmpty && isValidEmail(email) && isValidPW(pw) && isValidPWCheck(pwCheck) && emailDuplicationCheck {
             outputSubject.send(.isSignUpPossible)
         } else {
             outputSubject.send(.isSignUpImpossible)
@@ -211,8 +213,8 @@ extension SignUpViewModel {
             .store(in: &subscriptions)
     }
     
-    private func initGroupCreate(name: String) {
-        signUpUseCase.execute(groupName: name)
+    private func initGroupCreate(nickname: String) {
+        signUpUseCase.execute(groupName: nickname)
             .receive(on: DispatchQueue.global())
             .sink { completion in
                 if case let .failure(error) = completion {
