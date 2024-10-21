@@ -104,18 +104,18 @@ extension SignUpViewModel {
     }
     
     private func inputNickname(_ nickname: String) {
-        self.emailDuplicationCheck = false
         self.nickname = nickname
+        isSignUpPossible()
     }
     
     private func inputEmail(_ email: String) {
         self.email = email
         self.emailDuplicationCheck = false
         
-        if !isValidEmail(self.email) && !self.email.isEmpty {
-            outputSubject.send(.emailIsNotValid)
-        } else {
+        if isValidEmail(self.email) && !self.email.isEmpty {
             outputSubject.send(.emailIsValid)
+        } else {
+            outputSubject.send(.emailIsNotValid)
         }
     }
     
