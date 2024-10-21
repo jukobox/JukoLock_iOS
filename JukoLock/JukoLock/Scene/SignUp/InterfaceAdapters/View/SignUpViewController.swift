@@ -14,6 +14,8 @@ final class SignUpViewController: UIViewController {
     private var subscriptions: Set<AnyCancellable> = []
     private var viewModel: SignUpViewModel
     private let inputSubject: PassthroughSubject<SignUpViewModel.Input, Never> = .init()
+    private var pwInvisibleState: Bool = false
+    private var pwConfirmInvisibleState: Bool = false
     
     // MARK: - UI Components
     
@@ -98,6 +100,18 @@ final class SignUpViewController: UIViewController {
         return textField
     }()
     
+    private let pwInvisibleToogleButton: UIButton = {
+        let button = UIButton()
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 20)
+        let image = UIImage(systemName: "eye.slash", withConfiguration: imageConfig)
+        
+        button.setImage(image, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.tintColor = .black
+        
+        return button
+    }()
+    
     private let passwordCheckTextLabel: UILabel = {
         let label = UILabel()
         label.text = "비밀번호 체크"
@@ -126,6 +140,18 @@ final class SignUpViewController: UIViewController {
         textField.leftViewMode = .always
         textField.rightViewMode = .always
         return textField
+    }()
+    
+    private let pwConfirmInvisibleToogleButton: UIButton = {
+        let button = UIButton()
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 20)
+        let image = UIImage(systemName: "eye.slash", withConfiguration: imageConfig)
+        
+        button.setImage(image, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.tintColor = .black
+        
+        return button
     }()
     
     private let pwCheckValidationLabel: UILabel = {
@@ -165,6 +191,9 @@ final class SignUpViewController: UIViewController {
         self.view.backgroundColor = .white
         setUpLayout()
         setUpKeyboardObserver()
+        
+        passwordInputTextField.rightView = pwInvisibleToogleButton
+        passwordCheckInputTextField.rightView = pwConfirmInvisibleToogleButton
     }
 }
 
@@ -254,6 +283,8 @@ extension SignUpViewController {
         passwordCheckInputTextField.addTarget(self, action: #selector(pwCheckTextFieldDidChanged), for: .editingChanged)
         signUpCompleteButton.addTarget(self, action: #selector(signupSubmitButtonTouched), for: .touchUpInside)
         emailDuplicationCheckButton.addTarget(self, action: #selector(emailDuplicationCheckButtonTouched), for: .touchUpInside)
+        pwInvisibleToogleButton.addTarget(self, action: #selector(changePWInvisibleState), for: .touchUpInside)
+        pwConfirmInvisibleToogleButton.addTarget(self, action: #selector(changePWConfirmInvisibleState), for: .touchUpInside)
     }
 }
 
@@ -418,6 +449,24 @@ extension SignUpViewController: UITextFieldDelegate {
     
     @objc func emailDuplicationCheckButtonTouched(_ sender: Any?) {
         self.inputSubject.send(.emailDuplicationCheck)
+    }
+    
+    @objc func changePWInvisibleState(_ sender: Any?) {
+        pwInvisibleState.toggle()
+        
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 20)
+        let image = pwInvisibleState ? UIImage(systemName: "eye.slash", withConfiguration: imageConfig) : UIImage(systemName: "eye", withConfiguration: imageConfig)
+        pwInvisibleToogleButton.setImage(image, for: .normal)
+        passwordInputTextField.isSecureTextEntry = pwInvisibleState
+    }
+    
+    @objc func changePWConfirmInvisibleState(_ sender: Any?) {
+        pwConfirmInvisibleState.toggle()
+        
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 20)
+        let image = pwConfirmInvisibleState ? UIImage(systemName: "eye.slash", withConfiguration: imageConfig) : UIImage(systemName: "eye", withConfiguration: imageConfig)
+        pwConfirmInvisibleToogleButton.setImage(image, for: .normal)
+        passwordCheckInputTextField.isSecureTextEntry = pwConfirmInvisibleState
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
