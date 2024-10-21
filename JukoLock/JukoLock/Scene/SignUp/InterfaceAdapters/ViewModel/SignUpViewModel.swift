@@ -17,8 +17,9 @@ final class SignUpViewModel {
     private var signUpUseCase: SignUpUseCase
     private var nickname: String = ""
     private var email: String = ""
-    private var pw: String = ""
-    private var pwCheck: String = ""
+    private var passwordInput: String = ""
+    private var passwordConfirmationInput: String = ""
+    private var passwordConfirmation: Bool = false
     private var emailDuplicationCheck: Bool = false
     
     // MARK: - Init
@@ -41,12 +42,12 @@ final class SignUpViewModel {
     // MARK: - Output
     
     enum Output {
-        case nameValid(_ text: String)
-        case emailValid(_ text: String)
         case pwValid(_ text: String)
         case pwCheckValid(_ text: String)
         case isSignUpPossible
         case isSignUpImpossible
+        case emailIsValid
+        case emailIsNotValid
         case emailNotDuplication
         case emailDuplication
         case signUpCompleted
@@ -81,7 +82,7 @@ extension SignUpViewModel {
     }
     
     private func signUp() {
-        signUpUseCase.execute(email: email, password: pw, nickname: nickname)
+        signUpUseCase.execute(email: email, password: passwordInput, nickname: nickname)
             .receive(on: DispatchQueue.main)
             .sink { completion in
                 // TODO: - Error 발생 시 User에게 Alert 구현하기
@@ -111,15 +112,14 @@ extension SignUpViewModel {
         self.emailDuplicationCheck = false
         
         if !isValidEmail(self.email) && !self.email.isEmpty {
-            outputSubject.send(.emailValid("Email이 유효하지 않습니다."))
+            outputSubject.send(.emailIsNotValid)
         } else {
-            outputSubject.send(.emailValid(""))
+            outputSubject.send(.emailIsValid)
         }
-        isSignUpPossible()
     }
     
     private func inputPassword(_ pw: String) {
-        self.pw = pw
+        self.passwordInput = pw
         
         if !isValidPW(pw) && !self.email.isEmpty {
             outputSubject.send(.pwValid("PassWord가 유효하지 않습니다."))
@@ -131,9 +131,9 @@ extension SignUpViewModel {
     
     // TODO: - 비밀번호 보이게 설정
     private func inputPasswordCheck(_ pwCheck: String) {
-        self.pwCheck = pwCheck
+        self.passwordConfirmationInput = pwCheck
         
-        if !isValidPWCheck(pwCheck) && !self.pwCheck.isEmpty {
+        if !isValidPWCheck(pwCheck) && !self.passwordConfirmationInput.isEmpty {
             outputSubject.send(.pwCheckValid("PassWord가 일치하지 않습니다."))
         } else {
             outputSubject.send(.pwCheckValid(""))
@@ -141,10 +141,9 @@ extension SignUpViewModel {
         isSignUpPossible()
     }
     
-    // TODO: - 이메일 중복 체크는 이메일 형식이 맞지 않아도 된다.
     // TODO: - 회원가입 실패 메세지 알러트 설정
     private func isSignUpPossible() {
-        if !nickname.isEmpty && !email.isEmpty && !pw.isEmpty && !pwCheck.isEmpty && isValidEmail(email) && isValidPW(pw) && isValidPWCheck(pwCheck) && emailDuplicationCheck {
+        if !nickname.isEmpty && passwordConfirmation && isValidPW(passwordInput) && isValidPWCheck(passwordConfirmationInput) && emailDuplicationCheck {
             outputSubject.send(.isSignUpPossible)
         } else {
             outputSubject.send(.isSignUpImpossible)
@@ -166,7 +165,8 @@ extension SignUpViewModel {
     }
     
     private func isValidPWCheck(_ pwCheck: String) -> Bool {
-        return self.pw == pwCheck
+        passwordConfirmation = true
+        return self.passwordInput == pwCheck
     }
     
     private func emailValidationCheck(email: String) {

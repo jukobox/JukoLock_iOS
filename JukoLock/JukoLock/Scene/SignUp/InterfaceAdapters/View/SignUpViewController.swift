@@ -61,7 +61,8 @@ final class SignUpViewController: UIViewController {
     private let emailDuplicationCheckButton: UIButton = {
         let button = UIButton()
         button.setTitle("중복체크", for: .normal)
-        button.backgroundColor = .blue
+        button.backgroundColor = .lightGray
+        button.isEnabled = false
         button.layer.cornerRadius = 5
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -265,11 +266,15 @@ private extension SignUpViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] output in
                 switch output {
-                case let .nameValid(text):
-                    debugPrint("name : ", text)
-                case let .emailValid(text):
+                case .emailIsValid:
+                    self?.emailDuplicationCheckButton.isEnabled = true
+                    self?.emailDuplicationCheckButton.backgroundColor = .blue
+                    self?.emailValidationLabel.text = ""
+                case .emailIsNotValid:
+                    self?.emailDuplicationCheckButton.isEnabled = false
+                    self?.emailDuplicationCheckButton.backgroundColor = .lightGray
                     self?.emailValidationLabel.textColor = .red
-                    self?.emailValidationLabel.text = text
+                    self?.emailValidationLabel.text = "Email이 유효하지 않습니다."
                 case let .pwValid(text):
                     self?.pwValidationLabel.text = text
                 case let .pwCheckValid(text):
