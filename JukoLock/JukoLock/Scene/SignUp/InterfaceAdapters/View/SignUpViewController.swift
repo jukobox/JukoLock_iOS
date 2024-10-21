@@ -306,8 +306,12 @@ private extension SignUpViewController {
                     self?.emailDuplicationCheckButton.backgroundColor = .lightGray
                     self?.emailValidationLabel.textColor = .red
                     self?.emailValidationLabel.text = "Email이 유효하지 않습니다."
-                case let .pwValid(text):
-                    self?.pwValidationLabel.text = text
+                case .pwIsValid:
+                    self?.pwValidationLabel.text = "사용 가능한 비밀번호입니다!"
+                    self?.pwValidationLabel.textColor = .green
+                case .pwIsNotValid:
+                    self?.pwValidationLabel.text = "비밀번호가 유효하지 않습니다."
+                    self?.pwValidationLabel.textColor = .red
                 case let .pwCheckValid(text):
                     self?.pwCheckValidationLabel.text = text
                 case .isSignUpPossible:

@@ -42,7 +42,8 @@ final class SignUpViewModel {
     // MARK: - Output
     
     enum Output {
-        case pwValid(_ text: String)
+        case pwIsValid
+        case pwIsNotValid
         case pwCheckValid(_ text: String)
         case isSignUpPossible
         case isSignUpImpossible
@@ -121,15 +122,14 @@ extension SignUpViewModel {
     private func inputPassword(_ pw: String) {
         self.passwordInput = pw
         
-        if !isValidPW(pw) && !self.email.isEmpty {
-            outputSubject.send(.pwValid("PassWord가 유효하지 않습니다."))
+        if isValidPW(pw) && !self.passwordInput.isEmpty {
+            outputSubject.send(.pwIsValid)
         } else {
-            outputSubject.send(.pwValid(""))
+            outputSubject.send(.pwIsNotValid)
         }
         isSignUpPossible()
     }
     
-    // TODO: - 비밀번호 보이게 설정
     private func inputPasswordCheck(_ pwCheck: String) {
         self.passwordConfirmationInput = pwCheck
         
