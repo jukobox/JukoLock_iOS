@@ -89,7 +89,7 @@ final class SignUpViewController: UIViewController {
     private let passwordInputTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "PW를 입력해주세요."
+        textField.placeholder = "8자 이상 비밀번호를 입력해주세요."
         textField.isSecureTextEntry = true
         textField.autocapitalizationType = .none
         textField.layer.cornerRadius = 5
@@ -131,7 +131,7 @@ final class SignUpViewController: UIViewController {
     private let passwordCheckInputTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "PW를 입력해주세요."
+        textField.placeholder = "PW를 똑같이 입력해주세요."
         textField.isSecureTextEntry = true
         textField.autocapitalizationType = .none
         textField.layer.cornerRadius = 5
