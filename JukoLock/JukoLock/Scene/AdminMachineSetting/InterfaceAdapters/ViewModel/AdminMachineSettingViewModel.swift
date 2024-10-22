@@ -38,6 +38,8 @@ final class AdminMachineSettingViewModel {
     enum Output {
         case machineRenameSuccess(_ newName: String)
         case machineReanmeFailure
+        case isOpenSignalSentSuccess
+        case isOpenSignalSentFailure
     }
 }
 
@@ -84,8 +86,13 @@ extension AdminMachineSettingViewModel {
                 if case let .failure(error) = completion {
                     debugPrint("Machine Open Fail: \(error)")
                 }
-            } receiveValue: { response in
-                debugPrint(response)
+            } receiveValue: { [weak self] response in
+                switch response.status {
+                case .success:
+                    self?.outputSubject.send(.isOpenSignalSentSuccess)
+                default:
+                    self?.outputSubject.send(.isOpenSignalSentFailure)
+                }
             }
             .store(in: &subscriptions)
     }

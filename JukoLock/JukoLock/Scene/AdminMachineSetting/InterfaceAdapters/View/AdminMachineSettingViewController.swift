@@ -122,6 +122,7 @@ final class AdminMachineSettingViewController: UIViewController {
         self.machineRenameButton.setTitle(viewModel.machine.nickname, for: .normal)
         self.lastLogLabel.text = viewModel.machine.udate
         setUpLayout()
+        checkAdmin()
     }
 }
 
@@ -218,6 +219,7 @@ extension AdminMachineSettingViewController {
         self.permissionSettingButton.isHidden = !viewModel.isAdmin
         self.logCheckButton.isHidden = !viewModel.isAdmin
         self.machineDeleteButton.isHidden = !viewModel.isAdmin
+        self.machineRenameButton.isEnabled = viewModel.isAdmin
     }
 }
 
@@ -231,12 +233,16 @@ private extension AdminMachineSettingViewController {
             .sink { [weak self] output in
                 switch output {
                 case let .machineRenameSuccess(newName):
-                    self?.machineRenameResult(result: "기기 이름 성공", message: "기기 이름을 변경하였습니다.")
+                    self?.machineResultAlert(result: "기기 이름 성공", message: "기기 이름을 변경하였습니다.")
                     self?.machineRenameButton.setTitle(newName, for: .normal)
                     self?.machineRenameButton.reloadInputViews()
                     // TODO: - Main 화면도 변경되도록 수정
                 case .machineReanmeFailure:
-                    self?.machineRenameResult(result: "기기 이름 실패", message: "기기 이름 변경에 실패하였습니다.")
+                    self?.machineResultAlert(result: "기기 이름 실패", message: "기기 이름 변경에 실패하였습니다.")
+                case .isOpenSignalSentSuccess:
+                    self?.machineResultAlert(result: "기기 열기 신호 보내기 성공", message: "기기 열기 신호를 보냈습니다.")
+                case .isOpenSignalSentFailure:
+                    self?.machineResultAlert(result: "기기 열기 신호 보내기 실패", message: "잠시 후 다시 시도해주세요.")
                 }
             }
             .store(in: &subscriptions)
@@ -246,7 +252,7 @@ private extension AdminMachineSettingViewController {
 // MARK: - Methos
 
 extension AdminMachineSettingViewController {
-    func machineRenameResult(result: String, message: String) {
+    func machineResultAlert(result: String, message: String) {
         let sheet = UIAlertController(title: result, message: message, preferredStyle: .alert)
         sheet.addAction(UIAlertAction(title: "확인", style: .default))
         present(sheet, animated: true)
@@ -258,7 +264,6 @@ extension AdminMachineSettingViewController {
 private extension AdminMachineSettingViewController {
     @objc func openMachineButtonTouched(_ sender: Any) {
         self.inputSubject.send(.openMachine)
-        machineRenameResult(result: "", message: "기기 열기 신호를 보냈습니다.")
     }
     
     @objc func machineRenameButtonTouched(_ sender: Any) {
