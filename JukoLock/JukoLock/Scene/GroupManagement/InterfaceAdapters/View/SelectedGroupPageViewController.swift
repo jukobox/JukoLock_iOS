@@ -21,6 +21,7 @@ final class SelectedGroupPageViewController: UIViewController {
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.keyboardDismissMode = .onDrag
         
         return scrollView
     }()
@@ -92,6 +93,7 @@ final class SelectedGroupPageViewController: UIViewController {
         groupUserListTableView.register(GroupListCell.self, forCellReuseIdentifier: "GroupListCell")
         setUpLayout()
         inputSubject.send(.getUserList)
+        scrollEditingEnd()
     }
     
 }
@@ -236,5 +238,17 @@ extension SelectedGroupPageViewController: UITextFieldDelegate {
         }
         sheet.addAction(action)
         self.present(sheet, animated: true)
+    }
+    
+    @objc func editingEnd(sender: UITapGestureRecognizer) {
+        self.view.endEditing(true)
+    }
+    
+    private func scrollEditingEnd() {
+        let singleTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(editingEnd))
+        singleTapGestureRecognizer.numberOfTapsRequired = 1
+        singleTapGestureRecognizer.isEnabled = true
+        singleTapGestureRecognizer.cancelsTouchesInView = false
+        scrollView.addGestureRecognizer(singleTapGestureRecognizer)
     }
 }
