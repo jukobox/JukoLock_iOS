@@ -85,10 +85,10 @@ extension SignUpViewModel {
     private func signUp() {
         signUpUseCase.execute(email: email, password: passwordInput, nickname: nickname)
             .receive(on: DispatchQueue.main)
-            .sink { completion in
-                // TODO: - Error 발생 시 User에게 Alert 구현하기
+            .sink { [weak self] completion in
                 if case let .failure(error) = completion {
                     debugPrint("SignUp Error : ", error)
+                    self?.outputSubject.send(.signUpError)
                 }
             } receiveValue: { [weak self] response in
                 switch response.status{
@@ -141,7 +141,6 @@ extension SignUpViewModel {
         isSignUpPossible()
     }
     
-    // TODO: - 회원가입 실패 메세지 알러트 설정
     private func isSignUpPossible() {
         if !nickname.isEmpty && passwordConfirmation && isValidPW(passwordInput) && isValidPWCheck(passwordConfirmationInput) && emailDuplicationCheck {
             outputSubject.send(.isSignUpPossible)
