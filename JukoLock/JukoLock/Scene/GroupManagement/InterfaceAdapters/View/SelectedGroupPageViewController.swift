@@ -223,7 +223,7 @@ extension SelectedGroupPageViewController: UITextFieldDelegate {
     private func addEmailInputSuccess() {
         let sheet = UIAlertController(title: "유저 초대 성공", message: "유저 초대에 성공했습니다!", preferredStyle: .alert)
         let action = UIAlertAction(title: "확인", style: .default) { _ in
-            self.groupUserListTableView.reloadData()
+            self.inputSubject.send(.getUserList)
             self.addEmailInputTextField.text = ""
         }
         sheet.addAction(action)

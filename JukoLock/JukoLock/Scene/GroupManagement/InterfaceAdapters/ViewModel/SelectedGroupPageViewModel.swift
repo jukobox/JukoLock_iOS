@@ -87,9 +87,10 @@ extension SelectedGroupPageViewModel {
     private func groupUserAdd() {
         groupManagementUseCase.execute(receiveUserEmail: email, groupId: groupId)
             .receive(on: DispatchQueue.main)
-            .sink { completion in
+            .sink { [weak self] completion in
                 if case let .failure(error) = completion {
                     debugPrint("Group User Add Fail: \(error)")
+                    self?.outputSubject.send(.addEmailInputFail)
                 }
             } receiveValue: { [weak self] response in
                 switch response.status {
