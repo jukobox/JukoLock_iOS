@@ -121,6 +121,8 @@ extension GroupManagementViewController {
         setLayoutConstraints()
         addTargets()
         bind()
+        
+        self.view.backgroundColor = .secondarySystemBackground
     }
     
     private func addTargets() {
@@ -181,7 +183,7 @@ extension GroupManagementViewController: UITableViewDelegate, UITableViewDataSou
     func updateTableViewHeight() {
         tableView.reloadData()
         tableView.layoutIfNeeded()
-        let height = tableView.contentSize.height * 10
+        let height = tableView.contentSize.height * 9
         tableView.heightAnchor.constraint(equalToConstant: height).isActive = true
         scrollView.contentSize = CGSize(width: view.frame.width, height: height)
     }
