@@ -57,7 +57,7 @@ extension InvitationListViewModel {
     }
     
     func invitationAccept(index: Int) {
-        invitationListUseCase.execute(invitationId: noties[index].id)
+        invitationListUseCase.invitationAccept(invitationId: noties[index].id)
             .receive(on: DispatchQueue.main)
             .sink { completion in
                 if case let .failure(error) = completion {

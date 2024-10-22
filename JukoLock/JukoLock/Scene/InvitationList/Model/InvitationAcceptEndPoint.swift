@@ -8,7 +8,7 @@
 import Foundation
 
 enum InvitationAcceptEndPoint {
-    case invitationAccept(groupId: Int)
+    case invitationAccept(invitationId: Int)
 }
 
 extension InvitationAcceptEndPoint: EndPoint {
@@ -31,9 +31,9 @@ extension InvitationAcceptEndPoint: EndPoint {
     
     var parameter: HTTPParameter {
         switch self {
-        case let .invitationAccept(groupId):
+        case let .invitationAccept(invitationId):
             return .body([
-                "groupId": "\(groupId)",
+                "inviteId": "\(invitationId)",
             ])
         }
     }
