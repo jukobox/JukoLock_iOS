@@ -228,7 +228,7 @@ extension MainViewController {
             machineListCollectionView.leadingAnchor.constraint(equalTo: scrollContentsView.leadingAnchor, constant: 20),
             machineListCollectionView.trailingAnchor.constraint(equalTo: scrollContentsView.trailingAnchor, constant: -20),
             machineListCollectionView.bottomAnchor.constraint(equalTo: scrollContentsView.bottomAnchor),
-            machineListCollectionView.heightAnchor.constraint(equalToConstant: 1200),
+            machineListCollectionView.heightAnchor.constraint(equalToConstant: 200),
             
             loadingView.topAnchor.constraint(equalTo: self.view.topAnchor),
             loadingView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
@@ -263,6 +263,11 @@ extension MainViewController {
                     self?.dropDownButton.setTitle("▼ \(self?.viewModel.groupList.first?.name ?? "")", for: .normal)
                     self?.inputSubject.send(.getMachineList)
                 case .getMachineListSuccess:
+                    if self?.viewModel.machines.count ?? 0 > 0 {
+                        self?.machineListCollectionView.restoreCollectionView()
+                    } else {
+                        self?.machineListCollectionView.setEmptyView("기기가 없습니다. 기기를 추가해주세요.")
+                    }
                     self?.machineListCollectionView.reloadData()
                     self?.carouselView.reloadData()
                     self?.loadingView.isHidden = true
