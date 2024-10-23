@@ -12,7 +12,7 @@ final class MachineListCell: UICollectionViewCell {
     
     private let view: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(named: "MainColor")
+        view.backgroundColor = UIColor(named: "SecondaryGreen")
         view.layer.cornerRadius = 15
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -53,7 +53,6 @@ final class MachineListCell: UICollectionViewCell {
     }
     
     func setView() {
-        self.backgroundColor = UIColor(named: "Side200")
         [ view, lastLogLabel, machineNameLabel ].forEach {
             self.addSubview($0)
         }
@@ -78,7 +77,7 @@ final class MachineListCell: UICollectionViewCell {
             machineNameLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -10)
         ])
         
-        self.backgroundColor = .systemGray4
+        self.backgroundColor = UIColor(named: "SecondaryMint")
     }
     
     func setOwnerNameLa(_ owner: String, _ lastLog: String) {
