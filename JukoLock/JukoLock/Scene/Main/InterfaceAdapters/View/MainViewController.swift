@@ -75,9 +75,20 @@ final class MainViewController: UIViewController {
     
     private let welcomeLabel: UILabel = {
         let label = UILabel()
-        label.text = "Welcome to\nJukoLock"
+        label.text = "Welcome to"
         label.textAlignment = .left
-        label.numberOfLines = 2
+        label.numberOfLines = 0
+        label.font = UIFont.systemFont(ofSize: 50)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private let jukoLockLabel: UILabel = {
+        let label = UILabel()
+        label.text = "JukoLock"
+        label.textAlignment = .left
+        label.textColor = UIColor(named: "BrandColor")
+        label.numberOfLines = 1
         label.font = UIFont.systemFont(ofSize: 50)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -174,7 +185,7 @@ extension MainViewController {
     private func addViews() {
         self.view.addSubview(scrollView)
         self.scrollView.addSubview(scrollContentsView)
-        [ dropDownButton, invitationListButton, addMachineButton, welcomeLabel, carouselView, dropTableView, machineListCollectionView ].forEach {
+        [ dropDownButton, invitationListButton, addMachineButton, welcomeLabel, jukoLockLabel, carouselView, dropTableView, machineListCollectionView ].forEach {
             self.scrollContentsView.addSubview($0)
         }
         
@@ -219,7 +230,11 @@ extension MainViewController {
             welcomeLabel.leadingAnchor.constraint(equalTo: self.scrollContentsView.leadingAnchor, constant: 20),
             welcomeLabel.trailingAnchor.constraint(equalTo: self.scrollContentsView.trailingAnchor, constant: 20),
             
-            carouselView.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor, constant: 20),
+            jukoLockLabel.topAnchor.constraint(equalTo: welcomeLabel.bottomAnchor),
+            jukoLockLabel.leadingAnchor.constraint(equalTo: welcomeLabel.leadingAnchor),
+            jukoLockLabel.trailingAnchor.constraint(equalTo: welcomeLabel.trailingAnchor),
+            
+            carouselView.topAnchor.constraint(equalTo: jukoLockLabel.bottomAnchor, constant: 20),
             carouselView.leadingAnchor.constraint(equalTo: self.scrollContentsView.leadingAnchor),
             carouselView.trailingAnchor.constraint(equalTo: self.scrollContentsView.trailingAnchor),
             carouselView.heightAnchor.constraint(equalToConstant: 120),
