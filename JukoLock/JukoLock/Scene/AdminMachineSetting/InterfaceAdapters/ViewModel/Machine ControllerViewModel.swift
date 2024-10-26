@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-final class AdminMachineSettingViewModel {
+final class MachineControllerViewModel {
     
     // MARK: - Properties
     
@@ -17,6 +17,9 @@ final class AdminMachineSettingViewModel {
     private let machineSettingUseCase: AdminMachineSettingUseCases
     let machine: Machine
     let isAdmin: Bool
+    
+    let adminControllerMenuList: [String] = ["열기", "기기 비밀번호 설정", "유저 비밀번호 설정", "로그확인", "삭제하기"]
+    let userControllerMenuList: [String] = ["열기", "비밀번호 설정"]
     
     // MARK: - Init
     
@@ -45,7 +48,7 @@ final class AdminMachineSettingViewModel {
 
 // MARK: - Methods
 
-extension AdminMachineSettingViewModel {
+extension MachineControllerViewModel {
     func transform(with input: AnyPublisher<Input, Never>) -> AnyPublisher<Output, Never> {
         input
             .sink { [weak self] input in

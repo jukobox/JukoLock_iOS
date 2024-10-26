@@ -290,8 +290,8 @@ extension MainViewController {
                     self?.dropDownButton.setTitle("▼ \(groupName)", for: .normal)
                 case let .checkAdmin(machine, isAdmin):
                     let provider = APIProvider(session: URLSession.shared)
-                    let adminMachineSettingViewModel = AdminMachineSettingViewModel(machine: machine, isAdmin: isAdmin, machineSettingUseCase: AdminMachineSettingUseCases(provider: provider))
-                    let viewController = AdminMachineSettingViewController(viewModel: adminMachineSettingViewModel)
+                    let adminMachineSettingViewModel = MachineControllerViewModel(machine: machine, isAdmin: isAdmin, machineSettingUseCase: AdminMachineSettingUseCases(provider: provider))
+                    let viewController = MachineControllerViewController(viewModel: adminMachineSettingViewModel)
                     self?.present(viewController, animated: true)
                 }
             }
