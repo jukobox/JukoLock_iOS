@@ -10,6 +10,7 @@ import Foundation
 enum AdminMachineSettingEndPoint {
     case openMachin(String)
     case machineRename(String, String, String)
+    case setNewPassword(String, String)
 }
 
 extension AdminMachineSettingEndPoint: EndPoint {
@@ -20,7 +21,7 @@ extension AdminMachineSettingEndPoint: EndPoint {
     
     var headers: HTTPHeaders {
         switch self {
-        case .machineRename, .openMachin:
+        case .machineRename, .openMachin, .setNewPassword:
             return [
                 "Content-Type": "application/json",
                 "Contents-Length": "1000",
@@ -42,12 +43,17 @@ extension AdminMachineSettingEndPoint: EndPoint {
                 "newNickname": name,
                 "guid": guid
             ])
+        case let .setNewPassword(uuid, password):
+            return .body([
+                "uuid": uuid,
+                "password": password
+            ])
         }
     }
     
     var method: HTTPMethod {
         switch self {
-        case .machineRename, .openMachin:
+        case .machineRename, .openMachin, .setNewPassword:
             return .post
         }
     }
@@ -57,7 +63,9 @@ extension AdminMachineSettingEndPoint: EndPoint {
         case .openMachin:
             return "/device/open"
         case .machineRename:
-            return "device/rename"
+            return "/device/rename"
+        case .setNewPassword:
+            return "/device/setUserPassword"
         }
     }
 }

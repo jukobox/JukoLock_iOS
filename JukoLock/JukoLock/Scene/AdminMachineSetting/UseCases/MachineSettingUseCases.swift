@@ -11,6 +11,7 @@ import Foundation
 protocol AdminMachineSettingUseCasesProtocol {
     func execute(uuid: String) -> AnyPublisher<OpenMachineResponse, HTTPError> // 기기 Open
     func execute(uuid: String, newName: String) -> AnyPublisher<RenameResponse, HTTPError> // 이름 변경
+    func setUserPassword(uuid: String, newPassword: String) -> AnyPublisher<SetUserPasswordResponse, HTTPError>
 }
 
 struct AdminMachineSettingUseCases: AdminMachineSettingUseCasesProtocol {
@@ -28,5 +29,10 @@ struct AdminMachineSettingUseCases: AdminMachineSettingUseCasesProtocol {
     func execute(uuid: String, newName: String) -> AnyPublisher<RenameResponse, HTTPError> {
         return provider.request(AdminMachineSettingEndPoint.machineRename(uuid, newName, newName))
     }
+    
+    func setUserPassword(uuid: String, newPassword: String) -> AnyPublisher<SetUserPasswordResponse, HTTPError> {
+        return provider.request(AdminMachineSettingEndPoint.setNewPassword(uuid, newPassword))
+    }
 }
+
 

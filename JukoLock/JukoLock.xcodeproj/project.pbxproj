@@ -52,6 +52,7 @@
 		AA553E6E2CB7BFAE00283BF0 /* ResponseStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA553E6D2CB7BFA300283BF0 /* ResponseStatus.swift */; };
 		AA553E702CBD3A8500283BF0 /* OpenMachineResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA553E6F2CBD3A7A00283BF0 /* OpenMachineResponse.swift */; };
 		AA553E742CBD48FD00283BF0 /* IsAdminResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA553E732CBD48F400283BF0 /* IsAdminResponse.swift */; };
+		AA5606B22CCD39C90017029C /* SetUserPasswordResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5606B12CCD39C80017029C /* SetUserPasswordResponse.swift */; };
 		AA59DFE52BE4BC4E003A2A2A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA59DFE42BE4BC4E003A2A2A /* MainViewController.swift */; };
 		AA7664442CC8F70600EEE950 /* extensionCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7664432CC8F6FF00EEE950 /* extensionCollectionView.swift */; };
 		AA7664462CCCE94000EEE950 /* MachineControllerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7664452CCCE92C00EEE950 /* MachineControllerTableViewCell.swift */; };
@@ -154,6 +155,7 @@
 		AA553E6D2CB7BFA300283BF0 /* ResponseStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseStatus.swift; sourceTree = "<group>"; };
 		AA553E6F2CBD3A7A00283BF0 /* OpenMachineResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenMachineResponse.swift; sourceTree = "<group>"; };
 		AA553E732CBD48F400283BF0 /* IsAdminResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsAdminResponse.swift; sourceTree = "<group>"; };
+		AA5606B12CCD39C80017029C /* SetUserPasswordResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetUserPasswordResponse.swift; sourceTree = "<group>"; };
 		AA59DFE42BE4BC4E003A2A2A /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		AA7664432CC8F6FF00EEE950 /* extensionCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionCollectionView.swift; sourceTree = "<group>"; };
 		AA7664452CCCE92C00EEE950 /* MachineControllerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MachineControllerTableViewCell.swift; sourceTree = "<group>"; };
@@ -671,6 +673,7 @@
 		AAE8A51B2C37982200D4A5D6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				AA5606B12CCD39C80017029C /* SetUserPasswordResponse.swift */,
 				AA553E6F2CBD3A7A00283BF0 /* OpenMachineResponse.swift */,
 				AA553E652CAEAA4800283BF0 /* RenameResponse.swift */,
 			);
@@ -1056,6 +1059,7 @@
 				AA1A204D2C6B4369005A3307 /* InvitationAcceptResponse.swift in Sources */,
 				AAE8A54E2C5FAE0600D4A5D6 /* GroupManagementViewModel.swift in Sources */,
 				AA477F022C8DAB8200809BDC /* AddMachineResponse.swift in Sources */,
+				AA5606B22CCD39C90017029C /* SetUserPasswordResponse.swift in Sources */,
 				AA477F042C8DAD4200809BDC /* AddMachineEndPoint.swift in Sources */,
 				AA553E622CAE945000283BF0 /* MachineSettingUseCases.swift in Sources */,
 				AA30F21F2BC4CBDB00B97FA6 /* SceneDelegate.swift in Sources */,

@@ -34,6 +34,7 @@ final class MachineControllerViewModel {
     enum Input {
         case openMachine
         case machineRename(_ newName: String)
+        case setUserPassword(_ password: String)
     }
     
     // MARK: - Output
@@ -43,6 +44,8 @@ final class MachineControllerViewModel {
         case machineReanmeFailure
         case isOpenSignalSentSuccess
         case isOpenSignalSentFailure
+        case userPasswordSetSuccess
+        case userPasswordSetFailure
     }
 }
 
@@ -58,6 +61,8 @@ extension MachineControllerViewModel {
                 case let .machineRename(newName):
                     // TODO: - 옵셔널 값 처리 제대로
                     self?.machineRename(uuid: self?.machine.uuid ?? "", newName: newName)
+                case let .setUserPassword(password):
+                    self?.setUserPassword(uuid: self?.machine.uuid ?? "", password: password)
                 }
             }
             .store(in: &subscriptions)
@@ -95,6 +100,24 @@ extension MachineControllerViewModel {
                     self?.outputSubject.send(.isOpenSignalSentSuccess)
                 default:
                     self?.outputSubject.send(.isOpenSignalSentFailure)
+                }
+            }
+            .store(in: &subscriptions)
+    }
+    
+    func setUserPassword(uuid: String, password: String) {
+        self.machineSettingUseCase.setUserPassword(uuid: uuid, newPassword: password)
+            .receive(on: DispatchQueue.global())
+            .sink { completion in
+                if case let .failure(error) = completion {
+                    debugPrint("Machine User Password Setting Fail: \(error)")
+                }
+            } receiveValue: { [weak self] response in
+                switch response.status {
+                case .success:
+                    self?.outputSubject.send(.userPasswordSetSuccess)
+                default:
+                    self?.outputSubject.send(.userPasswordSetFailure)
                 }
             }
             .store(in: &subscriptions)

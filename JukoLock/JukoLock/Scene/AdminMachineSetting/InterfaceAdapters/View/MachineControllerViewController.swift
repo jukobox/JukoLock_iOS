@@ -106,6 +106,10 @@ private extension MachineControllerViewController {
                     self?.machineResultAlert(result: "기기 열기 신호 보내기 성공", message: "기기 열기 신호를 보냈습니다.")
                 case .isOpenSignalSentFailure:
                     self?.machineResultAlert(result: "기기 열기 신호 보내기 실패", message: "잠시 후 다시 시도해주세요.")
+                case .userPasswordSetSuccess:
+                    self?.machineResultAlert(result: "기기 비밀번호 설정 성공", message: "")
+                case .userPasswordSetFailure:
+                    self?.machineResultAlert(result: "기기 비밀번호 설정 실패", message: "")
                 }
             }
             .store(in: &subscriptions)
@@ -146,6 +150,27 @@ extension MachineControllerViewController {
         let viewModel = MachineLogViewModel(machineLogUsecases: useCases, uuid: viewModel.machine.uuid)
         let viewController = MachineLogViewController(viewModel: viewModel)
         self.present(viewController, animated: true)
+    }
+    
+    func setUserPassword() {
+        let sheet = UIAlertController(title: "유저 비밀번호", message: "비밀번호를 입력해주세요.", preferredStyle: .alert)
+        sheet.addTextField { passwordField in
+            passwordField.delegate = self
+            passwordField.placeholder = "비밀번호"
+            passwordField.isSecureTextEntry = true
+            passwordField.keyboardType = .numberPad
+            passwordField.returnKeyType = .done
+        }
+        
+        let setPasswordAction = UIAlertAction(title: "확인", style: .default) { _ in
+            self.inputSubject.send(.setUserPassword(sheet.textFields?.first?.text ?? ""))
+        }
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+        
+        sheet.addAction(setPasswordAction)
+        sheet.addAction(cancelAction)
+        
+        present(sheet, animated: true)
     }
 }
 
@@ -242,7 +267,7 @@ extension MachineControllerViewController: UITableViewDelegate, UITableViewDataS
                 case 0: // 기기 비밀번호 설정
                     debugPrint("기기 비밀번호 설정")
                 case 1: // 기기 유저 비밀번호 설정
-                    debugPrint("기기 유저 비밀번호 설정")
+                    setUserPassword()
                 case 2: // 로그 확인
                     let provider = APIProvider(session: URLSession.shared)
                     let useCases = MachineLogUseCases(provider: provider)
@@ -253,9 +278,25 @@ extension MachineControllerViewController: UITableViewDelegate, UITableViewDataS
                     debugPrint("삭제하기")
                 }
             } else {
-                debugPrint("기기 유저 비밀번호 설정")
+                setUserPassword()
             }
         }
+    }
+}
+
+extension MachineControllerViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if let char = string.cString(using: String.Encoding.utf8) {
+            let isBackSpace = strcmp(char, "\\b")
+            if isBackSpace == -92 {
+                return true
+            }
+        }
+        
+        guard Int(string) != nil || string == "" else { return false }
+        guard textField.text!.count < 9 else { return false }
+            
+        return true
     }
 }
 
